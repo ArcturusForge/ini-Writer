@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Internal/Default/Icons/token_remove.png" type="Texture" id=1]
+[ext_resource path="res://Internal/Default/Icons/arrow_cross_divided.png" type="Texture" id=2]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-BoldItalic.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=5]
+size = 14
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="DragElement" type="PanelContainer"]
+margin_right = 199.0
+margin_bottom = 39.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 192.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DragButton" type="Button" parent="HBoxContainer"]
+margin_right = 28.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Drag 'n' drop"
+focus_mode = 0
+mouse_default_cursor_shape = 13
+enabled_focus_mode = 0
+keep_pressed_outside = true
+icon = ExtResource( 2 )
+icon_align = 1
+expand_icon = true
+
+[node name="DeleteButton" type="MenuButton" parent="HBoxContainer"]
+margin_left = 32.0
+margin_right = 60.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Delete?"
+mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
+icon = ExtResource( 1 )
+flat = false
+icon_align = 1
+expand_icon = true
+items = [ "-- Delete? --", null, 0, false, true, 0, 0, null, "", false, "Yes", null, 0, false, false, 1, 0, null, "", false, "Cancel", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="EditButton" type="Button" parent="HBoxContainer"]
+margin_left = 64.0
+margin_right = 185.0
+margin_bottom = 25.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color_pressed = Color( 0.619608, 0.619608, 0.619608, 1 )
+custom_fonts/font = SubResource( 5 )
+toggle_mode = true
+enabled_focus_mode = 0
+text = "Option Name"
+flat = true

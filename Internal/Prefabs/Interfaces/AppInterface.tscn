@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Internal/Default/Graphics/d5c9844d-6d77-44b6-9833-d95ced4e5e9b.jpg" type="Texture" id=2]
@@ -8,16 +8,26 @@
 [ext_resource path="res://Internal/Scripts/Managers/OverallManager.gd" type="Script" id=6]
 [ext_resource path="res://Internal/Scripts/Managers/RawManager.gd" type="Script" id=7]
 [ext_resource path="res://Internal/Scripts/Managers/EditorManager.gd" type="Script" id=8]
+[ext_resource path="res://Internal/Prefabs/Components/DragElement.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Internal/Prefabs/Components/AddElement.tscn" type="PackedScene" id=10]
+
+[sub_resource type="DynamicFont" id=4]
+size = 12
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 13
+use_filter = true
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=1]
+size = 14
+use_filter = true
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-font_data = ExtResource( 1 )
+size = 13
+font_data = ExtResource( 3 )
 
 [node name="AppInterface" type="Control"]
 anchor_right = 1.0
@@ -87,6 +97,7 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_constants/separation = 0
 __meta__ = {
 "_edit_lock_": true
 }
@@ -103,38 +114,41 @@ margin_right = 50.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 50, 0 )
 text = "File"
+switch_on_hover = true
 
 [node name="EditMenu" type="MenuButton" parent="Interface/VBoxContainer/TopBar"]
 margin_left = 54.0
 margin_right = 104.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 50, 0 )
-focus_mode = 2
 text = "Edit"
+switch_on_hover = true
 
 [node name="ViewMenu" type="MenuButton" parent="Interface/VBoxContainer/TopBar"]
 margin_left = 108.0
 margin_right = 158.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 50, 0 )
-focus_mode = 2
 text = "View"
+switch_on_hover = true
 
 [node name="Spacer" type="Control" parent="Interface/VBoxContainer/TopBar"]
 margin_left = 162.0
-margin_right = 915.0
+margin_right = 919.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="RawToggle" type="CheckButton" parent="Interface/VBoxContainer/TopBar"]
-margin_left = 919.0
+margin_left = 923.0
 margin_right = 1024.0
 margin_bottom = 40.0
+focus_mode = 0
+custom_fonts/font = SubResource( 4 )
 pressed = true
 text = "Raw"
 
 [node name="MainDisplay" type="VSplitContainer" parent="Interface/VBoxContainer"]
-margin_top = 44.0
+margin_top = 40.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -143,14 +157,14 @@ split_offset = 100
 
 [node name="EditRawWindow" type="HSplitContainer" parent="Interface/VBoxContainer/MainDisplay"]
 margin_right = 1024.0
-margin_bottom = 372.0
+margin_bottom = 374.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offset = 125
 
 [node name="EditorWindow" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow"]
 margin_right = 631.0
-margin_bottom = 372.0
+margin_bottom = 374.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -172,40 +186,49 @@ valign = 1
 [node name="SelectorEditorWindow" type="HSplitContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow"]
 margin_top = 18.0
 margin_right = 631.0
-margin_bottom = 372.0
+margin_bottom = 374.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offset = -100
 
 [node name="SelectorContainer" type="ScrollContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
 margin_right = 209.0
-margin_bottom = 354.0
+margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VerticalColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer"]
+self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_right = 209.0
-margin_bottom = 354.0
+margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0.172549, 0.164706, 0.196078, 1 )
+color = Color( 0.14902, 0.137255, 0.172549, 1 )
 
 [node name="VerticalLayout" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer/VerticalColor"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="DragElement" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer/VerticalColor/VerticalLayout" instance=ExtResource( 9 )]
+
+[node name="AddElement" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer/VerticalColor/VerticalLayout" instance=ExtResource( 10 )]
 
 [node name="EditorContainer" type="ScrollContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
 margin_left = 221.0
 margin_right = 631.0
-margin_bottom = 354.0
+margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VerticalColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/EditorContainer"]
+self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_right = 410.0
-margin_bottom = 354.0
+margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.14902, 0.137255, 0.172549, 1 )
@@ -219,7 +242,7 @@ size_flags_vertical = 3
 [node name="RawWindow" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow"]
 margin_left = 643.0
 margin_right = 1024.0
-margin_bottom = 372.0
+margin_bottom = 374.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -239,9 +262,10 @@ align = 1
 valign = 1
 
 [node name="TextEdit" type="TextEdit" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/RawWindow"]
+self_modulate = Color( 0.811765, 0.811765, 0.811765, 0.921569 )
 margin_top = 18.0
 margin_right = 381.0
-margin_bottom = 372.0
+margin_bottom = 374.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
@@ -253,9 +277,10 @@ highlight_all_occurrences = true
 smooth_scrolling = true
 
 [node name="ConsoleColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay"]
-margin_top = 384.0
+modulate = Color( 1, 1, 1, 0.921569 )
+margin_top = 386.0
 margin_right = 1024.0
-margin_bottom = 556.0
+margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.14902, 0.145098, 0.160784, 1 )
@@ -265,6 +290,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 0
 
 [node name="HeaderColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console"]
 margin_right = 1024.0
@@ -277,16 +303,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="Spacer3" type="Control" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/HeaderColor/ConsoleBar"]
-margin_right = 10.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 10, 0 )
-
 [node name="HeaderLabel" type="Label" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/HeaderColor/ConsoleBar"]
-margin_left = 14.0
-margin_top = 1.0
-margin_right = 94.0
-margin_bottom = 23.0
+margin_top = 3.0
+margin_right = 80.0
+margin_bottom = 21.0
 rect_min_size = Vector2( 80, 0 )
 custom_fonts/font = SubResource( 2 )
 text = "Console:"
@@ -294,7 +314,7 @@ align = 1
 valign = 1
 
 [node name="Spacer" type="Control" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/HeaderColor/ConsoleBar"]
-margin_left = 98.0
+margin_left = 84.0
 margin_right = 896.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
@@ -322,43 +342,49 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 10, 0 )
 
 [node name="ConsoleContainer" type="HBoxContainer" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console"]
-margin_top = 29.0
+margin_top = 25.0
 margin_right = 1024.0
-margin_bottom = 168.0
+margin_bottom = 174.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Spacer" type="Control" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/ConsoleContainer"]
-margin_bottom = 139.0
+margin_bottom = 149.0
 
 [node name="ConsoleColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/ConsoleContainer"]
+self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_left = 4.0
 margin_right = 1020.0
-margin_bottom = 139.0
+margin_bottom = 149.0
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0.172549, 0.164706, 0.196078, 1 )
+color = Color( 0.14902, 0.137255, 0.172549, 1 )
 
 [node name="ConsoleOutput" type="RichTextLabel" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/ConsoleContainer/ConsoleColor"]
-margin_left = 4.0
-margin_right = 1020.0
-margin_bottom = 139.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 2.0
+margin_right = -5.0
+margin_bottom = -2.0
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_colors/selection_color = Color( 0.25098, 0.345098, 0.501961, 1 )
+bbcode_enabled = true
 scroll_following = true
 selection_enabled = true
 
 [node name="Spacer3" type="Control" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/ConsoleContainer"]
 margin_left = 1024.0
 margin_right = 1024.0
-margin_bottom = 139.0
+margin_bottom = 149.0
 
 [node name="Spacer2" type="Control" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console"]
-margin_top = 172.0
+margin_top = 174.0
 margin_right = 1024.0
-margin_bottom = 172.0
+margin_bottom = 174.0
 
 [node name="Windows" type="Control" parent="."]
 anchor_right = 1.0
