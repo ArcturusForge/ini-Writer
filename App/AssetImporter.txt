@@ -1,0 +1,11 @@
+External Folder where extensions are locally imorted and developed.
+
+Extensions are installed into the %AppData% app directory.
+They are then automatically imported into the local App folder by the system.
+This allows plugins/extensions to be fully compatible and eliminates the issue presented by .tscn files refering through file-path to used assets-
+and being unable to locate them because the filepaths do not match.
+
+Hello to the readers of this file.
+This file holds no purpose other than to include it in github uploads.
+
+Love ya ;)

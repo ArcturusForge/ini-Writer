@@ -1,0 +1,6 @@
+{
+    "versionId"             : "1.0.0",
+    "appName"               : "Ini Writer",
+    "sessionNameDefault"    : "Untitled_Session",
+    "saveExtension"         : "ini"
+}
