@@ -1,0 +1,591 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Internal/Prefabs/Components/AddElement.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
+[ext_resource path="res://App/Local_Extensions/SPID_Extension/Scripts/SpidEditDriver.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=5]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="SpidEditDisplay" type="VBoxContainer"]
+margin_right = 390.0
+margin_bottom = 944.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TypePanel" type="PanelContainer" parent="."]
+margin_right = 390.0
+margin_bottom = 60.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TypePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 53.0
+
+[node name="TypeLabels" type="HBoxContainer" parent="TypePanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "SPID Edit Type:"
+
+[node name="TypeHelp" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 46.0
+text = "Comment"
+items = [ "Comment", null, false, 0, null, "Spell", null, false, 0, null, "Perk", null, false, 1, null, "Item", null, false, 2, null, "Shout", null, false, 3, null, "Lev Spell", null, false, 4, null, "Package", null, false, 5, null, "Outfit", null, false, 6, null, "Keyword", null, false, 7, null, "Death Item", null, false, 8, null, "Faction", null, false, 9, null, "Sleep Outfit", null, false, 10, null, "Skin", null, false, 11, null ]
+selected = 0
+
+[node name="CommentPanel" type="PanelContainer" parent="."]
+margin_top = 64.0
+margin_right = 390.0
+margin_bottom = 178.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CommentPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 107.0
+
+[node name="NameContainer" type="VBoxContainer" parent="CommentPanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="CommentPanel/VBoxContainer/NameContainer"]
+margin_right = 376.0
+margin_bottom = 18.0
+theme = ExtResource( 3 )
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="CommentPanel/VBoxContainer/NameContainer"]
+margin_top = 22.0
+margin_right = 376.0
+margin_bottom = 46.0
+placeholder_text = "Optional"
+
+[node name="Spacer" type="Control" parent="CommentPanel/VBoxContainer/NameContainer"]
+margin_top = 50.0
+margin_right = 376.0
+margin_bottom = 50.0
+
+[node name="Label2" type="Label" parent="CommentPanel/VBoxContainer"]
+margin_top = 54.0
+margin_right = 376.0
+margin_bottom = 72.0
+theme = ExtResource( 3 )
+text = "Comment:"
+
+[node name="CommentEdit" type="LineEdit" parent="CommentPanel/VBoxContainer"]
+margin_top = 76.0
+margin_right = 376.0
+margin_bottom = 100.0
+placeholder_text = "Optional"
+
+[node name="SourcePanel" type="PanelContainer" parent="."]
+margin_top = 182.0
+margin_right = 390.0
+margin_bottom = 354.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 165.0
+
+[node name="SourceLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Form Source:"
+
+[node name="SourceHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="SourceSelect" type="OptionButton" parent="SourcePanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 46.0
+text = "Auto"
+items = [ "Auto", null, false, 0, null, "esp / esm", null, false, 1, null, "esl", null, false, 2, null ]
+selected = 0
+
+[node name="Spacer" type="Control" parent="SourcePanel/VBoxContainer"]
+margin_top = 50.0
+margin_right = 376.0
+margin_bottom = 50.0
+
+[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
+margin_top = 54.0
+margin_right = 376.0
+margin_bottom = 76.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Form / Editor ID:"
+
+[node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
+margin_top = 80.0
+margin_right = 376.0
+margin_bottom = 104.0
+placeholder_text = "e.g. FE018013"
+
+[node name="Spacer2" type="Control" parent="SourcePanel/VBoxContainer"]
+margin_top = 108.0
+margin_right = 376.0
+margin_bottom = 108.0
+
+[node name="SourceContainer" type="VBoxContainer" parent="SourcePanel/VBoxContainer"]
+margin_top = 112.0
+margin_right = 376.0
+margin_bottom = 158.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer"]
+margin_right = 376.0
+margin_bottom = 18.0
+theme = ExtResource( 3 )
+text = "Source Plugin:"
+
+[node name="SourceEdit" type="LineEdit" parent="SourcePanel/VBoxContainer/SourceContainer"]
+margin_top = 22.0
+margin_right = 376.0
+margin_bottom = 46.0
+placeholder_text = "e.g. MyMod.esp"
+
+[node name="StringFiltersPanel" type="PanelContainer" parent="."]
+margin_top = 358.0
+margin_right = 390.0
+margin_bottom = 432.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StringFiltersPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 67.0
+
+[node name="StringLabels" type="HBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="StringFiltersPanel/VBoxContainer/StringLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "String Filters:"
+
+[node name="StringHelp" type="Label" parent="StringFiltersPanel/VBoxContainer/StringLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="StringFilterContainer" type="VBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 26.0
+
+[node name="StringAddElement" parent="StringFiltersPanel/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 30.0
+margin_right = 376.0
+margin_bottom = 60.0
+
+[node name="AddButton" parent="StringFiltersPanel/VBoxContainer/StringAddElement" index="0"]
+margin_left = 173.0
+margin_right = 203.0
+
+[node name="FormFiltersPanel" type="PanelContainer" parent="."]
+margin_top = 436.0
+margin_right = 390.0
+margin_bottom = 510.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FormFiltersPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 67.0
+
+[node name="FormLabels" type="HBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="FormFiltersPanel/VBoxContainer/FormLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Form Filters:"
+
+[node name="FormHelp" type="Label" parent="FormFiltersPanel/VBoxContainer/FormLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="FormFilterContainer" type="VBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 26.0
+
+[node name="FormAddElement" parent="FormFiltersPanel/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 30.0
+margin_right = 376.0
+margin_bottom = 60.0
+
+[node name="AddButton" parent="FormFiltersPanel/VBoxContainer/FormAddElement" index="0"]
+margin_left = 173.0
+margin_right = 203.0
+
+[node name="LevelFiltersPanel" type="PanelContainer" parent="."]
+margin_top = 514.0
+margin_right = 390.0
+margin_bottom = 588.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelFiltersPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 67.0
+
+[node name="LevelLabels" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Level Filters:"
+
+[node name="LevelHelp" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="LevelFilterContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 26.0
+
+[node name="LevelAddElement" parent="LevelFiltersPanel/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 30.0
+margin_right = 376.0
+margin_bottom = 60.0
+
+[node name="AddButton" parent="LevelFiltersPanel/VBoxContainer/LevelAddElement" index="0"]
+margin_left = 173.0
+margin_right = 203.0
+
+[node name="TraitFiltersPanel" type="PanelContainer" parent="."]
+margin_top = 592.0
+margin_right = 390.0
+margin_bottom = 740.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TraitFiltersPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 141.0
+
+[node name="TraitLabels" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="TraitFiltersPanel/VBoxContainer/TraitLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Trait Filters:"
+
+[node name="TraitHelp" type="Label" parent="TraitFiltersPanel/VBoxContainer/TraitLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="OptionsContainer" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 134.0
+
+[node name="Spacer" type="Control" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
+margin_right = 35.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+
+[node name="TraitsContainer" type="VBoxContainer" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
+margin_left = 39.0
+margin_right = 180.0
+margin_bottom = 108.0
+
+[node name="MCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
+margin_right = 141.0
+margin_bottom = 24.0
+text = "Use Male Filter"
+
+[node name="FCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
+margin_top = 28.0
+margin_right = 141.0
+margin_bottom = 52.0
+text = "Use Female Filter"
+
+[node name="UCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
+margin_top = 56.0
+margin_right = 141.0
+margin_bottom = 80.0
+text = "Use Unique Filter"
+
+[node name="CCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
+margin_top = 84.0
+margin_right = 141.0
+margin_bottom = 108.0
+text = "Use Child Filter"
+
+[node name="Spacer2" type="Control" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
+margin_left = 184.0
+margin_right = 219.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+
+[node name="ExcludesContainer" type="VBoxContainer" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
+margin_left = 223.0
+margin_right = 336.0
+margin_bottom = 108.0
+
+[node name="MExcludeCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer"]
+margin_right = 113.0
+margin_bottom = 24.0
+text = "Must Exclude"
+
+[node name="FExcludeCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer"]
+margin_top = 28.0
+margin_right = 113.0
+margin_bottom = 52.0
+text = "Must Exclude"
+
+[node name="UExcludeCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer"]
+margin_top = 56.0
+margin_right = 113.0
+margin_bottom = 80.0
+text = "Must Exclude"
+
+[node name="CExcludeCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer"]
+margin_top = 84.0
+margin_right = 113.0
+margin_bottom = 108.0
+text = "Must Exclude"
+
+[node name="Spacer3" type="Control" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
+margin_left = 340.0
+margin_right = 376.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+
+[node name="AmountPanel" type="PanelContainer" parent="."]
+margin_top = 744.0
+margin_right = 390.0
+margin_bottom = 808.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmountPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 57.0
+
+[node name="AmountLabels" type="HBoxContainer" parent="AmountPanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="AmountPanel/VBoxContainer/AmountLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Given Amount:"
+
+[node name="AmountHelp" type="Label" parent="AmountPanel/VBoxContainer/AmountLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="AmountSpinBox" type="SpinBox" parent="AmountPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 50.0
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="IndexPanel" type="PanelContainer" parent="."]
+margin_top = 812.0
+margin_right = 390.0
+margin_bottom = 876.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="IndexPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 57.0
+
+[node name="IndexLabels" type="HBoxContainer" parent="IndexPanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="IndexPanel/VBoxContainer/IndexLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Actorbase Package Index:"
+
+[node name="IndexHelp" type="Label" parent="IndexPanel/VBoxContainer/IndexLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="IndexSpinBox" type="SpinBox" parent="IndexPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 50.0
+max_value = 4.0
+rounded = true
+
+[node name="ChancePanel" type="PanelContainer" parent="."]
+margin_top = 880.0
+margin_right = 390.0
+margin_bottom = 944.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 383.0
+margin_bottom = 57.0
+
+[node name="IndexLabels" type="HBoxContainer" parent="ChancePanel/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="ChancePanel/VBoxContainer/IndexLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Distribution Chance:"
+
+[node name="ChanceHelp" type="Label" parent="ChancePanel/VBoxContainer/IndexLabels"]
+margin_left = 358.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "Test"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+
+[node name="ChanceSpinBox" type="SpinBox" parent="ChancePanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 50.0
+min_value = 1.0
+value = 100.0
+rounded = true
+
+[editable path="StringFiltersPanel/VBoxContainer/StringAddElement"]
+[editable path="FormFiltersPanel/VBoxContainer/FormAddElement"]
+[editable path="LevelFiltersPanel/VBoxContainer/LevelAddElement"]

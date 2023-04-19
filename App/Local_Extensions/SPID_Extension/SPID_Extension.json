@@ -1,0 +1,6 @@
+{
+    "version"               : "1.0.0",
+    "extension"             : "SPID Writer",
+    "interpreterScript"     : "Scripts/SpidInterpreter.gd",
+    "editorInterface"       : "Interfaces/SpidEditDisplay.tscn"
+}

@@ -22,7 +22,7 @@ func _ready():
 	raw_manager.jump_start()
 	
 	#_TEMP
-	activeInterpreter = load("res://App/Local_Extensions/SPID_Extension/SpidInterpreter.gd").new()
+	activeInterpreter = load("res://App/Local_Extensions/SPID_Extension/Scripts/SpidInterpreter.gd").new()
 	pass
 
 #--- Regenerates both editors.

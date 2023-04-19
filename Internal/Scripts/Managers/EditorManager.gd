@@ -26,11 +26,9 @@ func update_editor(nameArray):
 		child.queue_free()
 	
 	#- Generate new elements.
-	print("-----------------")
 	for i in nameArray.size():
 		var editName = nameArray[i]
-		print(editName)
-		var button = edit_selector_prefab.instance(PackedScene.GEN_EDIT_STATE_INSTANCE)
+		var button = edit_selector_prefab.instance()
 		edits_list.add_child(button)
 		Functions.wait_frame()
 		button.init_selector(editName, i)
@@ -43,7 +41,7 @@ func update_editor(nameArray):
 	#- Assign data.
 	var addPop = addBtn.add_button.get_popup()
 	addPop.connect("index_pressed", self, "handle_option_select")
-	#addPop.add_item()
+	addPop.add_item()
 	pass
 
 func alter_records():

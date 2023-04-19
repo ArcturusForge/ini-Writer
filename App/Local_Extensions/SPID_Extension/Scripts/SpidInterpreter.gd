@@ -1,8 +1,5 @@
 extends Node
 
-const version = "1.0.0"
-const title = "SPID Distributer INI"
-
 #--- Determines wether ini file matches extension use-case.
 func data_matched(raw:String, fileName:String):
 	if "_DISTR" in fileName:
@@ -181,7 +178,7 @@ func parse_comma_segment(segment, command, edit, splitSymbol=","):
 	edit[segment] = filters
 	pass
 
-#--- Compiles the interp data into raw string format for ini syntax.
+#--- Compiles the interp data into raw string format for ini-extension syntax.
 func interp_to_raw(interp): # interp = {}
 	var raw = ""
 	for edit in interp.edits:
@@ -328,9 +325,11 @@ func move_index_to(interp, origIndex, targetIndex):
 	interp.edits.insert(targetIndex, data)
 	pass
 
+#--- Returns the total amount of edits in the interp data.
 func get_edit_count(interp):
 	return interp.edits.size()
 
+#--- Returns the name of an edit inside the interp data.
 func get_edit_name(interp, index):
 	var eName = ""
 	var edit = interp.edits[index]
