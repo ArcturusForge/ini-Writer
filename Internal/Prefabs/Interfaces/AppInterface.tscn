@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Internal/Default/Graphics/d5c9844d-6d77-44b6-9833-d95ced4e5e9b.jpg" type="Texture" id=2]
@@ -8,8 +8,6 @@
 [ext_resource path="res://Internal/Scripts/Managers/OverallManager.gd" type="Script" id=6]
 [ext_resource path="res://Internal/Scripts/Managers/RawManager.gd" type="Script" id=7]
 [ext_resource path="res://Internal/Scripts/Managers/EditorManager.gd" type="Script" id=8]
-[ext_resource path="res://Internal/Prefabs/Components/DragElement.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Internal/Prefabs/Components/AddElement.tscn" type="PackedScene" id=10]
 
 [sub_resource type="DynamicFont" id=4]
 size = 12
@@ -27,6 +25,7 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 13
+use_filter = true
 font_data = ExtResource( 3 )
 
 [node name="AppInterface" type="Control"]
@@ -191,13 +190,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offset = -100
 
-[node name="SelectorContainer" type="ScrollContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
-margin_right = 209.0
-margin_bottom = 356.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VerticalColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer"]
+[node name="VerticalColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
 self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_right = 209.0
 margin_bottom = 356.0
@@ -205,37 +198,39 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.14902, 0.137255, 0.172549, 1 )
 
-[node name="VerticalLayout" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer/VerticalColor"]
+[node name="SelectorContainer" type="ScrollContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/VerticalColor"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 5.0
+margin_top = 3.0
 margin_right = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="DragElement" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer/VerticalColor/VerticalLayout" instance=ExtResource( 9 )]
+[node name="EditsList" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/VerticalColor/SelectorContainer"]
+margin_right = 199.0
+margin_bottom = 353.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="AddElement" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/SelectorContainer/VerticalColor/VerticalLayout" instance=ExtResource( 10 )]
-
-[node name="EditorContainer" type="ScrollContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
+[node name="VerticalColor2" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
+self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_left = 221.0
 margin_right = 631.0
 margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="VerticalColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/EditorContainer"]
-self_modulate = Color( 1, 1, 1, 0.921569 )
-margin_right = 410.0
-margin_bottom = 356.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 color = Color( 0.14902, 0.137255, 0.172549, 1 )
 
-[node name="VerticalLayout" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/EditorContainer/VerticalColor"]
+[node name="EditorContainer" type="ScrollContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/VerticalColor2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EditDisplay" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/VerticalColor2/EditorContainer"]
+margin_right = 410.0
+margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -277,13 +272,12 @@ highlight_all_occurrences = true
 smooth_scrolling = true
 
 [node name="ConsoleColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay"]
-modulate = Color( 1, 1, 1, 0.921569 )
 margin_top = 386.0
 margin_right = 1024.0
 margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0.14902, 0.145098, 0.160784, 1 )
+color = Color( 0.196078, 0.203922, 0.231373, 1 )
 
 [node name="Console" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor"]
 anchor_right = 1.0
@@ -352,7 +346,6 @@ size_flags_vertical = 3
 margin_bottom = 149.0
 
 [node name="ConsoleColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/ConsoleContainer"]
-self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_left = 4.0
 margin_right = 1020.0
 margin_bottom = 149.0
@@ -412,3 +405,6 @@ margin_top = -131.0
 margin_right = 215.0
 margin_bottom = 131.0
 resizable = true
+
+[connection signal="toggled" from="Interface/VBoxContainer/TopBar/RawToggle" to="Managers/RawManager" method="_on_RawToggle_toggled"]
+[connection signal="text_changed" from="Interface/VBoxContainer/MainDisplay/EditRawWindow/RawWindow/TextEdit" to="Managers/RawManager" method="_on_TextEdit_text_changed"]
