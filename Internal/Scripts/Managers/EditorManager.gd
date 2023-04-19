@@ -34,10 +34,16 @@ func update_editor(nameArray):
 		edits_list.add_child(button)
 		Functions.wait_frame()
 		button.init_selector(editName, i)
+	
+	#- Generate the add new edit button.
 	var addBtn = edit_add_prefab.instance()
 	edits_list.add_child(addBtn)
+	#- Wait a frame for button to init.
 	Functions.wait_frame()
-	addBtn.add_button.get_popup().connect("index_pressed", self, "handle_option_select")
+	#- Assign data.
+	var addPop = addBtn.add_button.get_popup()
+	addPop.connect("index_pressed", self, "handle_option_select")
+	#addPop.add_item()
 	pass
 
 func alter_records():
