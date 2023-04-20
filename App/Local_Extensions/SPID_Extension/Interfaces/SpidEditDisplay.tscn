@@ -1,12 +1,18 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Internal/Prefabs/Components/AddElement.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
 [ext_resource path="res://App/Local_Extensions/SPID_Extension/Scripts/SpidEditDriver.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=5]
 use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 34
+use_filter = true
+extra_spacing_top = -10
+extra_spacing_bottom = -6
 font_data = ExtResource( 2 )
 
 [node name="SpidEditDisplay" type="VBoxContainer"]
@@ -236,7 +242,14 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
+- Combining multiple filters will progressively restrict the pool of NPCs that can be distributed to.
+- Distribute the same record multiple times to add it to different types of NPCs.
+
+Accepted String Filters:
+- Keyword editor IDs 		== 	e.g. ActorTypeNPC
+- Actorbase names 		== 	e.g. Balgruuf
+- ﻿Actorbase editor IDs	== 	e.g. BalgruufTheGreater"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -247,14 +260,34 @@ margin_top = 26.0
 margin_right = 376.0
 margin_bottom = 26.0
 
-[node name="StringAddElement" parent="StringFiltersPanel/VBoxContainer" instance=ExtResource( 1 )]
+[node name="StringAddElement" type="HBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
 margin_top = 30.0
 margin_right = 376.0
 margin_bottom = 60.0
+alignment = 1
 
-[node name="AddButton" parent="StringFiltersPanel/VBoxContainer/StringAddElement" index="0"]
+[node name="StringAddButton" type="Button" parent="StringFiltersPanel/VBoxContainer/StringAddElement"]
 margin_left = 173.0
 margin_right = 203.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Add New"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+icon_align = 1
+
+[node name="Label" type="Label" parent="StringFiltersPanel/VBoxContainer/StringAddElement/StringAddButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "+"
+align = 1
+valign = 1
 
 [node name="FormFiltersPanel" type="PanelContainer" parent="."]
 margin_top = 444.0
@@ -295,14 +328,34 @@ margin_top = 26.0
 margin_right = 376.0
 margin_bottom = 26.0
 
-[node name="FormAddElement" parent="FormFiltersPanel/VBoxContainer" instance=ExtResource( 1 )]
+[node name="FormAddElement" type="HBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
 margin_top = 30.0
 margin_right = 376.0
 margin_bottom = 60.0
+alignment = 1
 
-[node name="AddButton" parent="FormFiltersPanel/VBoxContainer/FormAddElement" index="0"]
+[node name="FormAddButton" type="Button" parent="FormFiltersPanel/VBoxContainer/FormAddElement"]
 margin_left = 173.0
 margin_right = 203.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Add New"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+icon_align = 1
+
+[node name="Label" type="Label" parent="FormFiltersPanel/VBoxContainer/FormAddElement/FormAddButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "+"
+align = 1
+valign = 1
 
 [node name="LevelFiltersPanel" type="PanelContainer" parent="."]
 margin_top = 522.0
@@ -343,14 +396,34 @@ margin_top = 26.0
 margin_right = 376.0
 margin_bottom = 26.0
 
-[node name="LevelAddElement" parent="LevelFiltersPanel/VBoxContainer" instance=ExtResource( 1 )]
+[node name="LevelAddElement" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
 margin_top = 30.0
 margin_right = 376.0
 margin_bottom = 60.0
+alignment = 1
 
-[node name="AddButton" parent="LevelFiltersPanel/VBoxContainer/LevelAddElement" index="0"]
+[node name="LevelAddButton" type="Button" parent="LevelFiltersPanel/VBoxContainer/LevelAddElement"]
 margin_left = 173.0
 margin_right = 203.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Add New"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+icon_align = 1
+
+[node name="Label" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelAddElement/LevelAddButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "+"
+align = 1
+valign = 1
 
 [node name="TraitFiltersPanel" type="PanelContainer" parent="."]
 margin_top = 600.0
@@ -642,11 +715,10 @@ margin_right = 376.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="StringFiltersPanel/VBoxContainer/StringAddElement/StringAddButton" to="." method="_on_StringAddButton_pressed"]
+[connection signal="pressed" from="FormFiltersPanel/VBoxContainer/FormAddElement/FormAddButton" to="." method="_on_FormAddButton_pressed"]
+[connection signal="pressed" from="LevelFiltersPanel/VBoxContainer/LevelAddElement/LevelAddButton" to="." method="_on_LevelAddButton_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/MCheckBox" to="." method="_on_MCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/FCheckBox" to="." method="_on_FCheckBox_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]
-
-[editable path="StringFiltersPanel/VBoxContainer/StringAddElement"]
-[editable path="FormFiltersPanel/VBoxContainer/FormAddElement"]
-[editable path="LevelFiltersPanel/VBoxContainer/LevelAddElement"]

@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=2]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://App/Local_Extensions/SPID_Extension/Scripts/UI/StringFilter.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="StringFilter" type="PanelContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_right = 406.0
+margin_bottom = 199.0
+script = ExtResource( 4 )
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 399.0
+margin_bottom = 192.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 392.0
+margin_bottom = 46.0
+
+[node name="StringLabels" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+margin_right = 392.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
+margin_top = 2.0
+margin_right = 370.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+text = "Filter Modifier:"
+
+[node name="StringHelp" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
+margin_left = 374.0
+margin_right = 392.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "t"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="ModifierSelector" type="OptionButton" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 26.0
+margin_right = 392.0
+margin_bottom = 46.0
+text = "Standard"
+items = [ "Standard", null, false, 0, null, "Exclude", null, false, 1, null, "Wildcard", null, false, 2, null, "Linked", null, false, 3, null ]
+selected = 0
+
+[node name="Divider" type="ColorRect" parent="HBoxContainer"]
+margin_top = 50.0
+margin_right = 392.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.235294, 0.227451, 0.266667, 1 )
+
+[node name="NodeContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 55.0
+margin_right = 392.0
+margin_bottom = 55.0
+
+[node name="AddReqButton" type="Button" parent="HBoxContainer"]
+margin_top = 59.0
+margin_right = 392.0
+margin_bottom = 79.0
+text = "+ Add Additional Requirement"
+
+[connection signal="pressed" from="HBoxContainer/AddReqButton" to="." method="_on_AddReqButton_pressed"]

@@ -29,13 +29,8 @@ onready var name_container = $CommentPanel/VBoxContainer/NameContainer
 onready var source_container = $SourcePanel/VBoxContainer/SourceContainer
 
 onready var string_filter_container = $StringFiltersPanel/VBoxContainer/StringFilterContainer
-onready var string_add_element:Button = $StringFiltersPanel/VBoxContainer/StringAddElement/AddButton
-
 onready var form_filter_container = $FormFiltersPanel/VBoxContainer/FormFilterContainer
-onready var form_add_element:Button = $FormFiltersPanel/VBoxContainer/FormAddElement/AddButton
-
 onready var level_filter_container = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer
-onready var level_add_element:Button = $LevelFiltersPanel/VBoxContainer/LevelAddElement/AddButton
 
 #-- Field Panels
 onready var type_panel = $TypePanel
@@ -54,6 +49,9 @@ var workingIndex:int = -1 #- Points towards the index for this ini edit.
 var system #- Points towards the editor window manager.
 var interpreter
 var isNew = false
+
+#-- Prefabs
+var string_filter_prefab = "res://App/Local_Extensions/SPID_Extension/Interfaces/StringFilter.tscn"
 
 #--- Called by system to initialize the driver.
 func init_driver(workingIndex, system, interpreter):
@@ -153,6 +151,8 @@ func apply_edit(interp):
 	
 	#- Apply to interp
 	if not isNew:
+		var newlines = interp.edits[workingIndex].newlines
+		edit.newlines = newlines
 		interp.edits[workingIndex] = edit
 	else:
 		interp.edits.append(edit)
@@ -289,3 +289,17 @@ func _on_FCheckBox_pressed():
 	if f_check_box.pressed:
 		m_check_box.pressed = false
 	pass
+
+
+func _on_StringAddButton_pressed():
+	var filter = load(string_filter_prefab).instance()
+	string_filter_container.add_child(filter)
+	pass
+
+
+func _on_FormAddButton_pressed():
+	pass # Replace with function body.
+
+
+func _on_LevelAddButton_pressed():
+	pass # Replace with function body.
