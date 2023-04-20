@@ -19,9 +19,9 @@ func jump_start():
 
 #--- Reads the session file to get the latest changes and display them.
 func update_editor():
-	silence = true
+	#silence = true
 	text_edit.text = Session.data.raw
-	silence = false
+	#silence = false
 	pass
 
 func alter_records():

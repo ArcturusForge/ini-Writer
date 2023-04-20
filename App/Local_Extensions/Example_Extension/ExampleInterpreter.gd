@@ -4,6 +4,13 @@ extends Node
 func data_matched(raw:String, fileName:String):
 	return false
 
+#--- Called by system to structure interp data to be compatible with extension.
+func init_interp():
+	var interp = {
+		
+	}
+	return interp
+
 #--- Interpretes the raw string data to data structures used in editor.
 func raw_to_interp(raw:String):
 	return {}
@@ -27,3 +34,7 @@ func get_edit_count(interp):
 #--- Returns the name of an edit inside the interp data.
 func get_edit_name(interp, index):
 	return ""
+
+#--- Called by the system to remove an edit from circulation.
+func delete_edit(index, interp):
+	pass

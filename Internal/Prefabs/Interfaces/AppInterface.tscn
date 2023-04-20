@@ -156,14 +156,14 @@ split_offset = 100
 
 [node name="EditRawWindow" type="HSplitContainer" parent="Interface/VBoxContainer/MainDisplay"]
 margin_right = 1024.0
-margin_bottom = 374.0
+margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offset = 125
 
 [node name="EditorWindow" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow"]
 margin_right = 631.0
-margin_bottom = 374.0
+margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -185,7 +185,7 @@ valign = 1
 [node name="SelectorEditorWindow" type="HSplitContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow"]
 margin_top = 18.0
 margin_right = 631.0
-margin_bottom = 374.0
+margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offset = -100
@@ -193,7 +193,7 @@ split_offset = -100
 [node name="VerticalColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
 self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_right = 209.0
-margin_bottom = 356.0
+margin_bottom = 542.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.14902, 0.137255, 0.172549, 1 )
@@ -209,7 +209,7 @@ size_flags_vertical = 3
 
 [node name="EditsList" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/VerticalColor/SelectorContainer"]
 margin_right = 199.0
-margin_bottom = 353.0
+margin_bottom = 539.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -217,7 +217,7 @@ size_flags_vertical = 3
 self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_left = 221.0
 margin_right = 631.0
-margin_bottom = 356.0
+margin_bottom = 542.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.14902, 0.137255, 0.172549, 1 )
@@ -234,7 +234,7 @@ size_flags_vertical = 3
 [node name="RawWindow" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow"]
 margin_left = 643.0
 margin_right = 1024.0
-margin_bottom = 374.0
+margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -257,7 +257,7 @@ valign = 1
 self_modulate = Color( 0.811765, 0.811765, 0.811765, 0.921569 )
 margin_top = 18.0
 margin_right = 381.0
-margin_bottom = 374.0
+margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
@@ -269,6 +269,7 @@ highlight_all_occurrences = true
 smooth_scrolling = true
 
 [node name="ConsoleColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay"]
+visible = false
 margin_top = 386.0
 margin_right = 1024.0
 margin_bottom = 560.0

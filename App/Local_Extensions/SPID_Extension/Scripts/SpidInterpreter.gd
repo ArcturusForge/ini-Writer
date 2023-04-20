@@ -7,6 +7,33 @@ func data_matched(raw:String, fileName:String):
 	else:
 		return false
 
+func create_new_edit():
+	var edit = {
+		"newlines":1, #- For how many empty lines after the edit.
+		"type":-1,
+		"name":"",
+		"comment":"",
+		"objectId":{
+			"type":0, #- Types: (0)editorID, (1)esp/esm[6digits], (2)esl[3digits]
+			"value":"", #- Erase leading 0's if there are any. -> {00}65AFD
+			"source":""
+		},
+		"stringFilters":[],
+		"formFilters":[],
+		"levelFilters":[],
+		"traitFilters":[],
+		"countOrIndex":1,
+		"chance":100
+	}
+	return edit
+
+#--- Called by system to structure interp data to be compatible with extension.
+func init_interp():
+	var interp = {
+		"edits":[]
+	}
+	return interp
+
 #--- Interpretes the raw string data to data structures used in editor.
 func raw_to_interp(raw:String):
 	raw.replace("\r", "\n")
@@ -17,23 +44,7 @@ func raw_to_interp(raw:String):
 	
 	var prevLine = ""
 	for i in range(lines.size()):
-		var edit = {
-			"newlines":1, #- For how many empty lines after the edit.
-			"type":-1,
-			"name":"",
-			"comment":"",
-			"objectId":{
-				"type":0, #- Types: (0)editorID, (1)esp/esm[6digits], (2)esl[3digits]
-				"value":"", #- Erase leading 0's if there are any. -> {00}65AFD
-				"source":""
-			},
-			"stringFilters":[],
-			"formFilters":[],
-			"levelFilters":[],
-			"traitFilters":[],
-			"countOrIndex":1,
-			"chance":100
-		}
+		var edit = create_new_edit()
 		var line:String = lines[i]
 		var t = line.replace(" ", "")
 		if line == "":
@@ -154,7 +165,7 @@ func write_to_edit(edit, data, origLine):
 			3: #- LevelFilters
 				parse_comma_segment("levelFilters", command, edit)
 			4: #- TraitFilters
-				parse_comma_segment("levelFilters", command, edit, "/")
+				parse_comma_segment("traitFilters", command, edit, "/")
 			5: #- Count Or Index
 				edit.countOrIndex = int(command)
 			6: #- Chance
@@ -292,7 +303,7 @@ func interp_to_raw(interp): # interp = {}
 		if edit.traitFilters.size() > 0:
 			for i in range(edit.traitFilters.size()):
 				var filter = edit.traitFilters[i]
-				line += filter
+				line += filter[0]
 				if i < edit.traitFilters.size() - 1:
 					line += "/"
 		else:
@@ -366,3 +377,8 @@ func get_edit_name(interp, index):
 	else:
 		eName += edit.name
 	return eName
+
+#--- Called by the system to remove an edit from circulation.
+func delete_edit(index, interp):
+	interp.edits.remove(index)
+	pass

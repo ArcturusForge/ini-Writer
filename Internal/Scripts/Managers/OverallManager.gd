@@ -12,6 +12,11 @@ onready var color_manager = $"../ColorManager"
 onready var console_manager = $"../ConsoleManager"
 
 #-- Dynamic Vars
+var extension = {
+	#_TEMP: Temp val assign
+	"interpreter":"res://App/Local_Extensions/SPID_Extension/Scripts/SpidInterpreter.gd",
+	"editor":"res://App/Local_Extensions/SPID_Extension/Interfaces/SpidEditDisplay.tscn"
+}
 var activeInterpreter
 
 func _ready():
@@ -22,7 +27,8 @@ func _ready():
 	raw_manager.jump_start()
 	
 	#_TEMP
-	activeInterpreter = load("res://App/Local_Extensions/SPID_Extension/Scripts/SpidInterpreter.gd").new()
+	activeInterpreter = load(extension.interpreter).new()
+	Session.data.interp = activeInterpreter.init_interp()
 	pass
 
 #--- Regenerates both editors.
@@ -33,8 +39,8 @@ func repaint_editors():
 
 #--- Regenerates the interp editor window.
 func repaint_interp_editor():
-	if activeInterpreter.get_edit_count(Session.data.interp) == 0:
-		return
+#	if activeInterpreter.get_edit_count(Session.data.interp) == 0:
+#		return
 	var nameArray = []
 	for i in activeInterpreter.get_edit_count(Session.data.interp):
 		nameArray.append(activeInterpreter.get_edit_name(Session.data.interp, i))
