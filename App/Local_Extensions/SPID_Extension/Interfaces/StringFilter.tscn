@@ -41,7 +41,31 @@ margin_left = 374.0
 margin_right = 392.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "t"
+hint_tooltip = "String Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
+Important:
+- Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.
+
+There are 4 different modifiers:
+1. Standard:
+- Actors MUST match with at least one applied filter to qualify.
+- Identified by the lack of any unique symbol.
+- Raw Window Appearance: e.g. An Actor must match with at least one of the following filters: Novice Necromancer, Apprentice Necromancer
+
+2. Exclusions: 
+- Exclude actors that have the name/keyword/form.
+- Identified by the minus symbol '-'
+- Raw Window Appearance: e.g. ActorTypeNPC,-Serana <-- Will apply to all npcs that are not Serana.
+
+3. Wildcards:
+- Find all actors that have name, editorID or keyword containing the wildcard.
+- Identified by the asterisk symbol '*'
+- Raw Window Appearance: e.g. Using *Draugr as the wildcard filter will get you Draugr, Draugr Death Lord & Draugr Mage actors.
+
+4. Linked (Requirements):
+- Require actor to have all linked keywords or filter forms to qualify for the filter.
+- Identified by the plus symbol '+'
+- Raw Window Appearance: e.g. ActorTypeGhost+ActorTypeAnimal will only get ghost animals. It will not include pure animals or ghosts.
+- Note: Linked modifiers merge multiple names/keywords/forms into one filter. A unique edit field will unlock when using this modifier."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"

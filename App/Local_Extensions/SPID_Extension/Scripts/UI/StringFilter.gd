@@ -42,6 +42,7 @@ func add_node():
 func remove_node(index):
 	if nodes.size() == 1:
 		#- Delete the entire filter.
+		self.queue_free()
 		pass
 	elif nodes.size() == 2:
 		#- Return modifer to standard

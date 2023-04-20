@@ -247,9 +247,11 @@ hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
 - Distribute the same record multiple times to add it to different types of NPCs.
 
 Accepted String Filters:
-- Keyword editor IDs 		== 	e.g. ActorTypeNPC
-- Actorbase names 		== 	e.g. Balgruuf
-- ﻿Actorbase editor IDs	== 	e.g. BalgruufTheGreater"
+- Keyword editor IDs == e.g. ActorTypeNPC
+- Actorbase names == e.g. Balgruuf
+- ﻿Actorbase editor IDs == e.g. BalgruufTheGreater
+
+All keyword strings, names and editorIDs (vanilla and modded) are supported."
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
