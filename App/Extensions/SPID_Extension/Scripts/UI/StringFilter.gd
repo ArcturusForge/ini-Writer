@@ -51,7 +51,9 @@ func add_existing(filter:String):
 	elif "-" in filter: #- Exclude
 		modifier_selector.select(1)
 		handle_modifier(1)
-		node.set_value(filter.replace("-", ""))
+		#- Some npcs have '-' in their names and thus String.replace is not an option.
+		filter.erase(0, 1)
+		node.set_value(filter)
 	elif "+" in filter: #- Linked
 		modifier_selector.select(3)
 		handle_modifier(3)

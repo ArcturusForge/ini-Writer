@@ -120,30 +120,33 @@ func apply_edit(interp):
 	for filter in string_filter_container.get_children():
 		edit.stringFilters.append(filter.compile_data())
 	
-	#_TODO: Form Filters
+	#- Form Filters
+	for filter in form_filter_container.get_children():
+		edit.formFilters.append(filter.compile_data())
+	
 	#_TODO: Level Filters
 	
 	#- Trait Filters
 	var tFils = []
 	if m_check_box.pressed:
-		tFils.append(["M"])
+		tFils.append("M")
 	if f_check_box.pressed:
-		tFils.append(["F"])
+		tFils.append("F")
 	if u_check_box.pressed:
 		if u_exclude_check_box.pressed:
-			tFils.append(["-U"])
+			tFils.append("-U")
 		else:
-			tFils.append(["U"])
+			tFils.append("U")
 	if s_check_box.pressed:
 		if s_exclude_check_box.pressed:
-			tFils.append(["-S"])
+			tFils.append("-S")
 		else:
-			tFils.append(["S"])
+			tFils.append("S")
 	if c_check_box.pressed:
 		if c_exclude_check_box.pressed:
-			tFils.append(["-C"])
+			tFils.append("-C")
 		else:
-			tFils.append(["C"])
+			tFils.append("C")
 	edit.traitFilters = tFils
 	
 	#- Count Or Index
@@ -229,6 +232,10 @@ func generate_string_panel(edit):
 
 #--- Parses the edit data for form filters.
 func generate_form_panel(edit):
+	for filterData in edit.formFilters:
+		var filter = load(form_filter_prefab).instance()
+		form_filter_container.add_child(filter)
+		filter.add_existing(filterData)
 	pass
 
 #--- Parses the edit data for level filters.
@@ -243,25 +250,25 @@ func generate_trait_panel(edit):
 	for t in edit.traitFilters:
 		match t[0].to_lower():
 			"m","-m":#- Male filter.
-				if "-"in t[0]:
+				if "-"in t:
 					f_check_box.pressed = true
 				else:
 					m_check_box.pressed = true
 			"f","-f":#- Female filter.
-				if "-"in t[0]:
+				if "-"in t:
 					m_check_box.pressed = true
 				else:
 					f_check_box.pressed = true
 			"u","-u":#- Unique filter.
-				if "-"in t[0]:
+				if "-"in t:
 					u_exclude_check_box.pressed = true
 				u_check_box.pressed = true
 			"s","-s":#- Unique filter.
-				if "-"in t[0]:
+				if "-"in t:
 					s_exclude_check_box.pressed = true
 				s_check_box.pressed = true
 			"c","-c":#- Child filter.
-				if "-"in t[0]:
+				if "-"in t:
 					c_exclude_check_box.pressed = true
 				c_check_box.pressed = true
 	pass

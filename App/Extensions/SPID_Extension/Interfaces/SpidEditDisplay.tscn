@@ -226,7 +226,8 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. Two approaches are supported by SPID:
+hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
+Two approaches are supported by SPID:
 
 1. EditorID: (Recommended)
 - EditorID is the form editorID of the record displayed in CK or xEdit. 
@@ -331,7 +332,7 @@ margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
-- All keyword strings, names and editorIDs (vanilla, custom and modded) are supported.
+- All Keyword EditorIDs, Actorbase names and Actorbase EditorIDs (vanilla, custom and modded) are supported.
 - Combining multiple filters will progressively restrict the pool of NPCs that can be distributed to.
 - Distribute the same record multiple times to add it to different types of NPCs.
 
@@ -407,19 +408,33 @@ margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
-- Mod added filter formIDs are supported (e.g. 0x101~MyFactionMod.esp, 0x223~MyRaceMod.esl)
+- Mod added FormIDs are supported (e.g. 0x101~MyFactionMod.esp, 0x223~MyRaceMod.esl)
 - Combining multiple filters will progressively restrict the pool of NPCs that can be distributed to.
 - Distribute the same record multiple times to add it to different types of NPCs.
 
 Accepted Form Filters:
 ﻿- FormIDs (eg. 0x12345)
 - EditorIDs (eg. MyRecordEditorID)
-of specific forms used by actors, like factions / race / class / etc...
+From specific forms used by actors. (e.g. Factions / Race / Class / etc...)
+
+Valid Form Types:
+- Faction
+- Class
+- CombatStyle
+- Race
+- Outfit
+- NPC
+- Spell
+- VoiceType
+- FormList
+- Editor Location
 
 Important:
 To use automatic shortening surround the FormID and source with curly brackets '{' '}' 
 e.g. {FE012345~MyMod.esp} --> 0x12345~MyMod.esp
-"
+
+For Skyrim.esm or original dlc where you do not need to identify the source simply surround the FormID
+e.g. {FE012345} --> 0x12345"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"

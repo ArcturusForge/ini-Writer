@@ -52,7 +52,7 @@ There are 4 different modifiers:
 - Raw Window Appearance: Keyword = NecroDancer|Novice Necromancer, Apprentice Necromancer|NONE|NONE|etc... 
 
 2. Exclusions: 
-- Exclude actors that have the Name / Keyword / Actorbase EditorID.
+- Exclude actors that have the Keyword EditorID / Actorbase Name / Actorbase EditorID.
 - Identified by the minus symbol '-'
 - Raw Window Appearance: Keyword = NotSerana|ActorTypeNPC,-Serana|NONE|NONE|etc...
 - Will apply to all npcs that are not Serana.
