@@ -1,26 +1,26 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/SpidEditDriver.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
-[ext_resource path="res://App/Local_Extensions/SPID_Extension/Scripts/SpidEditDriver.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=5]
 use_filter = true
-font_data = ExtResource( 2 )
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 34
 use_filter = true
 extra_spacing_top = -10
 extra_spacing_bottom = -6
-font_data = ExtResource( 2 )
+font_data = ExtResource( 1 )
 
 [node name="SpidEditDisplay" type="VBoxContainer"]
 margin_right = 390.0
 margin_bottom = 944.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 4 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -52,7 +52,32 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "SPID allows modders to add spells / perks / items / shouts / packages / outfits / keywords to every NPC actorbase in the game, at startup.
+The edit type determines what is being distributed to Actors in-game.
+
+Spell: Distributes a spell to qualifying actors.
+
+Perk: Distributes a perk to qualifying actors.
+
+Item: Distributes an item to the inventories of qualifying actors.
+
+Shout: Distributes a dragon shout to qualifying actors.
+
+LevSpell: Distributes a leveled spell to qualifying actors.
+
+Package: Distributes AI packages to qualifying actors.
+
+Outfit: Distributes an outfit to qualifying actors.
+
+Keyword: Distributes keywords to qualifying actors. This supports new/custom keywords too.
+
+DeathItem: Distributes an item to a qualifying actor when that actor dies.
+
+Faction: Distributes a faction to a qualifying actor.
+
+SleepOutfit: Distributes an outfit to a qualifying actor when that actor sleeps.
+
+Skin: Distributes skin textures to qualifying actors."
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -116,13 +141,13 @@ placeholder_text = "Optional"
 [node name="SourcePanel" type="PanelContainer" parent="."]
 margin_top = 186.0
 margin_right = 390.0
-margin_bottom = 362.0
+margin_bottom = 366.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 169.0
+margin_bottom = 173.0
 
 [node name="SourceLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
 margin_right = 376.0
@@ -141,7 +166,30 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Form Source is used by ini Writer to help you write RecordIDs correctly.
+
+EditorID's e.g. ActorTypeNPC
+FormID's e.g. 0x12345
+
+There are three options to choose from:
+1. Editor ID: (Recommended)
+- Select this when you are using EditorIDs to locate the record you wish to distribute.
+- EditorIDs come from the editorID of the record displayed in the Creation Kit or xEdit.
+- SPID will automatically locate the record you are referring to.
+
+2. Esm / Esp:
+- Select this when you are using FormIDs that originate from esm's or esp's.
+- Ini Writer can automatically apply the shortening rules required by SPID.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 2 digits, followed by removing any leading zeroes '0'
+--> 'FE051801' becomes '051801', then finally ends as '51801' because the leading digit was a zero.
+
+3. Esl:
+- Select this when you are using FormIDs that originate from esl's.
+- Ini Writer can automatically apply the shortening rules required by SPID.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 5 digits, followed by removing any leading zeroes '0'
+--> 'FE051801' becomes '801', because the leading digit is not a zero it stays as '801'"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -151,8 +199,8 @@ align = 1
 margin_top = 26.0
 margin_right = 376.0
 margin_bottom = 46.0
-text = "Auto"
-items = [ "Auto", null, false, 0, null, "esp / esm", null, false, 1, null, "esl", null, false, 2, null ]
+text = "Editor ID"
+items = [ "Editor ID", null, false, 0, null, "esp / esm", null, false, 1, null, "esl", null, false, 2, null ]
 selected = 0
 
 [node name="Spacer" type="Control" parent="SourcePanel/VBoxContainer"]
@@ -178,7 +226,18 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. Two approaches are supported by SPID:
+
+1. EditorID: (Recommended)
+- EditorID is the form editorID of the record displayed in CK or xEdit. 
+- This is recommended as formIDs can change when the mod is merged or converted into esl.
+- No source esp is required as SPID can automatically locate the appropriate record.
+- Raw Window Appearance: Outfit = Crimson Armor Outfit|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+
+2. FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -189,7 +248,7 @@ margin_top = 80.0
 margin_right = 376.0
 margin_bottom = 106.0
 clear_button_enabled = true
-placeholder_text = "e.g. FE018013"
+placeholder_text = "e.g. FE051801"
 
 [node name="Spacer2" type="Control" parent="SourcePanel/VBoxContainer"]
 margin_top = 110.0
@@ -199,25 +258,54 @@ margin_bottom = 110.0
 [node name="SourceContainer" type="VBoxContainer" parent="SourcePanel/VBoxContainer"]
 margin_top = 114.0
 margin_right = 376.0
-margin_bottom = 162.0
+margin_bottom = 166.0
 
-[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer"]
+[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer/SourceContainer"]
 margin_right = 376.0
-margin_bottom = 18.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
+margin_top = 2.0
+margin_right = 354.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
 theme = ExtResource( 3 )
 text = "Source Plugin:"
 
-[node name="SourceEdit" type="LineEdit" parent="SourcePanel/VBoxContainer/SourceContainer"]
-margin_top = 22.0
+[node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
+margin_left = 358.0
 margin_right = 376.0
-margin_bottom = 48.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "What to write:
+- Leave out the tilde symbol '~'
+- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
+- You can leave this field blank if the ID originates from Skyrim.esm or any of the original dlc. 
+
+Skyrim's original dlc:
+- Hearthfire
+- Dawnguard
+- Dragonborn
+"
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SourceEdit" type="LineEdit" parent="SourcePanel/VBoxContainer/SourceContainer"]
+margin_top = 26.0
+margin_right = 376.0
+margin_bottom = 52.0
 clear_button_enabled = true
 placeholder_text = "e.g. MyMod.esp"
 
 [node name="StringFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 366.0
+margin_top = 370.0
 margin_right = 390.0
-margin_bottom = 440.0
+margin_bottom = 444.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="StringFiltersPanel"]
 margin_left = 7.0
@@ -243,15 +331,14 @@ margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
+- All keyword strings, names and editorIDs (vanilla, custom and modded) are supported.
 - Combining multiple filters will progressively restrict the pool of NPCs that can be distributed to.
 - Distribute the same record multiple times to add it to different types of NPCs.
 
 Accepted String Filters:
 - Keyword editor IDs == e.g. ActorTypeNPC
 - Actorbase names == e.g. Balgruuf
-- ﻿Actorbase editor IDs == e.g. BalgruufTheGreater
-
-All keyword strings, names and editorIDs (vanilla and modded) are supported."
+- ﻿Actorbase editor IDs == e.g. BalgruufTheGreater"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -292,9 +379,9 @@ align = 1
 valign = 1
 
 [node name="FormFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 444.0
+margin_top = 448.0
 margin_right = 390.0
-margin_bottom = 518.0
+margin_bottom = 522.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FormFiltersPanel"]
 margin_left = 7.0
@@ -319,7 +406,20 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
+- Mod added filter formIDs are supported (e.g. 0x101~MyFactionMod.esp, 0x223~MyRaceMod.esl)
+- Combining multiple filters will progressively restrict the pool of NPCs that can be distributed to.
+- Distribute the same record multiple times to add it to different types of NPCs.
+
+Accepted Form Filters:
+﻿- FormIDs (eg. 0x12345)
+- EditorIDs (eg. MyRecordEditorID)
+of specific forms used by actors, like factions / race / class / etc...
+
+Important:
+To use automatic shortening surround the FormID and source with curly brackets '{' '}' 
+e.g. {FE012345~MyMod.esp} --> 0x12345~MyMod.esp
+"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -360,9 +460,9 @@ align = 1
 valign = 1
 
 [node name="LevelFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 522.0
+margin_top = 526.0
 margin_right = 390.0
-margin_bottom = 596.0
+margin_bottom = 600.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelFiltersPanel"]
 margin_left = 7.0
@@ -428,9 +528,9 @@ align = 1
 valign = 1
 
 [node name="TraitFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 600.0
+margin_top = 604.0
 margin_right = 390.0
-margin_bottom = 748.0
+margin_bottom = 752.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TraitFiltersPanel"]
 margin_left = 7.0
@@ -540,9 +640,9 @@ margin_bottom = 108.0
 size_flags_horizontal = 3
 
 [node name="AmountPanel" type="PanelContainer" parent="."]
-margin_top = 752.0
+margin_top = 756.0
 margin_right = 390.0
-margin_bottom = 816.0
+margin_bottom = 820.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmountPanel"]
 margin_left = 7.0
@@ -583,9 +683,9 @@ rounded = true
 allow_greater = true
 
 [node name="IndexPanel" type="PanelContainer" parent="."]
-margin_top = 820.0
+margin_top = 824.0
 margin_right = 390.0
-margin_bottom = 884.0
+margin_bottom = 888.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="IndexPanel"]
 margin_left = 7.0
@@ -624,9 +724,9 @@ max_value = 4.0
 rounded = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 888.0
+margin_top = 892.0
 margin_right = 390.0
-margin_bottom = 952.0
+margin_bottom = 956.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -666,9 +766,9 @@ value = 100.0
 rounded = true
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 956.0
+margin_top = 960.0
 margin_right = 390.0
-margin_bottom = 1012.0
+margin_bottom = 1016.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
@@ -721,6 +821,9 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="FormFiltersPanel/VBoxContainer/FormAddElement/FormAddButton" to="." method="_on_FormAddButton_pressed"]
 [connection signal="pressed" from="LevelFiltersPanel/VBoxContainer/LevelAddElement/LevelAddButton" to="." method="_on_LevelAddButton_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/MCheckBox" to="." method="_on_MCheckBox_pressed"]
+[connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/UCheckBox" to="." method="_on_UCheckBox_pressed"]
+[connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/SCheckBox" to="." method="_on_SCheckBox_pressed"]
+[connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/CCheckBox" to="." method="_on_CCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/FCheckBox" to="." method="_on_FCheckBox_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

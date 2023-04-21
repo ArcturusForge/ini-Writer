@@ -103,6 +103,8 @@ func alert_to_edits():
 
 func cancel_create():
 	editor_parent.visible = false
+	for i in range(selectors.size()):
+		selectors[i].edit_button.pressed = false
 	pass
 
 func delete_edit(index):

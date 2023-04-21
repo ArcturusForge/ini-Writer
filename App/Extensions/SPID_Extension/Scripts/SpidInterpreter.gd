@@ -157,7 +157,7 @@ func write_to_edit(edit, data, origLine):
 						var formAndSource = command.split("x")[1]
 						var id:String = formAndSource.split("~")[0] if "~" in formAndSource else formAndSource
 						edit.objectId.value = id
-						edit.objectId.source = formAndSource.split("~")[1] if "~" in formAndSource else "Skyrim and DLC"
+						edit.objectId.source = formAndSource.split("~")[1] if "~" in formAndSource else "BLANK"
 			1: #- StringFilters
 				parse_comma_segment("stringFilters", command, edit)
 			2: #- FormFilters
@@ -178,14 +178,7 @@ func parse_comma_segment(segment, command, edit, splitSymbol=","):
 		#- Split by ',' and store array.
 		var args = command.split(splitSymbol, false)
 		for arg in args:
-			if "+" in arg:
-				var filter = []
-				var adds = arg.split("+")
-				for add in adds:
-					filter.append(add)
-				filters.append(filter)
-			else:
-				filters.append([arg])
+			filters.append(arg)
 	edit[segment] = filters
 	pass
 
@@ -211,18 +204,20 @@ func interp_to_raw(interp): # interp = {}
 				var t:String = edit.objectId.value
 				if "0x" in t:
 					t = t.replace("0x", "")
-				while t.length() > 5:
+				while t.length() > 6:
 					t.erase(0, 1)
-				while t[0] == "0":
+				while not t == "" && t[0] == "0":
 					t.erase(0, 1)
-				formID = "0x" + t + "~" + edit.objectId.source
+				formID = "0x" + t 
+				if not edit.objectId.source == "":
+					formID += "~" + edit.objectId.source
 			2: #- Esl
 				var t:String = edit.objectId.value
 				if "0x" in t:
 					t = t.replace("0x", "")
 				while t.length() > 3:
 					t.erase(0, 1)
-				while t[0] == "0":
+				while not t == "" && t[0] == "0":
 					t.erase(0, 1)
 				formID = "0x" + t + "~" + edit.objectId.source
 		
@@ -257,12 +252,7 @@ func interp_to_raw(interp): # interp = {}
 		#- StringFilters
 		if edit.stringFilters.size() > 0:
 			for i in range(edit.stringFilters.size()):
-				var filters = edit.stringFilters[i]
-				for x in range(filters.size()):
-					var arg = filters[x]
-					line += arg
-					if x < filters.size() - 1:
-						line += "+"
+				line +=  edit.stringFilters[i]
 				if i < edit.stringFilters.size() - 1:
 					line += ","
 		else:
@@ -272,12 +262,7 @@ func interp_to_raw(interp): # interp = {}
 		#- FormFilters
 		if edit.formFilters.size() > 0:
 			for i in range(edit.formFilters.size()):
-				var filters = edit.formFilters[i]
-				for x in range(filters.size()):
-					var arg = filters[x]
-					line += arg
-					if x < filters.size() - 1:
-						line += "+"
+				line += edit.formFilters[i]
 				if i < edit.formFilters.size() - 1:
 					line += ","
 		else:
@@ -287,12 +272,7 @@ func interp_to_raw(interp): # interp = {}
 		#- LevelFilters
 		if edit.levelFilters.size() > 0:
 			for i in range(edit.levelFilters.size()):
-				var filters = edit.levelFilters[i]
-				for x in range(filters.size()):
-					var arg = filters[x]
-					line += arg
-					if x < filters.size() - 1:
-						line += "+"
+				line += edit.levelFilters[i]
 				if i < edit.levelFilters.size() - 1:
 					line += ","
 		else:
@@ -302,8 +282,7 @@ func interp_to_raw(interp): # interp = {}
 		#- TraitFilters
 		if edit.traitFilters.size() > 0:
 			for i in range(edit.traitFilters.size()):
-				var filter = edit.traitFilters[i]
-				line += filter[0]
+				line += edit.traitFilters[i]
 				if i < edit.traitFilters.size() - 1:
 					line += "/"
 		else:
@@ -311,7 +290,7 @@ func interp_to_raw(interp): # interp = {}
 		line += "|"
 		
 		#- Count Or Index
-		if edit.type == 2 || edit.type == 5: #- Item or Package
+		if edit.type == 2 || edit.type == 5 || edit.type == 8: #- Item or Package or DeathItem
 			line += str(edit.countOrIndex)
 		else:
 			line += "NONE"

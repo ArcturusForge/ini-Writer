@@ -1,24 +1,24 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=2]
-[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://App/Local_Extensions/SPID_Extension/Scripts/UI/StringFilter.gd" type="Script" id=4]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/StringFilter.gd" type="Script" id=2]
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
-font_data = ExtResource( 3 )
+font_data = ExtResource( 1 )
 
 [node name="StringFilter" type="PanelContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
 margin_right = 406.0
-margin_bottom = 199.0
-script = ExtResource( 4 )
+margin_bottom = 93.0
+script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 399.0
-margin_bottom = 192.0
+margin_bottom = 86.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 392.0
@@ -33,7 +33,7 @@ margin_top = 2.0
 margin_right = 370.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
-theme = ExtResource( 2 )
+theme = ExtResource( 3 )
 text = "Filter Modifier:"
 
 [node name="StringHelp" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
@@ -49,22 +49,25 @@ There are 4 different modifiers:
 1. Standard:
 - Actors MUST match with at least one applied filter to qualify.
 - Identified by the lack of any unique symbol.
-- Raw Window Appearance: e.g. An Actor must match with at least one of the following filters: Novice Necromancer, Apprentice Necromancer
+- Raw Window Appearance: Keyword = NecroDancer|Novice Necromancer, Apprentice Necromancer|NONE|NONE|etc... 
 
 2. Exclusions: 
-- Exclude actors that have the name/keyword/form.
+- Exclude actors that have the Name / Keyword / Actorbase EditorID.
 - Identified by the minus symbol '-'
-- Raw Window Appearance: e.g. ActorTypeNPC,-Serana <-- Will apply to all npcs that are not Serana.
+- Raw Window Appearance: Keyword = NotSerana|ActorTypeNPC,-Serana|NONE|NONE|etc...
+- Will apply to all npcs that are not Serana.
 
 3. Wildcards:
 - Find all actors that have name, editorID or keyword containing the wildcard.
 - Identified by the asterisk symbol '*'
-- Raw Window Appearance: e.g. Using *Draugr as the wildcard filter will get you Draugr, Draugr Death Lord & Draugr Mage actors.
+- Raw Window Appearance: Keyword = SmellsBad|*Draugr|NONE|NONE|etc...
+- Will apply to Draugr Death Lord / Draugr Mage / etc...
 
 4. Linked (Requirements):
 - Require actor to have all linked keywords or filter forms to qualify for the filter.
 - Identified by the plus symbol '+'
-- Raw Window Appearance: e.g. ActorTypeGhost+ActorTypeAnimal will only get ghost animals. It will not include pure animals or ghosts.
+- Raw Window Appearance: e.g. Keyword = SpookyPet|ActorTypeGhost+ActorTypeAnimal|NONE|NONE|etc... 
+- Will qualify only ghost animals. It will not include pure animals or ghosts.
 - Note: Linked modifiers merge multiple names/keywords/forms into one filter. A unique edit field will unlock when using this modifier."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )

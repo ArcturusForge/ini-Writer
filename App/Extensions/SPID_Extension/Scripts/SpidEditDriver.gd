@@ -51,7 +51,8 @@ var interpreter
 var isNew = false
 
 #-- Prefabs
-var string_filter_prefab = "res://App/Local_Extensions/SPID_Extension/Interfaces/StringFilter.tscn"
+var string_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/StringFilter.tscn"
+var form_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/FormFilter.tscn"
 
 #--- Called by system to initialize the driver.
 func init_driver(workingIndex, system, interpreter):
@@ -115,7 +116,12 @@ func apply_edit(interp):
 	edit.objectId.value = id_edit.text
 	edit.objectId.source = source_edit.text
 	
-	#_TODO: List Filters
+	#- String Filters
+	for filter in string_filter_container.get_children():
+		edit.stringFilters.append(filter.compile_data())
+	
+	#_TODO: Form Filters
+	#_TODO: Level Filters
 	
 	#- Trait Filters
 	var tFils = []
@@ -141,9 +147,9 @@ func apply_edit(interp):
 	edit.traitFilters = tFils
 	
 	#- Count Or Index
-	if edit.type == 2:
+	if edit.type == 2 || edit.type == 8: #- Item, DeathItem
 		edit.countOrIndex = amount_spin_box.value
-	elif edit.type == 5:
+	elif edit.type == 5: #- Package
 		edit.countOrIndex = index_spin_box.value
 	
 	#- Chance
@@ -164,13 +170,13 @@ func handle_type(selectedIndex:int):
 		-1:#- Comment
 			name_container.visible = false
 			toggle_visibility(false)
-		2:#- Item
+		2,8:#- (2)Item, (8)DeathItem
 			name_container.visible = true
 			toggle_visibility(true, true, true, true, true, true, false, true)
 		5:#- Package
 			name_container.visible = true
 			toggle_visibility(true, true, true, true, true, false, true, true)
-		0,1,3,4,6,7,8,9,10,11:#- Everything else
+		0,1,3,4,6,7,9,10,11:#- Everything else
 			name_container.visible = true
 			toggle_visibility(true, true, true, true, true, false, false, true)
 	pass
@@ -207,7 +213,7 @@ func generate_comment_panel(edit):
 func generate_source_panel(edit):
 	source_select.selected = edit.objectId.type
 	if not edit.objectId.type == 0:
-		source_edit.text = edit.objectId.source
+		source_edit.text = edit.objectId.source if not edit.objectId.source == "BLANK" else ""
 	else:
 		source_container.visible = false
 	id_edit.text = edit.objectId.value
@@ -215,6 +221,10 @@ func generate_source_panel(edit):
 
 #--- Parses the edit data for string filters.
 func generate_string_panel(edit):
+	for filterData in edit.stringFilters:
+		var filter = load(string_filter_prefab).instance()
+		string_filter_container.add_child(filter)
+		filter.add_existing(filterData)
 	pass
 
 #--- Parses the edit data for form filters.
@@ -227,6 +237,9 @@ func generate_level_panel(edit):
 
 #--- Parses the edit data for trait filters.
 func generate_trait_panel(edit):
+	_on_UCheckBox_pressed()
+	_on_SCheckBox_pressed()
+	_on_CCheckBox_pressed()
 	for t in edit.traitFilters:
 		match t[0].to_lower():
 			"m","-m":#- Male filter.
@@ -290,15 +303,41 @@ func _on_FCheckBox_pressed():
 		m_check_box.pressed = false
 	pass
 
+func _on_UCheckBox_pressed():
+	if u_check_box.pressed:
+		u_exclude_check_box.disabled = false
+	else:
+		u_exclude_check_box.pressed = false
+		u_exclude_check_box.disabled = true
+	pass
+
+func _on_SCheckBox_pressed():
+	if s_check_box.pressed:
+		s_exclude_check_box.disabled = false
+	else:
+		s_exclude_check_box.pressed = false
+		s_exclude_check_box.disabled = true
+	pass
+
+func _on_CCheckBox_pressed():
+	if c_check_box.pressed:
+		c_exclude_check_box.disabled = false
+	else:
+		c_exclude_check_box.pressed = false
+		c_exclude_check_box.disabled = true
+	pass
 
 func _on_StringAddButton_pressed():
 	var filter = load(string_filter_prefab).instance()
 	string_filter_container.add_child(filter)
+	filter.add_node()
 	pass
 
-
 func _on_FormAddButton_pressed():
-	pass # Replace with function body.
+	var filter = load(form_filter_prefab).instance()
+	form_filter_container.add_child(filter)
+	filter.add_node()
+	pass
 
 
 func _on_LevelAddButton_pressed():

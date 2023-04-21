@@ -7,7 +7,7 @@ var config
 var resDataPath = "res://App/"
 var userDataPath = "user://"
 var extenDir = "Extensions"
-var localExtenPath = resDataPath+"Local_Extensions"
+var localExtenPath = resDataPath+"Extensions"
 
 #-- Color Hexes
 var clear = "#00000000"

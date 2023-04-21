@@ -14,8 +14,8 @@ onready var console_manager = $"../ConsoleManager"
 #-- Dynamic Vars
 var extension = {
 	#_TEMP: Temp val assign
-	"interpreter":"res://App/Local_Extensions/SPID_Extension/Scripts/SpidInterpreter.gd",
-	"editor":"res://App/Local_Extensions/SPID_Extension/Interfaces/SpidEditDisplay.tscn"
+	"interpreter":"res://App/Extensions/SPID_Extension/Scripts/SpidInterpreter.gd",
+	"editor":"res://App/Extensions/SPID_Extension/Interfaces/SpidEditDisplay.tscn"
 }
 var activeInterpreter
 
