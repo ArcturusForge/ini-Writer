@@ -56,5 +56,7 @@ func move_edit_selector(originalIndex, newIndex):
 	activeInterpreter.move_index_to(Session.data.interp, originalIndex, newIndex)
 	var raw = activeInterpreter.interp_to_raw(Session.data.interp)
 	Session.data.raw = raw
+	var interp = activeInterpreter.raw_to_interp(Session.data.raw)
+	Session.data.interp = interp
 	repaint_editors()
 	pass

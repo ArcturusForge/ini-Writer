@@ -10,6 +10,7 @@ func data_matched(raw:String, fileName:String):
 func create_new_edit():
 	var edit = {
 		"newlines":1, #- For how many empty lines after the edit.
+		"lineNumber":-1, #- For which line the edit originates from.
 		"type":-1,
 		"name":"",
 		"comment":"",
@@ -45,13 +46,17 @@ func raw_to_interp(raw:String):
 	var prevLine = ""
 	for i in range(lines.size()):
 		var edit = create_new_edit()
+		edit.lineNumber = i + 1
 		var line:String = lines[i]
 		var t = line.replace(" ", "")
 		if line == "":
 			#- Line is empty
 			if interp.edits.size() > 0:
 				var lastEdit = interp.edits[interp.edits.size() - 1]
-				lastEdit.newlines += 1
+				if i < lines.size() - 1:
+					lastEdit.newlines += 1
+				elif lastEdit.newlines > 1:
+					lastEdit.newlines = 2
 		elif t[0] == ";":
 			#- Line is comment.
 			if "]" in line:
@@ -321,36 +326,36 @@ func get_edit_count(interp):
 
 #--- Returns the name of an edit inside the interp data.
 func get_edit_name(interp, index):
-	var eName = ""
 	var edit = interp.edits[index]
+	var eName = str(edit.lineNumber) + " "
 	match edit.type:
 		-1: #- (-1)Comment
-			eName = "Comment: " + edit.comment
+			eName += "Comment: " + edit.comment
 			return eName
 		0: #- (0)Spell
-			eName = "Spell: "
+			eName += "Spell: "
 		1: #- (1)Perk
-			eName = "Perk: "
+			eName += "Perk: "
 		2: #- (2)Item
-			eName = "Item: "
+			eName += "Item: "
 		3: #- (3)Shout
-			eName = "Shout: "
+			eName += "Shout: "
 		4: #- (4)LevSpell
-			eName = "LevSpell: "
+			eName += "LevSpell: "
 		5: #- (5)Package
-			eName = "Package: "
+			eName += "Package: "
 		6: #- (6)Outfit
-			eName = "Outfit: "
+			eName += "Outfit: "
 		7: #- (7)Keyword
-			eName = "Keyword: "
+			eName += "Keyword: "
 		8: #- (8)DeathItem
-			eName = "DeathItem: "
+			eName += "DeathItem: "
 		9: #- (9)Faction
-			eName = "Faction: "
+			eName += "Faction: "
 		10: #- (10)SleepOutfit
-			eName = "SleepOutfit: "
+			eName += "SleepOutfit: "
 		11: #- (11)Skin
-			eName = "Skin: "
+			eName += "Skin: "
 	if edit.name == "":
 		eName += edit.objectId.value
 	else:

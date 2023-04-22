@@ -14,8 +14,8 @@ onready var f_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsConta
 onready var u_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/UCheckBox
 onready var u_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/UExcludeCheckBox
 
-onready var s_check_box = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/SCheckBox
-onready var s_exclude_check_box = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/SExcludeCheckBox
+onready var s_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/SCheckBox
+onready var s_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/SExcludeCheckBox
 
 onready var c_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/CCheckBox
 onready var c_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/CExcludeCheckBox
@@ -23,6 +23,19 @@ onready var c_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/Opti
 onready var amount_spin_box:SpinBox = $AmountPanel/VBoxContainer/AmountSpinBox
 onready var index_spin_box:SpinBox = $IndexPanel/VBoxContainer/IndexSpinBox
 onready var chance_spin_box:SpinBox = $ChancePanel/VBoxContainer/ChanceSpinBox
+
+onready var actor_level_check_box:CheckBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelCheckBox
+onready var actor_level_filter = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter
+onready var actor_range_button:Button = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer/ActorRangeButton
+onready var min_actor_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer/MinActorSpinBox
+onready var max_actor_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer/MaxActorSpinBox
+
+onready var skill_level_check_box:CheckBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelCheckBox
+onready var skill_level_filter = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter
+onready var skill_range_button:Button = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/SkillRangeButton
+onready var min_skill_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/MinSkillSpinBox
+onready var max_skill_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/MaxSkillSpinBox
+
 
 #-- Misc Refs
 onready var name_container = $CommentPanel/VBoxContainer/NameContainer
@@ -53,6 +66,10 @@ var isNew = false
 #-- Prefabs
 var string_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/StringFilter.tscn"
 var form_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/FormFilter.tscn"
+
+#-- Graphics
+onready var locked_range = preload("res://Internal/Default/Icons/lock_closed.png")
+onready var unlocked_range = preload("res://Internal/Default/Icons/lock_open.png")
 
 #--- Called by system to initialize the driver.
 func init_driver(workingIndex, system, interpreter):
@@ -164,6 +181,9 @@ func apply_edit(interp):
 		edit.newlines = newlines
 		interp.edits[workingIndex] = edit
 	else:
+		var prevEdit = interp.edits[interp.edits.size()-1]
+		var lNum = prevEdit.lineNumber + prevEdit.newlines
+		edit.lineNumber = lNum
 		interp.edits.append(edit)
 	pass
 

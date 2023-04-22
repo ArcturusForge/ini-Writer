@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://App/Extensions/SPID_Extension/Scripts/SpidEditDriver.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
+[ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=5]
 use_filter = true
@@ -477,13 +478,13 @@ valign = 1
 [node name="LevelFiltersPanel" type="PanelContainer" parent="."]
 margin_top = 526.0
 margin_right = 390.0
-margin_bottom = 600.0
+margin_bottom = 808.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelFiltersPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 67.0
+margin_bottom = 275.0
 
 [node name="LevelLabels" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
 margin_right = 376.0
@@ -511,41 +512,198 @@ align = 1
 [node name="LevelFilterContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 26.0
+margin_bottom = 268.0
 
-[node name="LevelAddElement" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0 )
-margin_top = 30.0
+[node name="ActorLevelCheckBox" type="CheckBox" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer"]
 margin_right = 376.0
-margin_bottom = 60.0
-alignment = 1
+margin_bottom = 24.0
+text = "Filter Actor Level"
 
-[node name="LevelAddButton" type="Button" parent="LevelFiltersPanel/VBoxContainer/LevelAddElement"]
-margin_left = 173.0
-margin_right = 203.0
+[node name="ActorLevelFilter" type="PanelContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 28.0
+margin_right = 376.0
+margin_bottom = 94.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 369.0
+margin_bottom = 59.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer"]
+margin_right = 362.0
+margin_bottom = 18.0
+
+[node name="Label2" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer2"]
+margin_right = 162.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Min Actor Level:"
+
+[node name="Control" type="Control" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer2"]
+margin_left = 166.0
+margin_right = 196.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer2"]
+margin_left = 200.0
+margin_right = 362.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Max Actor Level:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer"]
+margin_top = 22.0
+margin_right = 362.0
+margin_bottom = 52.0
+
+[node name="MinActorSpinBox" type="SpinBox" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer"]
+margin_right = 162.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="ActorRangeButton" type="Button" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer"]
+margin_left = 166.0
+margin_right = 196.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 30, 30 )
-hint_tooltip = "Add New"
-focus_mode = 0
-mouse_default_cursor_shape = 2
-size_flags_horizontal = 4
-size_flags_vertical = 2
-icon_align = 1
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
 
-[node name="Label" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelAddElement/LevelAddButton"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="MaxActorSpinBox" type="SpinBox" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer"]
+margin_left = 200.0
+margin_right = 362.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/font = SubResource( 6 )
-text = "+"
-align = 1
-valign = 1
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="SkillLevelCheckBox" type="CheckBox" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer"]
+margin_top = 98.0
+margin_right = 376.0
+margin_bottom = 122.0
+text = "Filter Skill Level"
+
+[node name="SkillLevelFilter" type="PanelContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 126.0
+margin_right = 376.0
+margin_bottom = 242.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 369.0
+margin_bottom = 109.0
+
+[node name="Label" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer"]
+margin_right = 362.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Skill:"
+
+[node name="SkillSelect" type="OptionButton" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer"]
+margin_top = 22.0
+margin_right = 362.0
+margin_bottom = 42.0
+text = "One Handed"
+items = [ "One Handed", null, false, 0, null, "Two Handed", null, false, 1, null, "Marksman", null, false, 2, null, "Block", null, false, 3, null, "Smithing", null, false, 4, null, "Heavy Armor", null, false, 5, null, "Light Armor", null, false, 6, null, "Pickpocket", null, false, 7, null, "Lockpicking", null, false, 8, null, "Sneak", null, false, 9, null, "Alchemy", null, false, 10, null, "Speechcraft", null, false, 11, null, "Alteration", null, false, 12, null, "Conjuration", null, false, 13, null, "Destruction", null, false, 14, null, "Illusion", null, false, 15, null, "Restoration", null, false, 16, null, "Enchanting", null, false, 17, null ]
+selected = 0
+
+[node name="Spacer" type="Control" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer"]
+margin_top = 46.0
+margin_right = 362.0
+margin_bottom = 46.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer"]
+margin_top = 50.0
+margin_right = 362.0
+margin_bottom = 68.0
+
+[node name="Label2" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer2"]
+margin_right = 162.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Min Skill Level:"
+
+[node name="Control" type="Control" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer2"]
+margin_left = 166.0
+margin_right = 196.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer2"]
+margin_left = 200.0
+margin_right = 362.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Max Skill Level:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer"]
+margin_top = 72.0
+margin_right = 362.0
+margin_bottom = 102.0
+
+[node name="MinSkillSpinBox" type="SpinBox" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer"]
+margin_right = 162.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="SkillRangeButton" type="Button" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer"]
+margin_left = 166.0
+margin_right = 196.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="MaxSkillSpinBox" type="SpinBox" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer"]
+margin_left = 200.0
+margin_right = 362.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
 
 [node name="TraitFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 604.0
+margin_top = 812.0
 margin_right = 390.0
-margin_bottom = 752.0
+margin_bottom = 960.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TraitFiltersPanel"]
 margin_left = 7.0
@@ -655,9 +813,9 @@ margin_bottom = 108.0
 size_flags_horizontal = 3
 
 [node name="AmountPanel" type="PanelContainer" parent="."]
-margin_top = 756.0
+margin_top = 964.0
 margin_right = 390.0
-margin_bottom = 820.0
+margin_bottom = 1028.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmountPanel"]
 margin_left = 7.0
@@ -698,9 +856,9 @@ rounded = true
 allow_greater = true
 
 [node name="IndexPanel" type="PanelContainer" parent="."]
-margin_top = 824.0
+margin_top = 1032.0
 margin_right = 390.0
-margin_bottom = 888.0
+margin_bottom = 1096.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="IndexPanel"]
 margin_left = 7.0
@@ -739,9 +897,9 @@ max_value = 4.0
 rounded = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 892.0
+margin_top = 1100.0
 margin_right = 390.0
-margin_bottom = 956.0
+margin_bottom = 1164.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -781,9 +939,9 @@ value = 100.0
 rounded = true
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 960.0
+margin_top = 1168.0
 margin_right = 390.0
-margin_bottom = 1016.0
+margin_bottom = 1224.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
@@ -834,7 +992,6 @@ size_flags_horizontal = 3
 
 [connection signal="pressed" from="StringFiltersPanel/VBoxContainer/StringAddElement/StringAddButton" to="." method="_on_StringAddButton_pressed"]
 [connection signal="pressed" from="FormFiltersPanel/VBoxContainer/FormAddElement/FormAddButton" to="." method="_on_FormAddButton_pressed"]
-[connection signal="pressed" from="LevelFiltersPanel/VBoxContainer/LevelAddElement/LevelAddButton" to="." method="_on_LevelAddButton_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/MCheckBox" to="." method="_on_MCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/UCheckBox" to="." method="_on_UCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/SCheckBox" to="." method="_on_SCheckBox_pressed"]
