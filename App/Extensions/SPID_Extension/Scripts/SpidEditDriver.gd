@@ -33,6 +33,7 @@ onready var max_actor_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelF
 onready var skill_level_check_box:CheckBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelCheckBox
 onready var skill_level_filter = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter
 onready var skill_range_button:Button = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/SkillRangeButton
+onready var skill_select:OptionButton = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/SkillSelect
 onready var min_skill_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/MinSkillSpinBox
 onready var max_skill_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/MaxSkillSpinBox
 
@@ -141,7 +142,20 @@ func apply_edit(interp):
 	for filter in form_filter_container.get_children():
 		edit.formFilters.append(filter.compile_data())
 	
-	#_TODO: Level Filters
+#	#- Actor Level Filter
+#	if actor_level_check_box.pressed:
+#		var value = str(min_actor_spin_box.value)
+#		if actor_range_button.pressed:
+#			value += "/" + str(max_actor_spin_box.value)
+#		edit.levelFilters.append(value)
+#
+#	#- Skill Level Filter
+#	if skill_level_check_box.pressed:
+#		var value = str(skill_select.selected) + "(" + str(min_skill_spin_box.value)
+#		if skill_range_button.pressed:
+#			value += "/" + str(max_skill_spin_box.value)
+#		value += ")"
+#		edit.levelFilters.append(value)
 	
 	#- Trait Filters
 	var tFils = []
@@ -181,8 +195,10 @@ func apply_edit(interp):
 		edit.newlines = newlines
 		interp.edits[workingIndex] = edit
 	else:
-		var prevEdit = interp.edits[interp.edits.size()-1]
-		var lNum = prevEdit.lineNumber + prevEdit.newlines
+		var lNum = 1
+		if interp.edits.size() > 0:
+			var prevEdit = interp.edits[interp.edits.size()-1] 
+			lNum = prevEdit.lineNumber + prevEdit.newlines
 		edit.lineNumber = lNum
 		interp.edits.append(edit)
 	pass
@@ -260,6 +276,22 @@ func generate_form_panel(edit):
 
 #--- Parses the edit data for level filters.
 func generate_level_panel(edit):
+	_on_ActorLevelCheckBox_toggled(false)
+	_on_ActorRangeButton_pressed()
+	skill_level_filter.visible = false
+	
+	for filter in edit.levelFilters:
+		if "(" in filter:#- Skill Level
+			pass
+		else:#- Actor Level
+			actor_level_check_box.pressed = true
+			if "/" in filter:
+				var vals = filter.split("/", false)
+				actor_range_button.pressed = true
+				_on_ActorRangeButton_pressed()
+				min_actor_spin_box.value = int(vals[0])
+				max_actor_spin_box.value = int(vals[1])
+			pass
 	pass
 
 #--- Parses the edit data for trait filters.
@@ -366,6 +398,16 @@ func _on_FormAddButton_pressed():
 	filter.add_node()
 	pass
 
+func _on_ActorRangeButton_pressed():
+	if actor_range_button.pressed:
+		actor_range_button.icon = unlocked_range
+		max_actor_spin_box.editable = true
+	else:
+		actor_range_button.icon = locked_range
+		max_actor_spin_box.editable = false
+	max_actor_spin_box.value = min_actor_spin_box.value
+	pass
 
-func _on_LevelAddButton_pressed():
-	pass # Replace with function body.
+func _on_ActorLevelCheckBox_toggled(button_pressed):
+	actor_level_filter.visible = button_pressed
+	pass

@@ -192,7 +192,7 @@ split_offset = -100
 
 [node name="VerticalColor" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
 self_modulate = Color( 1, 1, 1, 0.921569 )
-margin_right = 209.0
+margin_right = 631.0
 margin_bottom = 542.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -208,12 +208,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="EditsList" type="VBoxContainer" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow/VerticalColor/SelectorContainer"]
-margin_right = 199.0
+margin_right = 621.0
 margin_bottom = 539.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VerticalColor2" type="ColorRect" parent="Interface/VBoxContainer/MainDisplay/EditRawWindow/EditorWindow/SelectorEditorWindow"]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.921569 )
 margin_left = 221.0
 margin_right = 631.0

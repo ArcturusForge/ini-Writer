@@ -992,6 +992,8 @@ size_flags_horizontal = 3
 
 [connection signal="pressed" from="StringFiltersPanel/VBoxContainer/StringAddElement/StringAddButton" to="." method="_on_StringAddButton_pressed"]
 [connection signal="pressed" from="FormFiltersPanel/VBoxContainer/FormAddElement/FormAddButton" to="." method="_on_FormAddButton_pressed"]
+[connection signal="toggled" from="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelCheckBox" to="." method="_on_ActorLevelCheckBox_toggled"]
+[connection signal="pressed" from="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer/ActorRangeButton" to="." method="_on_ActorRangeButton_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/MCheckBox" to="." method="_on_MCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/UCheckBox" to="." method="_on_UCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/SCheckBox" to="." method="_on_SCheckBox_pressed"]
