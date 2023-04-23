@@ -28,10 +28,15 @@ func postwrn(msg:String):
 	generate(msg, Globals.yellow)
 	pass
 
-func _on_ClearButton_pressed():
+func _on_RichTextLabel_meta_clicked(meta):
+	Functions.open_link(meta)
+	pass
+
+func _on_Clear_Console_pressed():
 	rich_text_label.bbcode_text = ""
 	pass
 
-func _on_RichTextLabel_meta_clicked(meta):
-	Functions.open_link(meta)
+func _on_CopyConsole_pressed():
+	OS.clipboard = rich_text_label.bbcode_text
+	post("Copied console logs")
 	pass

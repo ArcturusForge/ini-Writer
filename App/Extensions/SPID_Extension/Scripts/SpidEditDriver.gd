@@ -193,13 +193,14 @@ func apply_edit(interp):
 	if not isNew:
 		var ogEdit = interp.edits[workingIndex]
 		edit.newlines = ogEdit.newlines
-		if ogEdit.comment == "" && not edit.comment == "":
+		if ogEdit.comment == "" && not edit.comment == "" && not edit.type == -1:
 			edit.lineNumber = ogEdit.lineNumber + 1
-		elif not ogEdit.comment == "" && edit.comment == "":
+		elif not ogEdit.comment == "" && edit.comment == "" && not edit.type == -1:
 			edit.lineNumber = ogEdit.lineNumber - 1
 		else:
 			edit.lineNumber = ogEdit.lineNumber
 		interp.edits[workingIndex] = edit
+		Globals.get_manager("console").post("Modified (" + interpreter.get_edit_name(interp, workingIndex) + ")")
 	else:
 		var lNum = 1
 		if interp.edits.size() > 0:
@@ -207,6 +208,7 @@ func apply_edit(interp):
 			lNum = prevEdit.lineNumber + prevEdit.newlines
 		edit.lineNumber = lNum
 		interp.edits.append(edit)
+		Globals.get_manager("console").post("Created (" + interpreter.get_edit_name(interp, interp.edits.size()-1) + ")")
 	pass
 
 #--- Determines which fields should be active.
