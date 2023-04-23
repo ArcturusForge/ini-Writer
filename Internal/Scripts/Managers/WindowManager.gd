@@ -7,52 +7,48 @@ const my_id = "window"
 onready var windows_parent = $"../../Windows"
 
 #-- Enabled on all window activation.
-onready var input_block = $"../../Windows/InputBlock"
-
-#-- Scene Refs
-onready var opening_select_window = $"../../Windows/OpeningSelectWindow"
-onready var game_selector_window = $"../../Windows/GameSelectorWindow"
-onready var mod_add_window = $"../../Windows/ModEditWindow"
-onready var import_window = $"../../Windows/ImportWindow"
-onready var encoded_mod_window = $"../../Windows/EncodedModWindow"
+var input_block
 
 #-- Windows
 var windows = {}
 
 #-- Dynamic Vars
 var activeWindow
+var windowHistory = []
 
 func jump_start():
 	Globals.set_manager(my_id, self)
-	
-	#- Register all local windows.
-	register_window("openSelect", opening_select_window)
-	register_window("gameSelect", game_selector_window)
-	register_window("modAdd", mod_add_window)
-	register_window("importMod", import_window)
-	register_window("importEnc", encoded_mod_window)
+	input_block = $"../../Windows/InputBlock"
 	
 	#- Disable any active windows on boot.
 	for window in windows.values():
 		window.visible = false
 	pass
 
-func activate_window(windowId, data=null):
+func activate_window(windowId, data=null, storeHistory=true):
 	if windows.has(windowId):
 		input_block.visible = true
-		disable_window(false)
+		var hasHist = false
+		if windowHistory.size() > 0:
+			hasHist = true
+		disable_window(false, true)
 		activeWindow = windows[windowId]
+		activeWindow.hasHistory = hasHist
 		activeWindow.visible = true
 		activeWindow._enable(data)
+		if storeHistory:
+			add_to_history(windowId, data)
 	pass
 
-func disable_window(disableBlock = true):
+func disable_window(disableBlock = true, isReplaced=false):
 	if not activeWindow == null:
 		if disableBlock:
 			disable_input_block()
 		activeWindow._disable()
 		activeWindow.visible = false
 		activeWindow = null
+	if not isReplaced:
+		windowHistory.clear()
 	pass
 
 func disable_input_block():
@@ -68,3 +64,19 @@ func register_window(id, window, defaultState = false):
 	else:
 		window.visible = false
 	pass
+
+func add_to_history(id:String, data):
+	if windowHistory.size() > 4:
+		windowHistory.remove(0)
+	windowHistory.append({
+		"id":id,
+		"data":data
+	})
+
+func activate_previous():
+	if windowHistory.size() == 0:
+		printerr("Attempting to open a previous window when there are none!")
+		return
+	windowHistory.remove(windowHistory.size() - 1)
+	var history = windowHistory[windowHistory.size() - 1]
+	activate_window(history.id, history.data, false)

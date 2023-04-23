@@ -2,9 +2,10 @@ extends Control
 
 #-- Assigned by system
 var window_manager
+var hasHistory:bool
 
 #-- Managers
-var mainManager
+var overallManager
 
 #-- Scene Refs
 #-- Prefabs
@@ -12,7 +13,7 @@ var mainManager
 
 #--- Called when the window is added to the scene.
 func _create():
-	mainManager = Globals.get_manager("main")
+	overallManager = Globals.get_manager("overall")
 	pass
 
 #--- Called when the window is activated.

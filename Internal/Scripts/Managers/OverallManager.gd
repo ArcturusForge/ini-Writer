@@ -28,6 +28,8 @@ onready var popup_manager = $"../PopupManager"
 #-- Scene Refs
 onready var file_menu = $"../../Interface/VBoxContainer/TopBar/FileMenu"
 onready var view_menu = $"../../Interface/VBoxContainer/TopBar/ViewMenu"
+onready var opening_window = $"../../Windows/OpeningWindow"
+onready var extension_window = $"../../Windows/ExtensionWindow"
 
 #-- Dynamic Vars
 var extension = {
@@ -44,6 +46,10 @@ func _ready():
 	popup_manager.jump_start()
 	editor_manager.jump_start()
 	raw_manager.jump_start()
+	window_manager.jump_start()
+	
+	window_manager.register_window("open", opening_window, true)
+	window_manager.register_window("extension", extension_window)
 	
 	popup_manager.register_popup("file", file_menu.get_popup())
 	popup_manager.register_popup("view", view_menu.get_popup())

@@ -19,8 +19,8 @@ func search_for_session(target, method:String):
 	file_dialog.connect("file_selected", target, method)
 	file_dialog.mode = FileDialog.MODE_OPEN_FILE
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
-	file_dialog.filters = [Globals.config.saveExtension]
-	file_dialog.dialog_text = "Select a .mplan session to load..."
+	file_dialog.filters = ["*." + Globals.config.saveExtension]
+	file_dialog.dialog_text = "Select a " + "*." + Globals.config.saveExtension + " session to load..."
 	file_dialog.window_title = "Load a Session"
 	file_dialog.popup()
 	pass
@@ -30,7 +30,7 @@ func search_to_save(target, method:String):
 	file_dialog.connect("file_selected", target, method)
 	file_dialog.mode = FileDialog.MODE_SAVE_FILE
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
-	file_dialog.filters = [Globals.config.saveExtension]
+	file_dialog.filters = ["*." + Globals.config.saveExtension]
 	file_dialog.dialog_text = "Select a location to save your session..."
 	file_dialog.window_title = "Save Session"
 	file_dialog.popup()
