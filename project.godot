@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Ini Writer"
+config/name="ini Writer"
 run/main_scene="res://Internal/Prefabs/Interfaces/AppInterface.tscn"
 config/icon="res://icon.png"
 

@@ -30,8 +30,8 @@ func _on_Button2_pressed():
 	pass
 
 func found_session(path:String):
-	#overallManager.load_session(path)
-	print("loading session!")
+	window_manager.disable_window()
+	overallManager.load_session(path)
 	pass
 
 func _on_Button_pressed():

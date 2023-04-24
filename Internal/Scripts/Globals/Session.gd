@@ -40,12 +40,14 @@ func export_save(path:String, customData=self.data):
 	pass
 
 #--- Makes a copy of the session and makes it the active session.
-func save_data(path: String):
+func save_data(path: String, saveAs=false):
 	if not Globals.config.saveExtension in sessionName:
 		sessionName += "." + Globals.config.saveExtension
 	
-	if not sessionName in path:
+	if not sessionName in path && not saveAs && not sessionName == "":
 		path += "/" + sessionName
+	elif saveAs || sessionName == "":
+		sessionName = path.get_file()
 	
 	write(path, data)
 	savePath = path
@@ -55,7 +57,7 @@ func save_data(path: String):
 func write(path, cData):
 	var file = File.new()
 	file.open(path, File.WRITE)
-	file.store_line(data.raw)
+	file.store_line(cData.raw)
 	file.close()
 	pass
 

@@ -1,13 +1,18 @@
 extends Node
 
-var configPath = "res://Internal/Config/AppConf.json"
-var config
+var config = {
+	"versionId"             : "1.0.0",
+	"appName"               : "ini Writer",
+	"sessionNameDefault"    : "Untitled_Session",
+	"saveExtension"         : "ini"
+}
 
 #-- Paths
 var resDataPath = "res://App/"
 var userDataPath = "user://"
 var extenDir = "Extensions"
 var localExtenPath = resDataPath+"Extensions"
+var userExtenPath = userDataPath+"Extensions"
 
 #-- Color Hexes
 var clear = "#00000000"
@@ -21,19 +26,9 @@ var green = "#a5efac"
 var managers = {}
 
 func _ready():
-	#- Read the app config.
-	var f = File.new()
-	var err = f.open(configPath, File.READ)
-	if err == 0:
-		config = parse_json(f.get_as_text())
-	else:
-		printerr("[Internal] Failed to find app config!!")
-	f.close()
-	
 	#- Makes sure the additional folder exists.
-	Functions.ensure_directory(resDataPath)
 	Functions.ensure_directory(localExtenPath)
-	Functions.ensure_directory(userDataPath + extenDir)
+#	Functions.ensure_directory(userExtenPath)
 	OS.set_window_title(config.appName + " " + config.versionId)
 	pass
 

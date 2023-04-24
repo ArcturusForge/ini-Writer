@@ -311,6 +311,8 @@ func interp_to_raw(interp): # interp = {}
 
 #--- Intercepts the filesave process to alter the file name before it is saved.
 func alter_save_name(originalName:String):
+	if not "_DISTR" in originalName:
+		originalName += "_DISTR"
 	return originalName
 
 #--- Moves an edit from the origIndex to the targetIndex.

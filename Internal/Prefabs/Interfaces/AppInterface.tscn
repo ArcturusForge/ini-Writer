@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Internal/Default/Graphics/d5c9844d-6d77-44b6-9833-d95ced4e5e9b.jpg" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Internal/Scripts/Managers/WindowManager.gd" type="Script" id=12]
 [ext_resource path="res://Internal/Scripts/UI/Windows/OpeningWindow.gd" type="Script" id=13]
 [ext_resource path="res://Internal/Scripts/UI/Windows/ExtensionWindow.gd" type="Script" id=14]
+[ext_resource path="res://Internal/Scripts/UI/Windows/ConflictWindow.gd" type="Script" id=15]
 
 [sub_resource type="DynamicFont" id=4]
 size = 12
@@ -424,6 +425,7 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.352941 )
 
 [node name="OpeningWindow" type="PanelContainer" parent="Windows"]
+visible = false
 anchor_left = 0.386602
 anchor_top = 0.3895
 anchor_right = 0.613398
@@ -555,6 +557,8 @@ margin_right = 232.0
 margin_bottom = 252.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+hide_folding = true
+hide_root = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Windows/ExtensionWindow/VBoxContainer"]
 margin_top = 278.0
@@ -575,6 +579,68 @@ size_flags_horizontal = 3
 [node name="CancelButton" type="Button" parent="Windows/ExtensionWindow/VBoxContainer/HBoxContainer"]
 margin_left = 170.0
 margin_right = 232.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 62, 0 )
+text = "Cancel"
+
+[node name="ConflictWindow" type="PanelContainer" parent="Windows"]
+visible = false
+anchor_left = 0.327961
+anchor_top = 0.269667
+anchor_right = 0.672039
+anchor_bottom = 0.730333
+margin_left = 0.167969
+margin_top = 0.199982
+margin_right = -0.16803
+margin_bottom = -0.200012
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/ConflictWindow"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 345.0
+margin_bottom = 269.0
+
+[node name="Label" type="Label" parent="Windows/ConflictWindow/VBoxContainer"]
+margin_right = 338.0
+margin_bottom = 39.0
+theme = ExtResource( 10 )
+text = "Multiple compatible extensions detected!
+Select an extension to use:"
+autowrap = true
+
+[node name="Tree" type="Tree" parent="Windows/ConflictWindow/VBoxContainer"]
+margin_top = 43.0
+margin_right = 338.0
+margin_bottom = 238.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+allow_reselect = true
+hide_folding = true
+hide_root = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Windows/ConflictWindow/VBoxContainer"]
+margin_top = 242.0
+margin_right = 338.0
+margin_bottom = 262.0
+
+[node name="ConfirmButton" type="Button" parent="Windows/ConflictWindow/VBoxContainer/HBoxContainer"]
+margin_right = 62.0
+margin_bottom = 20.0
+text = "Confirm"
+
+[node name="Spacer" type="Control" parent="Windows/ConflictWindow/VBoxContainer/HBoxContainer"]
+margin_left = 66.0
+margin_right = 272.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="CancelButton" type="Button" parent="Windows/ConflictWindow/VBoxContainer/HBoxContainer"]
+margin_left = 276.0
+margin_right = 338.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 62, 0 )
 text = "Cancel"
@@ -604,5 +670,11 @@ resizable = true
 [connection signal="pressed" from="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/HeaderColor/ConsoleBar/ClearColor/ClearConsole" to="Managers/ConsoleManager" method="_on_Clear_Console_pressed"]
 [connection signal="pressed" from="Windows/OpeningWindow/VBoxContainer/HBoxContainer/VBoxContainer2/Button" to="Windows/OpeningWindow" method="_on_Button_pressed"]
 [connection signal="pressed" from="Windows/OpeningWindow/VBoxContainer/HBoxContainer/VBoxContainer2/Button2" to="Windows/OpeningWindow" method="_on_Button2_pressed"]
+[connection signal="item_activated" from="Windows/ExtensionWindow/VBoxContainer/ScrollContainer/Tree" to="Windows/ExtensionWindow" method="_on_Tree_item_activated"]
+[connection signal="item_selected" from="Windows/ExtensionWindow/VBoxContainer/ScrollContainer/Tree" to="Windows/ExtensionWindow" method="_on_Tree_item_selected"]
 [connection signal="pressed" from="Windows/ExtensionWindow/VBoxContainer/HBoxContainer/ConfirmButton" to="Windows/ExtensionWindow" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="Windows/ExtensionWindow/VBoxContainer/HBoxContainer/CancelButton" to="Windows/ExtensionWindow" method="_on_CancelButton_pressed"]
+[connection signal="item_activated" from="Windows/ConflictWindow/VBoxContainer/Tree" to="Windows/ConflictWindow" method="_on_Tree_item_activated"]
+[connection signal="item_selected" from="Windows/ConflictWindow/VBoxContainer/Tree" to="Windows/ConflictWindow" method="_on_Tree_item_selected"]
+[connection signal="pressed" from="Windows/ConflictWindow/VBoxContainer/HBoxContainer/ConfirmButton" to="Windows/ConflictWindow" method="_on_ConfirmButton_pressed"]
+[connection signal="pressed" from="Windows/ConflictWindow/VBoxContainer/HBoxContainer/CancelButton" to="Windows/ConflictWindow" method="_on_CancelButton_pressed"]

@@ -5,7 +5,8 @@ const my_id = "overall"
 
 #-- FileMenu Constants
 const openOption = "Open ini"
-const openFileOption = "Open Folder Location"
+const newOption = "New ini"
+const openFileOption = "Open Save Location"
 const saveOption = "Save ini"
 const saveAsOption = "Save As..."
 const exportOption = "Export ini"
@@ -30,12 +31,14 @@ onready var file_menu = $"../../Interface/VBoxContainer/TopBar/FileMenu"
 onready var view_menu = $"../../Interface/VBoxContainer/TopBar/ViewMenu"
 onready var opening_window = $"../../Windows/OpeningWindow"
 onready var extension_window = $"../../Windows/ExtensionWindow"
+onready var conflict_window = $"../../Windows/ConflictWindow"
 
 #-- Dynamic Vars
 var extension = {
-	#_TEMP: Temp val assign
-	"interpreter":"res://App/Extensions/SPID_Extension/Scripts/SpidInterpreter.gd",
-	"editor":"res://App/Extensions/SPID_Extension/Interfaces/SpidEditDisplay.tscn"
+	"path":"",
+	"config":{},
+	"interpreter":"",
+	"editor":""
 }
 var activeInterpreter
 
@@ -50,21 +53,23 @@ func _ready():
 	
 	window_manager.register_window("open", opening_window, true)
 	window_manager.register_window("extension", extension_window)
+	window_manager.register_window("conflict", conflict_window)
 	
 	popup_manager.register_popup("file", file_menu.get_popup())
 	popup_manager.register_popup("view", view_menu.get_popup())
 	
 	var filePop = popup_manager.get_popup_data("file")
 	filePop.register_entity(my_id, self, "handle_file_menu")
-	filePop.add_option(my_id, openOption)
+	filePop.add_option(my_id, openOption, KEY_O)
+	filePop.add_option(my_id, newOption, KEY_N)
+	filePop.add_separator(my_id)
+	filePop.add_option(my_id, saveOption, KEY_S)
+	filePop.add_option(my_id, saveAsOption, KEY_S, true)
+	filePop.add_separator(my_id)
+	filePop.add_option(my_id, exportOption, KEY_E, true)
+	filePop.add_separator(my_id)
 	filePop.add_option(my_id, openFileOption)
-	filePop.add_separator(my_id)
-	filePop.add_option(my_id, saveOption)
-	filePop.add_option(my_id, saveAsOption)
-	filePop.add_separator(my_id)
-	filePop.add_option(my_id, exportOption)
-	filePop.add_separator(my_id)
-	filePop.add_option(my_id, prefsOption)
+	filePop.add_option(my_id, prefsOption, KEY_P, true)
 	
 	var viewPop = popup_manager.get_popup_data("view")
 	viewPop.register_entity(my_id, self, "handle_view_menu")
@@ -74,10 +79,75 @@ func _ready():
 	viewPop.add_separator(my_id)
 	viewPop.add_option(my_id, vid1Option)
 	viewPop.add_option(my_id, vid2Option)
+	pass
+
+func reset():
+	extension = {
+		"path":"",
+		"config":{},
+		"interpreter":"",
+		"editor":""
+	}
+	activeInterpreter = null
+	Session.reset_data()
+	repaint_editors()
+	pass
+
+func load_session(path:String):
+	reset()
+	Session.load_data(path)
 	
-	#_TEMP
+	var compatibleExtensions = []
+	var extensions = Functions.get_all_files(Globals.localExtenPath, "json")
+	for configPath in extensions:
+		var extfile = File.new()
+		if extfile.open(configPath, File.READ) > 0:
+			print ("Unable to load: " + configPath)
+			console_manager.posterr("Unable to load: " + configPath)
+			continue
+		var extensionDir = configPath.get_base_dir()
+		var config = parse_json(extfile.get_as_text())
+		var interpreter = load(extensionDir +"/"+ config.interpreterScript).new()
+		extfile.close()
+		if interpreter.data_matched(Session.data.raw, Session.sessionName):
+			compatibleExtensions.append(configPath)
+	
+	if compatibleExtensions.size() == 0:
+		console_manager.posterr("No compatible extension detected for file: " + path.get_file())
+	elif compatibleExtensions.size() == 1:
+		resolved_conflict(compatibleExtensions[0])
+	else:
+		window_manager.activate_window("conflict", compatibleExtensions)
+	pass
+
+func resolved_conflict(extensionPath:String):
+	load_extension(extensionPath)
+	Session.data.interp = activeInterpreter.raw_to_interp(Session.data.raw)
+	repaint_editors()
+	console_manager.generate("Loaded ini: " + Session.sessionName, Globals.green)
+	Globals.repaint_app_name()
+	pass
+
+func new_session(extensionPath:String):
+	reset()
+	load_extension(extensionPath)
+	pass
+
+func load_extension(path:String):
+	var file = File.new()
+	var err = file.open(path, File.READ)
+	if err > 0:
+		print ("Unable to load extension:" + path)
+		console_manager.posterr("Unable to load extension:" + path)
+		return
+	extension.path = path.get_base_dir()
+	extension.config = parse_json(file.get_as_text())
+	file.close()
+	extension.interpreter = extension.path +"/"+ extension.config.interpreterScript
+	extension.editor = extension.path +"/"+ extension.config.editorInterface
 	activeInterpreter = load(extension.interpreter).new()
 	Session.data.interp = activeInterpreter.init_interp()
+	console_manager.generate("Activated extension: " + extension.config.extension + " " + extension.config.version, Globals.green)
 	pass
 
 #--- Regenerates both editors.
@@ -89,8 +159,9 @@ func repaint_editors():
 #--- Regenerates the interp editor window.
 func repaint_interp_editor():
 	var nameArray = []
-	for i in activeInterpreter.get_edit_count(Session.data.interp):
-		nameArray.append(activeInterpreter.get_edit_name(Session.data.interp, i))
+	if not activeInterpreter == null:
+		for i in activeInterpreter.get_edit_count(Session.data.interp):
+			nameArray.append(activeInterpreter.get_edit_name(Session.data.interp, i))
 	editor_manager.update_editor(nameArray)
 	pass
 
@@ -109,10 +180,34 @@ func move_edit_selector(originalIndex, newIndex):
 	pass
 
 func handle_file_menu(selected):
-	
+	match selected:
+		openOption:
+			search_manager.search_for_session(self, "load_session")
+		newOption:
+			window_manager.activate_window("extension")
+		openFileOption:
+			Functions.open_directory(Functions.os_path_convert(Session.savePath.get_base_dir()))
+		saveOption:
+			if not Session.has_saved():
+				search_manager.search_to_save(self, "intercept_save")
+			else:
+				Session.quick_save()
+				console_manager.generate("Saved: " + Session.sessionName, Globals.green)
+				Globals.repaint_app_name()
+		saveAsOption:
+			search_manager.search_to_save(self, "intercept_save")
+		exportOption:
+			pass
+		prefsOption:
+			pass
 	pass
 
-func handle_edit_menu(selected):
+func intercept_save(filePath:String):
+	var name = activeInterpreter.alter_save_name(filePath.get_file().replace(".ini", ""))
+	var fixedPath = filePath.replace(filePath.get_file(), name + ".ini")
+	console_manager.generate("Saved ini: " + fixedPath, Globals.green)
+	Session.save_data(fixedPath, true)
+	Globals.repaint_app_name()
 	pass
 
 func handle_view_menu(selected):
