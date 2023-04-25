@@ -239,7 +239,23 @@ Two approaches are supported by SPID:
 2. FormID and the source plugin:
 - FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
 ﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
-- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
+- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required.
+
+Notes regarding distributable types:
+Items:
+- All carryable items (that can be added to NPC inventory) or leveled items are accepted.
+
+Skin:
+- Record should be of Armor formtype.
+
+Keywords:
+- Keywords can either be distributed as normal, using formids from other mods, or you can assign your own custom keyword to NPCs
+- Keyword = ActorTypeRich|Nazeem,Maven Black Briar
+- These keywords should be checked in-game using SKSE's HasKeywordString function.
+- Keywords will be applied first, so you could distribute a keyword to NPCs, and then check if it exists when distributing other things
+- Keyword = ActorTypeGhost|*Ghost
+- Spell = 0x123~SpookyGhostSpell.esp|ActorTypeGhost
+"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -503,7 +519,15 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Actor Level:
+- Is minimum/maximum actor level. 
+- Records will be distributed to NPCs with levels within this range. 
+﻿- This filter is skipped for NPCs that level up with the player.
+
+Skill Level:
+- Supports pattern matching.
+- (OneHanded, Lockpicking, ect) range from 0 - 17, followed by the min and max Skill Level required. 
+--> ﻿eg. for Destruction skill level 50 - 100 : 14(50/100)"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -728,7 +752,13 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Gender : M/F
+﻿Unique : U
+Summonable : S
+﻿Child : C
+
+﻿Traits can be combined (eg. M/U/S to get all male unique summonable NPCs)
+﻿Traits can be negated (eg. -U to get all non-unique NPCs)"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -840,7 +870,7 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Given Amount is the amount of items that should be added. Default is 1 if no count is specified."
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -883,7 +913,19 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Packages:
+- Supports distributing packages AND formlists (as package overrides)
+
+If distributing packages :
+﻿﻿--> index is actorbase package index. Default is 0 (top of actorbase package stack) if no index is specified.
+﻿--> (eg. a packageIdx of 1 will add the package after the 1st one)
+
+If distributing formlists:
+﻿0 - default packagelist
+﻿﻿1 - spectator override
+﻿﻿2 - observe corpse override
+﻿﻿3 - guard warn override
+﻿﻿4 - enter combat override﻿"
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
@@ -893,8 +935,8 @@ align = 1
 margin_top = 26.0
 margin_right = 376.0
 margin_bottom = 50.0
-max_value = 4.0
 rounded = true
+allow_greater = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
 margin_top = 1100.0
@@ -924,7 +966,8 @@ margin_left = 358.0
 margin_right = 376.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Test"
+hint_tooltip = "Percentage chance that records will be distributed to NPCs.
+Value is from 0 - 100, default chance is 100 if left blank or NONE."
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
