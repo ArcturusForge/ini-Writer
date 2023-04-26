@@ -69,7 +69,7 @@ func _ready():
 	filePop.add_option(my_id, exportOption, KEY_E, true)
 	filePop.add_separator(my_id)
 	filePop.add_option(my_id, openFileOption)
-	filePop.add_option(my_id, prefsOption, KEY_P, true)
+	#filePop.add_option(my_id, prefsOption, KEY_P, true)
 	
 	var viewPop = popup_manager.get_popup_data("view")
 	viewPop.register_entity(my_id, self, "handle_view_menu")
@@ -131,6 +131,7 @@ func resolved_conflict(extensionPath:String):
 func new_session(extensionPath:String):
 	reset()
 	load_extension(extensionPath)
+	Globals.repaint_app_name()
 	pass
 
 func load_extension(path:String):
@@ -197,7 +198,7 @@ func handle_file_menu(selected):
 		saveAsOption:
 			search_manager.search_to_save(self, "intercept_save")
 		exportOption:
-			pass
+			search_manager.search_to_save(self, "export_save")
 		prefsOption:
 			pass
 	pass
@@ -208,6 +209,13 @@ func intercept_save(filePath:String):
 	console_manager.generate("Saved ini: " + fixedPath, Globals.green)
 	Session.save_data(fixedPath, true)
 	Globals.repaint_app_name()
+	pass
+
+func export_save(filePath:String):
+	var name = activeInterpreter.alter_save_name(filePath.get_file().replace(".ini", ""))
+	var fixedPath = filePath.replace(filePath.get_file(), name + ".ini")
+	console_manager.generate("Exported ini: " + fixedPath, Globals.green)
+	Session.export_save(fixedPath)
 	pass
 
 func handle_view_menu(selected):

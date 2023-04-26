@@ -30,13 +30,7 @@ onready var actor_range_button:Button = $LevelFiltersPanel/VBoxContainer/LevelFi
 onready var min_actor_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer/MinActorSpinBox
 onready var max_actor_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer/MaxActorSpinBox
 
-onready var skill_level_check_box:CheckBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelCheckBox
-onready var skill_level_filter = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter
-onready var skill_range_button:Button = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/SkillRangeButton
-onready var skill_select:OptionButton = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/SkillSelect
-onready var min_skill_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/MinSkillSpinBox
-onready var max_skill_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillLevelFilter/NodeContainer/HBoxContainer/MaxSkillSpinBox
-
+onready var skill_filter_container = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillFilterContainer
 
 #-- Misc Refs
 onready var name_container = $CommentPanel/VBoxContainer/NameContainer
@@ -67,6 +61,7 @@ var isNew = false
 #-- Prefabs
 var string_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/StringFilter.tscn"
 var form_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/FormFilter.tscn"
+var skill_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/SkillLevelFilter.tscn"
 
 #-- Graphics
 onready var locked_range = preload("res://Internal/Default/Icons/lock_closed.png")
@@ -150,12 +145,8 @@ func apply_edit(interp):
 		edit.levelFilters.append(value)
 
 	#- Skill Level Filter
-	if skill_level_check_box.pressed:
-		var value = str(skill_select.selected) + "(" + str(min_skill_spin_box.value)
-		if skill_range_button.pressed:
-			value += "/" + str(max_skill_spin_box.value)
-		value += ")"
-		edit.levelFilters.append(value)
+	for filter in skill_filter_container.get_children():
+		edit.levelFilters.append(filter.compile_data())
 	
 	#- Trait Filters
 	var tFils = []
@@ -286,23 +277,12 @@ func generate_form_panel(edit):
 func generate_level_panel(edit):
 	_on_ActorLevelCheckBox_toggled(false)
 	_on_ActorRangeButton_pressed()
-	_on_SkillLevelCheckBox_toggled(false)
-	_on_SkillRangeButton_pressed()
 	
 	for filter in edit.levelFilters:
 		if "(" in filter:#- Skill Level
-			skill_level_check_box.pressed = true
-			var vals = filter.split("(", false)
-			vals[1] = vals[1].replace(")", "")
-			skill_select.select(int(vals[0]))
-			if "/" in vals[1]:
-				var rangeVals = vals[1].split("/", false)
-				skill_range_button.pressed = true
-				_on_SkillRangeButton_pressed()
-				min_skill_spin_box.value = int(rangeVals[0])
-				max_skill_spin_box.value = int(rangeVals[1])
-			else:
-				min_skill_spin_box.value = int(vals[1])
+			var node = load(skill_filter_prefab).instance()
+			skill_filter_container.add_child(node)
+			node.add_existing(filter)
 		else:#- Actor Level
 			actor_level_check_box.pressed = true
 			if "/" in filter:
@@ -433,16 +413,8 @@ func _on_ActorLevelCheckBox_toggled(button_pressed):
 	actor_level_filter.visible = button_pressed
 	pass
 
-func _on_SkillLevelCheckBox_toggled(button_pressed):
-	skill_level_filter.visible = button_pressed
-	pass
-
-func _on_SkillRangeButton_pressed():
-	if skill_range_button.pressed:
-		skill_range_button.icon = unlocked_range
-		max_skill_spin_box.editable = true
-	else:
-		skill_range_button.icon = locked_range
-		max_skill_spin_box.editable = false
-	max_skill_spin_box.value = min_skill_spin_box.value
+func _on_SkillAddButton_pressed():
+	var filter = load(skill_filter_prefab).instance()
+	skill_filter_container.add_child(filter)
+	filter.add_node()
 	pass

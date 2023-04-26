@@ -32,8 +32,8 @@ func get_copy_of_data():
 
 #--- Makes a custom save but doesn't make it the active session.
 func export_save(path:String, customData=self.data):
-	if not Globals.config.saveExtension in sessionName:
-		sessionName += "." + Globals.config.saveExtension
+	if not Globals.config.saveExtension in path:
+		path += "." + Globals.config.saveExtension
 	
 	write(path, customData)
 	Globals.repaint_app_name()

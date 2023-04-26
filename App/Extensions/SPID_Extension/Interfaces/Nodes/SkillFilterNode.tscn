@@ -1,0 +1,121 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=1]
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=2]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/SkillFilterNode.gd" type="Script" id=3]
+
+[node name="SkillFilterNode" type="HBoxContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 369.0
+margin_bottom = 109.0
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 338.0
+margin_bottom = 107.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 338.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+text = "Skill:"
+
+[node name="SkillSelect" type="OptionButton" parent="VBoxContainer"]
+margin_top = 22.0
+margin_right = 338.0
+margin_bottom = 42.0
+text = "One Handed"
+items = [ "One Handed", null, false, 0, null, "Two Handed", null, false, 1, null, "Marksman", null, false, 2, null, "Block", null, false, 3, null, "Smithing", null, false, 4, null, "Heavy Armor", null, false, 5, null, "Light Armor", null, false, 6, null, "Pickpocket", null, false, 7, null, "Lockpicking", null, false, 8, null, "Sneak", null, false, 9, null, "Alchemy", null, false, 10, null, "Speechcraft", null, false, 11, null, "Alteration", null, false, 12, null, "Conjuration", null, false, 13, null, "Destruction", null, false, 14, null, "Illusion", null, false, 15, null, "Restoration", null, false, 16, null, "Enchanting", null, false, 17, null ]
+selected = 0
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+margin_top = 46.0
+margin_right = 338.0
+margin_bottom = 46.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 50.0
+margin_right = 338.0
+margin_bottom = 68.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_right = 150.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+text = "Min Skill Level:"
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+text = "Max Skill Level:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 338.0
+margin_bottom = 102.0
+
+[node name="MinSkillSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="SkillRangeButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 1 )
+expand_icon = true
+
+[node name="MaxSkillSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="Divider" type="ColorRect" parent="VBoxContainer"]
+margin_top = 106.0
+margin_right = 338.0
+margin_bottom = 107.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.235294, 0.227451, 0.266667, 1 )
+
+[node name="DeleteButton" type="Button" parent="."]
+margin_left = 342.0
+margin_right = 362.0
+margin_bottom = 107.0
+theme = ExtResource( 2 )
+text = "X"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SkillRangeButton" to="." method="_on_SkillRangeButton_pressed"]
+[connection signal="pressed" from="DeleteButton" to="." method="_on_DeleteButton_pressed"]
