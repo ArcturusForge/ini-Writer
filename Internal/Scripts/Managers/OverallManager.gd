@@ -13,9 +13,6 @@ const exportOption = "Export ini"
 const prefsOption = "Preferences"
 #-- ViewMenu Constants
 const creatorOption = "Creator's Page"
-const spidOption = "SPID Mod Page"
-const vid1Option = "SPID Video Guide 1"
-const vid2Option = "SPID Video Guide 2"
 
 #-- Managers
 onready var search_manager = $"../SearchManager"
@@ -75,13 +72,15 @@ func _ready():
 	viewPop.register_entity(my_id, self, "handle_view_menu")
 	viewPop.add_option(my_id, creatorOption)
 	viewPop.add_separator(my_id)
-	viewPop.add_option(my_id, spidOption)
-	viewPop.add_separator(my_id)
-	viewPop.add_option(my_id, vid1Option)
-	viewPop.add_option(my_id, vid2Option)
+	
+	if Functions.has_cmd_args():
+		console_manager.posterr("Must launch the app from its .exe!\nPlease restart the application!")
 	pass
 
 func reset():
+	if activeInterpreter != null:
+		activeInterpreter.disable()
+	
 	extension = {
 		"path":"",
 		"config":{},
@@ -141,6 +140,7 @@ func load_extension(path:String):
 		print ("Unable to load extension:" + path)
 		console_manager.posterr("Unable to load extension:" + path)
 		return
+	
 	extension.path = path.get_base_dir()
 	extension.config = parse_json(file.get_as_text())
 	file.close()
@@ -149,6 +149,7 @@ func load_extension(path:String):
 	activeInterpreter = load(extension.interpreter).new()
 	Session.data.interp = activeInterpreter.init_interp()
 	console_manager.generate("Activated extension: " + extension.config.extension + " " + extension.config.version, Globals.green)
+	activeInterpreter.enable()
 	pass
 
 #--- Regenerates both editors.
@@ -223,13 +224,4 @@ func handle_view_menu(selected):
 		creatorOption:
 			Functions.open_link("https://arcturusforge.itch.io/")
 			console_manager.generate("Opening link to the app creator's page...", Globals.green)
-		spidOption:
-			Functions.open_link("https://www.nexusmods.com/skyrimspecialedition/mods/36869")
-			console_manager.generate("Opening link to SPID's mod page...", Globals.green)
-		vid1Option:
-			Functions.open_link("https://youtu.be/JGJfZb6Mj5o")
-			console_manager.generate("Opening link to video guide 1...", Globals.green)
-		vid2Option:
-			Functions.open_link("https://youtu.be/pbON1N0U_44")
-			console_manager.generate("Opening link to video guide 2...", Globals.green)
 	pass

@@ -4,6 +4,14 @@ extends Node
 func data_matched(raw:String, fileName:String):
 	return false
 
+#--- Called by system when the extension is enabled.
+func enable():
+	pass
+
+#--- Called by system when the extension is disabled.
+func disable():
+	pass
+
 #--- Called by system to structure interp data to be compatible with extension.
 func init_interp():
 	var interp = {

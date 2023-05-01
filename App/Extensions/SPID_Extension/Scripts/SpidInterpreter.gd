@@ -7,6 +7,45 @@ func data_matched(raw:String, fileName:String):
 	else:
 		return false
 
+const my_id = "SPID"
+var pop_manager
+var console_manager
+#--- Called by system when the extension is enabled.
+func enable():
+	pop_manager = Globals.get_manager("popup")
+	console_manager = Globals.get_manager("console")
+	
+	var viewPop = pop_manager.get_popup_data("view")
+	viewPop.register_entity(my_id, self, "handle_view")
+	viewPop.add_option(my_id, spidOption)
+	viewPop.add_separator(my_id)
+	viewPop.add_option(my_id, vid1Option)
+	viewPop.add_option(my_id, vid2Option)
+	pass
+
+const spidOption = "SPID Mod Page"
+const vid1Option = "SPID Video Guide 1"
+const vid2Option = "SPID Video Guide 2"
+func handle_view(selected):
+	match selected:
+		spidOption:
+			Functions.open_link("https://www.nexusmods.com/skyrimspecialedition/mods/36869")
+			console_manager.generate("Opening link to SPID's mod page...", Globals.green)
+		vid1Option:
+			Functions.open_link("https://youtu.be/JGJfZb6Mj5o")
+			console_manager.generate("Opening link to video guide 1...", Globals.green)
+		vid2Option:
+			Functions.open_link("https://youtu.be/pbON1N0U_44")
+			console_manager.generate("Opening link to video guide 2...", Globals.green)
+	pass
+
+#--- Called by system when the extension is disabled.
+func disable():
+	var viewPop = pop_manager.get_popup_data("view")
+	viewPop.unregister_entity(my_id)
+	console_manager.post("Unloaded SPID Writer")
+	pass
+
 func create_new_edit():
 	var edit = {
 		"newlines":1, #- For how many empty lines after the edit.
