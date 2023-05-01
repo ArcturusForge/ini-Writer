@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="ExampleEditDisplay" type="VBoxContainer"]
+margin_right = 402.0
+margin_bottom = 402.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}

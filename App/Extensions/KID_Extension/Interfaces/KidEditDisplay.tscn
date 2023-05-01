@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="KidEditDisplay" type="VBoxContainer"]
+margin_right = 402.0
+margin_bottom = 402.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TypePanel" type="PanelContainer" parent="."]
+margin_right = 402.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TypePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 53.0
+
+[node name="TypeLabels" type="HBoxContainer" parent="TypePanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
+margin_top = 2.0
+margin_right = 366.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "KID Edit Type:"
+
+[node name="TypeHelp" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
+margin_left = 370.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 46.0
+text = "Comment"
+items = [ "Comment", null, false, 0, null ]
+selected = 0

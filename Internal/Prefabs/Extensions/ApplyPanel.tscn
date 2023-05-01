@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
+
+[node name="ApplyPanel" type="PanelContainer"]
+margin_top = 64.0
+margin_right = 402.0
+margin_bottom = 120.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 49.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Apply Changes:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 42.0
+
+[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_right = 85.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="ApplyButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 89.0
+margin_right = 151.0
+margin_bottom = 20.0
+text = "Confirm"
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_left = 155.0
+margin_right = 240.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 244.0
+margin_right = 298.0
+margin_bottom = 20.0
+text = "Cancel"
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_left = 302.0
+margin_right = 388.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
