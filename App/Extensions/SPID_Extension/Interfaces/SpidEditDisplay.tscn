@@ -678,13 +678,13 @@ valign = 1
 [node name="TraitFiltersPanel" type="PanelContainer" parent="."]
 margin_top = 728.0
 margin_right = 390.0
-margin_bottom = 876.0
+margin_bottom = 932.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TraitFiltersPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 141.0
+margin_bottom = 197.0
 
 [node name="TraitLabels" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
 margin_right = 376.0
@@ -707,6 +707,8 @@ hint_tooltip = "Gender : M/F
 ﻿Unique : U
 Summonable : S
 ﻿Child : C
+Leveled: L
+Player Teammate : T
 
 ﻿Traits can be combined (eg. M/U/S to get all male unique summonable NPCs)
 ﻿Traits can be negated (eg. -U to get all non-unique NPCs)"
@@ -718,51 +720,63 @@ align = 1
 [node name="OptionsContainer" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 134.0
+margin_bottom = 190.0
 
 [node name="Spacer" type="Control" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
-margin_right = 13.0
-margin_bottom = 108.0
+margin_right = 4.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
 
 [node name="TraitsContainer" type="VBoxContainer" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
-margin_left = 17.0
-margin_right = 195.0
-margin_bottom = 108.0
+margin_left = 8.0
+margin_right = 213.0
+margin_bottom = 164.0
 
 [node name="MCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
-margin_right = 178.0
+margin_right = 205.0
 margin_bottom = 24.0
 text = "Use Male Filter"
 
 [node name="UCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
 margin_top = 28.0
-margin_right = 178.0
+margin_right = 205.0
 margin_bottom = 52.0
 text = "Use Unique Filter"
 
 [node name="SCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
 margin_top = 56.0
-margin_right = 178.0
+margin_right = 205.0
 margin_bottom = 80.0
 text = "Use Summonable Filter"
 
 [node name="CCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
 margin_top = 84.0
-margin_right = 178.0
+margin_right = 205.0
 margin_bottom = 108.0
 text = "Use Child Filter"
 
+[node name="LCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
+margin_top = 112.0
+margin_right = 205.0
+margin_bottom = 136.0
+text = "Use Leveled Filter"
+
+[node name="TCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer"]
+margin_top = 140.0
+margin_right = 205.0
+margin_bottom = 164.0
+text = "Use Player Teammate Filter"
+
 [node name="Spacer2" type="Control" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
-margin_left = 199.0
-margin_right = 213.0
-margin_bottom = 108.0
+margin_left = 217.0
+margin_right = 222.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
 
 [node name="ExcludesContainer" type="VBoxContainer" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
-margin_left = 217.0
-margin_right = 358.0
-margin_bottom = 108.0
+margin_left = 226.0
+margin_right = 367.0
+margin_bottom = 164.0
 
 [node name="FCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer"]
 margin_right = 141.0
@@ -787,16 +801,28 @@ margin_right = 141.0
 margin_bottom = 108.0
 text = "Must Exclude"
 
+[node name="LExcludeCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer"]
+margin_top = 112.0
+margin_right = 141.0
+margin_bottom = 136.0
+text = "Must Exclude"
+
+[node name="TExcludeCheckBox" type="CheckBox" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer"]
+margin_top = 140.0
+margin_right = 141.0
+margin_bottom = 164.0
+text = "Must Exclude"
+
 [node name="Spacer3" type="Control" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
-margin_left = 362.0
+margin_left = 371.0
 margin_right = 376.0
-margin_bottom = 108.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
 
 [node name="AmountPanel" type="PanelContainer" parent="."]
-margin_top = 880.0
+margin_top = 936.0
 margin_right = 390.0
-margin_bottom = 944.0
+margin_bottom = 1000.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmountPanel"]
 margin_left = 7.0
@@ -837,9 +863,9 @@ rounded = true
 allow_greater = true
 
 [node name="IndexPanel" type="PanelContainer" parent="."]
-margin_top = 948.0
+margin_top = 1004.0
 margin_right = 390.0
-margin_bottom = 1012.0
+margin_bottom = 1068.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="IndexPanel"]
 margin_left = 7.0
@@ -890,9 +916,9 @@ rounded = true
 allow_greater = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 1016.0
+margin_top = 1072.0
 margin_right = 390.0
-margin_bottom = 1080.0
+margin_bottom = 1136.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -933,9 +959,9 @@ value = 100.0
 rounded = true
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 1084.0
+margin_top = 1140.0
 margin_right = 390.0
-margin_bottom = 1140.0
+margin_bottom = 1196.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
@@ -993,6 +1019,8 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/UCheckBox" to="." method="_on_UCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/SCheckBox" to="." method="_on_SCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/CCheckBox" to="." method="_on_CCheckBox_pressed"]
+[connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/LCheckBox" to="." method="_on_LCheckBox_pressed"]
+[connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/TCheckBox" to="." method="_on_TCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/FCheckBox" to="." method="_on_FCheckBox_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

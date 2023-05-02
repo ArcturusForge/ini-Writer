@@ -59,7 +59,7 @@ func add_existing(filter:String):
 			rangeVals = vals[1].split("/", false)
 		else:
 			rangeVals = [vals[1], -1]
-		node.set_value(int(vals[0]), int(rangeVals[0]), int(rangeVals[1]))
+		node.set_value("w" in vals[0], int(vals[0]), int(rangeVals[0]), int(rangeVals[1]))
 	elif "+" in filter: #- Linked
 		modifier_selector.select(2)
 		handle_modifier(2)
@@ -71,7 +71,7 @@ func add_existing(filter:String):
 			rangeVals1 = vals1[1].split("/", false)
 		else:
 			rangeVals1 = [vals1[1], -1]
-		node.set_value(int(vals1[0]), int(rangeVals1[0]), int(rangeVals1[1]))
+		node.set_value("w" in vals1[0], int(vals1[0]), int(rangeVals1[0]), int(rangeVals1[1]))
 		for i in ids.size():
 			if i == 0:
 				continue
@@ -85,7 +85,7 @@ func add_existing(filter:String):
 				rangeVals2 = vals2[1].split("/", false)
 			else:
 				rangeVals2 = [vals2[1], -1]
-			node.set_value(int(vals2[0]), int(rangeVals2[0]), int(rangeVals2[1]))
+			node.set_value("w" in vals2[0], int(vals2[0]), int(rangeVals2[0]), int(rangeVals2[1]))
 	else: #- Standard
 		modifier_selector.select(0)
 		handle_modifier(0)
@@ -96,7 +96,7 @@ func add_existing(filter:String):
 			rangeVals = vals[1].split("/", false)
 		else:
 			rangeVals = [vals[1], -1]
-		node.set_value(int(vals[0]), int(rangeVals[0]), int(rangeVals[1]))
+		node.set_value("w" in vals[0], int(vals[0]), int(rangeVals[0]), int(rangeVals[1]))
 	pass
 
 func remove_node(index):

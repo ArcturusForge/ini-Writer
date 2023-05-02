@@ -99,13 +99,15 @@ func load_session(path:String):
 	var compatibleExtensions = []
 	var extensions = Functions.get_all_files(Globals.localExtenPath, "json")
 	for configPath in extensions:
-		var extfile = File.new()
+		var extfile:File = File.new()
 		if extfile.open(configPath, File.READ) > 0:
 			print ("Unable to load: " + configPath)
 			console_manager.posterr("Unable to load: " + configPath)
 			continue
 		var extensionDir = configPath.get_base_dir()
 		var config = parse_json(extfile.get_as_text())
+		if not extfile.file_exists(extensionDir +"/"+ config.interpreterScript):
+			continue
 		var interpreter = load(extensionDir +"/"+ config.interpreterScript).new()
 		extfile.close()
 		if interpreter.data_matched(Session.data.raw, Session.sessionName):

@@ -5,6 +5,7 @@ onready var skill_select:OptionButton = $VBoxContainer/SkillSelect
 onready var skill_range_button:Button = $VBoxContainer/HBoxContainer/SkillRangeButton
 onready var min_skill_spin_box:SpinBox = $VBoxContainer/HBoxContainer/MinSkillSpinBox
 onready var max_skill_spin_box:SpinBox = $VBoxContainer/HBoxContainer/MaxSkillSpinBox
+onready var weight_check_box = $VBoxContainer/WeightCheckBox
 
 #-- Dynamic Vars
 var filter
@@ -20,7 +21,8 @@ func assign(filter, index, locked_range, unlocked_range):
 	_on_SkillRangeButton_pressed()
 	pass
 
-func set_value(skill:int, value1:int, value2:int):
+func set_value(useWeight:bool, skill:int, value1:int, value2:int):
+	weight_check_box.pressed = useWeight
 	skill_select.select(skill)
 	if value2 > -1:
 		skill_range_button.pressed = true
@@ -30,7 +32,8 @@ func set_value(skill:int, value1:int, value2:int):
 	pass
 
 func get_value():
-	var value = str(skill_select.selected) + "(" + str(min_skill_spin_box.value)
+	var value = "" if !weight_check_box.pressed else "w"
+	value += str(skill_select.selected) + "(" + str(min_skill_spin_box.value)
 	if skill_range_button.pressed:
 		value += "/" + str(max_skill_spin_box.value)
 	value += ")"

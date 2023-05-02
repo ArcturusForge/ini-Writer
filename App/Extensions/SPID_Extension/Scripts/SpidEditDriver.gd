@@ -10,15 +10,16 @@ onready var source_edit:LineEdit = $SourcePanel/VBoxContainer/SourceContainer/So
 
 onready var m_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/MCheckBox
 onready var f_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/FCheckBox
-
 onready var u_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/UCheckBox
 onready var u_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/UExcludeCheckBox
-
 onready var s_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/SCheckBox
 onready var s_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/SExcludeCheckBox
-
 onready var c_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/CCheckBox
 onready var c_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/CExcludeCheckBox
+onready var l_check_box:CheckBox  = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/LCheckBox
+onready var l_exclude_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/LExcludeCheckBox
+onready var t_check_box:CheckBox  = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/TCheckBox
+onready var t_exclude_check_box:CheckBox  = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/TExcludeCheckBox
 
 onready var amount_spin_box:SpinBox = $AmountPanel/VBoxContainer/AmountSpinBox
 onready var index_spin_box:SpinBox = $IndexPanel/VBoxContainer/IndexSpinBox
@@ -169,6 +170,16 @@ func apply_edit(interp):
 			tFils.append("-C")
 		else:
 			tFils.append("C")
+	if l_check_box.pressed:
+		if l_exclude_check_box.pressed:
+			tFils.append("-L")
+		else:
+			tFils.append("L")
+	if t_check_box.pressed:
+		if t_exclude_check_box.pressed:
+			tFils.append("-T")
+		else:
+			tFils.append("T")
 	edit.traitFilters = tFils
 	
 	#- Count Or Index
@@ -297,9 +308,6 @@ func generate_level_panel(edit):
 
 #--- Parses the edit data for trait filters.
 func generate_trait_panel(edit):
-	_on_UCheckBox_pressed()
-	_on_SCheckBox_pressed()
-	_on_CCheckBox_pressed()
 	for t in edit.traitFilters:
 		match t[0].to_lower():
 			"m","-m":#- Male filter.
@@ -324,6 +332,20 @@ func generate_trait_panel(edit):
 				if "-"in t:
 					c_exclude_check_box.pressed = true
 				c_check_box.pressed = true
+			"l","-l":#- Child filter.
+				if "-"in t:
+					l_exclude_check_box.pressed = true
+				l_check_box.pressed = true
+			"t","-t":#- Child filter.
+				if "-"in t:
+					t_exclude_check_box.pressed = true
+				t_check_box.pressed = true
+	
+	_on_UCheckBox_pressed()
+	_on_SCheckBox_pressed()
+	_on_CCheckBox_pressed()
+	_on_LCheckBox_pressed()
+	_on_TCheckBox_pressed()
 	pass
 
 #--- Parses the edit data for the distribution amount.
@@ -385,6 +407,22 @@ func _on_CCheckBox_pressed():
 	else:
 		c_exclude_check_box.pressed = false
 		c_exclude_check_box.disabled = true
+	pass
+
+func _on_LCheckBox_pressed():
+	if l_check_box.pressed:
+		l_exclude_check_box.disabled = false
+	else:
+		l_exclude_check_box.pressed = false
+		l_exclude_check_box.disabled = true
+	pass
+
+func _on_TCheckBox_pressed():
+	if t_check_box.pressed:
+		t_exclude_check_box.disabled = false
+	else:
+		t_exclude_check_box.pressed = false
+		t_exclude_check_box.disabled = true
 	pass
 
 func _on_StringAddButton_pressed():

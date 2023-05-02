@@ -343,6 +343,23 @@ func interp_to_raw(interp): # interp = {}
 		#- Chance
 		line += str(edit.chance)
 		
+		line = line.replace("|NONE|NONE|NONE|NONE|NONE|100", "")
+		line = line.replace("|NONE|NONE|NONE|NONE|1|100", "")
+		line = line.replace("|NONE|NONE|NONE|NONE|0|100", "")
+		line = line.replace("|NONE|NONE|NONE|NONE|100", "")
+		line = line.replace("|NONE|NONE|NONE|1|100", "")
+		line = line.replace("|NONE|NONE|NONE|0|100", "")
+		line = line.replace("|NONE|NONE|NONE|100", "")
+		line = line.replace("|NONE|NONE|1|100", "")
+		line = line.replace("|NONE|NONE|0|100", "")
+		line = line.replace("|NONE|NONE|100", "")
+		line = line.replace("|NONE|1|100", "")
+		line = line.replace("|NONE|0|100", "")
+		line = line.replace("|NONE|100", "")
+		line = line.replace("|1|100", "")
+		line = line.replace("|0|100", "")
+		line = line.replace("|100", "")
+		
 		raw += line
 		for i in range(edit.newlines):
 			raw += "\n"
