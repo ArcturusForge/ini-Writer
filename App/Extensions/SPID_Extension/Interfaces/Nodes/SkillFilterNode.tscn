@@ -55,9 +55,9 @@ margin_right = 316.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 2 )
-text = "Skill Potential:"
+text = "Skill Weight (Potential):"
 
-[node name="WeightHelp" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="TraitHelp" type="Label" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 320.0
 margin_right = 338.0
 margin_bottom = 22.0

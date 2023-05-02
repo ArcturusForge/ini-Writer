@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/SkillFilter.gd" type="Script" id=1]
-[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
-[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=4]
-
-[sub_resource type="DynamicFont" id=5]
-use_filter = true
-font_data = ExtResource( 4 )
+[ext_resource path="res://App/Extensions/SPID_Extension/Interfaces/Nodes/SkillFilterNode.tscn" type="PackedScene" id=2]
 
 [node name="SkillLevelFilter" type="PanelContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
@@ -19,76 +14,10 @@ script = ExtResource( 1 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 369.0
-margin_bottom = 86.0
+margin_bottom = 172.0
 
-[node name="LevelLabels" type="HBoxContainer" parent="VBoxContainer"]
+[node name="SkillFilterNode" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 0.0
+margin_top = 0.0
 margin_right = 362.0
-margin_bottom = 22.0
-
-[node name="Label" type="Label" parent="VBoxContainer/LevelLabels"]
-margin_top = 2.0
-margin_right = 340.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 3 )
-text = "Filter Modifier:"
-
-[node name="LevelHelp" type="Label" parent="VBoxContainer/LevelLabels"]
-margin_left = 344.0
-margin_right = 362.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Skill Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
-Important:
-- Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.
-
-There are 3 different modifiers:
-1. Standard:
-- Actors MUST match with at least one applied filter to qualify.
-- Identified by the lack of any unique symbol.
-- Raw Window Appearance: Keyword = ModKeyword|NONE|NONE|....|4(3/6), 3(12)|NONE|etc...
-
-2. Exclusions: 
-- Exclude actors that have the skill at the defined level.
-- Identified by the minus symbol '-'
-- Raw Window Appearance: Keyword = ModKeyword|NONE|NONE|....|-4(3/6),-3(12)|NONE|etc...
-- Will apply to all npcs wearing hide armor that are not Argonian.
-
-3. Linked (Requirements):
-- Require actor to have all linked skills & skill levels to qualify for the filter.
-- Identified by the plus symbol '+'
-- Raw Window Appearance: Keyword = ModKeyword|NONE|NONE|....|4(3/6)+3(12)|NONE|etc...
-- Will qualify only Redguards wearing studded armor.
-- Note: Linked modifiers merge multiple skill requirements into one filter. A unique edit field will unlock when using this modifier."
-mouse_filter = 1
-custom_fonts/font = SubResource( 5 )
-text = "?"
-align = 1
-
-[node name="SkillModifierSelect" type="OptionButton" parent="VBoxContainer"]
-margin_top = 26.0
-margin_right = 362.0
-margin_bottom = 46.0
-text = "Standard"
-items = [ "Standard", null, false, 0, null, "Exclude", null, false, 1, null, "Linked", null, false, 2, null ]
-selected = 0
-
-[node name="Divider" type="ColorRect" parent="VBoxContainer"]
-margin_top = 50.0
-margin_right = 362.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 0, 1 )
-color = Color( 0.235294, 0.227451, 0.266667, 1 )
-
-[node name="SkillFilterContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 55.0
-margin_right = 362.0
-margin_bottom = 55.0
-
-[node name="AddReqButton" type="Button" parent="VBoxContainer"]
-margin_top = 59.0
-margin_right = 362.0
-margin_bottom = 79.0
-text = "+ Add Additional Requirement"
-
-[connection signal="pressed" from="VBoxContainer/AddReqButton" to="." method="_on_AddReqButton_pressed"]
+margin_bottom = 165.0

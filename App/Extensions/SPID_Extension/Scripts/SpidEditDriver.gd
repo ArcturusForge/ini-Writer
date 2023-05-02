@@ -454,5 +454,4 @@ func _on_ActorLevelCheckBox_toggled(button_pressed):
 func _on_SkillAddButton_pressed():
 	var filter = load(skill_filter_prefab).instance()
 	skill_filter_container.add_child(filter)
-	filter.add_node()
 	pass
