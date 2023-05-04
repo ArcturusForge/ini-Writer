@@ -1,6 +1,6 @@
 {
     "version"               : "1.0.0",
     "extension"             : "[Name] Writer",
-    "interpreterScript"     : "[Pathfrom.json]/ExampleInterpreter.gd",
-    "editorInterface"       : "[Pathfrom.json]/ExampleEditDisplay.tscn"
+    "interpreterScript"     : "Scripts/ExampleInterpreter.gd",
+    "editorInterface"       : "Interfaces/ExampleEditDisplay.tscn"
 }
