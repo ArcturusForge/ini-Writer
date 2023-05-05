@@ -38,15 +38,16 @@ func raw_to_interp(raw:String):
 
 	#- Vars for the current edit.
 	var editComment = null
-	var currentEdit = create_new_edit()
 	var previousEdit = null
 
 	#- Loops through the parsed lines for converting into interp data.
 	for parsed in parsed_lines:
 		#- Assign type before handling it.
+		var currentEdit = create_new_edit()
 		currentEdit.type = parsed.type
 		currentEdit.lineNumber = parsed.line_number
 		var line = parsed.line
+		var skipEdit = false
 
 		match parsed.type:
 			0:#- KID edit
@@ -155,24 +156,28 @@ func raw_to_interp(raw:String):
 						"name":comName,
 						"comments":[comment]
 					}
-					continue
-				#- Line is a multi-line comment belonging to a KID edit.
-				elif not editComment == null:
-					editComment.comments.append(line.erase(0, 1))
-					continue
-				#- Line is a standalone comment.
-				else:
-					currentEdit.comments.append(line.erase(0, 1))
+					skipEdit = true
+				elif not editComment == null: #- Line is a multi-line comment belonging to a KID edit.
+					line.erase(0, 1)
+					editComment.comments.append(line)
+					skipEdit = true
+				else: #- Line is a standalone comment.
+					line.erase(0, 1)
+					currentEdit.comments[0] = line
 			-2:#- Empty line
 				if previousEdit == null:
+					skipEdit = true
 					continue
 				previousEdit.newlines += 1
-				continue
+				skipEdit = true
 			-9:#- Untyped
-				continue
+				skipEdit = true
 		
 		#--- End: Parse the edit
 		
+		if skipEdit:
+			continue
+
 		#- Append edit to interp and loop to next.
 		interp.edits.append(currentEdit)
 		previousEdit = currentEdit
@@ -181,7 +186,62 @@ func raw_to_interp(raw:String):
 
 #--- Compiles the interp data into raw string format for ini-extension syntax.
 func interp_to_raw(interp): # interp = {}
-	return ""
+	var raw = ""
+	for x in range(interp.edits.size()):
+		var edit = interp.edits[x]
+		match edit.type:
+			-1: #- Comment
+				raw += ";" + edit.comments[0]
+			0: #- Keyword
+				#- Handle name
+				if not edit.name == "" || not edit.comments.size() == 0:
+					raw += ";" + "[" + edit.name + "]" + edit.comments[0] + "\n"
+					for i in range(edit.comments.size()):
+						if i == 0:
+							continue
+						raw += ";" + edit.comments[i] + "\n"
+
+				#- Handle Keyword definition.
+				raw += "Keyword = "
+				raw += edit.objectId.value
+				match edit.objectId.type:
+					1,2: #- All types that include a variation of '~MyMod.esp'
+						raw += "~" + edit.objectId.source
+				
+				#- Handle assign type
+				raw += "|" + get_type_name(edit.itemType)
+				
+				#- Handle filters
+				if edit.stringAndFormFilters.size() == 0:
+					raw += "|NONE"
+				else:
+					raw += "|"
+					for filter in edit.stringAndFormFilters:
+						raw += filter
+				
+				#- Handle traits
+				if edit.traitFilters.size() == 0:
+					raw += "|NONE"
+				else:
+					raw += "|"
+					for filter in edit.traitFilters:
+						raw += filter
+				
+				#- Handle chance
+				raw += "|" + str(edit.chance)
+
+				#- Clean unused filters
+				raw = raw.replace("|NONE|NONE|100", "")
+				raw = raw.replace("|NONE|100", "")
+				raw = raw.replace("|100", "")
+		
+		#- Append newlines from edit
+		if x == interp.edits.size() - 1:
+			raw += "\n"
+		else:
+			for i in edit.newlines:
+				raw += "\n"
+	return raw
 
 #--- Intercepts the filesave process to alter the file name before it is saved.
 func alter_save_name(originalName:String):
@@ -206,48 +266,10 @@ func get_edit_name(interp, index):
 	var eName = str(edit.lineNumber) + " "
 	match edit.type:
 		-1: #- (-1)Comment
-			eName += "Comment: " + edit.comment
+			eName += "Comment: " + edit.comments[0]
 			return eName
 		0: #- (0)Spell
-			match edit.itemType:
-				0:
-					eName += "Weapon: "
-				1:
-					eName += "Armor: "
-				2:
-					eName += "Ammo: "
-				3:
-					eName += "Magic Effect: "
-				4:
-					eName += "Potion: "
-				5:
-					eName += "Scroll: "
-				6:
-					eName += "Location: "
-				7:
-					eName += "Ingredient: "
-				8:
-					eName += "Book: "
-				9:
-					eName += "Misc Item: "
-				10:
-					eName += "Key: "
-				11:
-					eName += "Soul Gem: "
-				12:
-					eName += "Spell: "
-				13:
-					eName += "Activator: "
-				14:
-					eName += "Flora: "
-				15:
-					eName += "Furniture: "
-				16:
-					eName += "Race: "
-				17:
-					eName += "Talking Activator: "
-				18:
-					eName += "Enchantment: "
+			eName += get_type_name(edit.itemType) + ": "
 	if edit.name == "":
 		eName += edit.objectId.value
 	else:
@@ -266,7 +288,7 @@ func create_new_edit():
 		"lineNumber":-1, #- For which line the edit originates from.
 		"type":-1,
 		"name":"",
-		"comments":[],
+		"comments":[""],
 		"objectId":{
 			"type":0, #- Types: (0)editorID, (1)esp/esm[6digits], (2)esl[3digits], (3)skyrim/original dlc[6digits]
 			"value":"", #- Erase leading 0's if there are any. -> {00}65AFD
@@ -278,3 +300,44 @@ func create_new_edit():
 		"chance":100
 	}
 	return edit
+
+func get_type_name(itemType:int):
+	match itemType:
+		0:
+			return "Weapon"
+		1:
+			return "Armor"
+		2:
+			return "Ammo"
+		3:
+			return "Magic Effect"
+		4:
+			return "Potion"
+		5:
+			return "Scroll"
+		6:
+			return "Location"
+		7:
+			return "Ingredient"
+		8:
+			return "Book"
+		9:
+			return "Misc Item"
+		10:
+			return "Key"
+		11:
+			return "Soul Gem"
+		12:
+			return "Spell"
+		13:
+			return "Activator"
+		14:
+			return "Flora"
+		15:
+			return "Furniture"
+		16:
+			return "Race"
+		17:
+			return "Talking Activator"
+		18:
+			return "Enchantment"

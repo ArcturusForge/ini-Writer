@@ -4,7 +4,7 @@ extends Control
 #- type_dict structure ==> [{symbol:String=>Value:int}]
 #- return structure ==> [{type:int, line:String, line_number:int}]
 #- Automatic types: [-2=>Empty line], [-9=>Untyped line]
-func split_and_define_lines(text:String, type_dict:Dictionary):
+func split_and_define_lines(text:String, type_dict:Dictionary, line_number_offset:int = 1):
 	#- Split text into lines.
 	var lines = text.split("\n")
 	if lines.size() == 0:
@@ -20,7 +20,7 @@ func split_and_define_lines(text:String, type_dict:Dictionary):
 				defined.append({
 					"type": type_dict[symbol],
 					"line": line,
-					"line_number": i
+					"line_number": i + line_number_offset
 				})
 				break
 		

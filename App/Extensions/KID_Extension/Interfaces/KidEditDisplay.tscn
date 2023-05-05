@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/KidEditDriver.gd" type="Script" id=3]
+[ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -12,6 +14,7 @@ margin_right = 402.0
 margin_bottom = 402.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -33,17 +36,17 @@ margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
 margin_top = 2.0
-margin_right = 366.0
+margin_right = 348.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "KID Edit Type:"
 
 [node name="TypeHelp" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
-margin_left = 370.0
+margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -54,5 +57,612 @@ margin_top = 26.0
 margin_right = 388.0
 margin_bottom = 46.0
 text = "Comment"
-items = [ "Comment", null, false, 0, null ]
+items = [ "Comment", null, false, 0, null, "Weapon", null, false, 1, null, "Armor", null, false, 2, null, "Ammo", null, false, 3, null, "Magic Effect", null, false, 4, null, "Potion", null, false, 5, null, "Scroll", null, false, 6, null, "Location", null, false, 7, null, "Ingredient", null, false, 8, null, "Book", null, false, 9, null, "Misc Item", null, false, 10, null, "Key", null, false, 11, null, "Soul Gem", null, false, 12, null, "Spell", null, false, 13, null, "Activator", null, false, 14, null, "Flora", null, false, 15, null, "Furniture", null, false, 16, null, "Race", null, false, 17, null, "Talking Activator", null, false, 18, null, "Enchantment", null, false, 19, null ]
+selected = 0
+
+[node name="NamePanel" type="PanelContainer" parent="."]
+margin_top = 64.0
+margin_right = 402.0
+margin_bottom = 260.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NamePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 189.0
+
+[node name="Label" type="Label" parent="NamePanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Edit Name:"
+
+[node name="LineEdit" type="LineEdit" parent="NamePanel/VBoxContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 48.0
+clear_button_enabled = true
+placeholder_text = "Optional"
+
+[node name="Spacer" type="Control" parent="NamePanel/VBoxContainer"]
+margin_top = 52.0
+margin_right = 388.0
+margin_bottom = 52.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NamePanel/VBoxContainer"]
+margin_top = 56.0
+margin_right = 388.0
+margin_bottom = 78.0
+
+[node name="Label2" type="Label" parent="NamePanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Edit Comments:"
+
+[node name="Help" type="Label" parent="NamePanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "Comments can be spread over multiple lines which will be represented in the raw window as:
+;Line 1
+;Line 2
+;Line 3"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="TextEdit" type="TextEdit" parent="NamePanel/VBoxContainer"]
+margin_top = 82.0
+margin_right = 388.0
+margin_bottom = 182.0
+rect_min_size = Vector2( 0, 100 )
+show_line_numbers = true
+bookmark_gutter = true
+
+[node name="FiltersPanel" type="PanelContainer" parent="."]
+margin_top = 264.0
+margin_right = 402.0
+margin_bottom = 278.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FiltersPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 7.0
+
+[node name="WeaponTraitsPanel" type="PanelContainer" parent="."]
+margin_top = 282.0
+margin_right = 402.0
+margin_bottom = 648.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WeaponTraitsPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 359.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Weapon Trait Filters:"
+
+[node name="Help" type="Label" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "These traits are specific to Weapon targeting keyword distribution.
+
+These filters will NOT work on other item types."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 78.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 192.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="E_CheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_right = 192.0
+margin_bottom = 24.0
+text = "Use Enchanted Filter"
+
+[node name="T_CheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 28.0
+margin_right = 192.0
+margin_bottom = 52.0
+text = "Use Template Filter"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 196.0
+margin_right = 388.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="E_ExcludeCheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_right = 192.0
+margin_bottom = 24.0
+text = "Must Exclude"
+
+[node name="T_ExcludeCheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_top = 28.0
+margin_right = 192.0
+margin_bottom = 52.0
+text = "Must Exclude"
+
+[node name="WWeightCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 82.0
+margin_right = 388.0
+margin_bottom = 122.0
+text = "Use Weapon Weight Filtering:"
+align = 1
+
+[node name="WWeightSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 126.0
+margin_right = 388.0
+margin_bottom = 192.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 59.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 18.0
+
+[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min Weight:"
+
+[node name="Control" type="Control" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max Weight:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer"]
+margin_top = 22.0
+margin_right = 374.0
+margin_bottom = 52.0
+
+[node name="WeightMinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 0.1
+allow_greater = true
+
+[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="WeightMaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[node name="WDamageCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 196.0
+margin_right = 388.0
+margin_bottom = 236.0
+text = "Use Weapon Damage Filtering:"
+align = 1
+
+[node name="WDamageSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 240.0
+margin_right = 388.0
+margin_bottom = 306.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 59.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 18.0
+
+[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min Weight:"
+
+[node name="Control" type="Control" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max Weight:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer"]
+margin_top = 22.0
+margin_right = 374.0
+margin_bottom = 52.0
+
+[node name="WeightMinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 0.1
+allow_greater = true
+
+[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="WeightMaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 310.0
+margin_right = 388.0
+margin_bottom = 328.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Weapon Category Filter:"
+
+[node name="CategorySelect" type="OptionButton" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 332.0
+margin_right = 388.0
+margin_bottom = 352.0
+text = "None"
+items = [ "None", null, false, 0, null, "Hand-To-Hand Melee", null, false, 1, null, "One-Hand Sword", null, false, 2, null, "One-Hand Dagger", null, false, 3, null, "One-Hand Axe", null, false, 4, null, "One-Hand Mace", null, false, 5, null, "Two-Hand Sword", null, false, 6, null, "Two-Hand Axe", null, false, 7, null, "Bow", null, false, 8, null, "Staff", null, false, 9, null, "Crossbow", null, false, 10, null ]
+selected = 0
+
+[node name="ArmorTraitsPanel" type="PanelContainer" parent="."]
+margin_top = 652.0
+margin_right = 402.0
+margin_bottom = 1030.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ArmorTraitsPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 371.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Armor Trait Filters:"
+
+[node name="Help" type="Label" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "These traits are specific to Armor targeting keyword distribution.
+
+These filters will NOT work on other item types."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 78.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 192.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="E_CheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_right = 192.0
+margin_bottom = 24.0
+text = "Use Enchanted Filter"
+
+[node name="T_CheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 28.0
+margin_right = 192.0
+margin_bottom = 52.0
+text = "Use Template Filter"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 196.0
+margin_right = 388.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="E_ExcludeCheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_right = 192.0
+margin_bottom = 24.0
+text = "Must Exclude"
+
+[node name="T_ExcludeCheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_top = 28.0
+margin_right = 192.0
+margin_bottom = 52.0
+text = "Must Exclude"
+
+[node name="Spacer" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 82.0
+margin_right = 388.0
+margin_bottom = 82.0
+
+[node name="RatingCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 86.0
+margin_right = 388.0
+margin_bottom = 126.0
+text = "Use Armor Rating Filtering:"
+align = 1
+
+[node name="RatingSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 130.0
+margin_right = 388.0
+margin_bottom = 196.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 59.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 18.0
+
+[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min Rating:"
+
+[node name="Control" type="Control" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max Rating:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+margin_top = 22.0
+margin_right = 374.0
+margin_bottom = 52.0
+
+[node name="RatingMinSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 0.1
+allow_greater = true
+
+[node name="ActorRangeButton" type="Button" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="RatingMaxSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[node name="Spacer2" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 200.0
+margin_right = 388.0
+margin_bottom = 200.0
+
+[node name="AWeightCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 204.0
+margin_right = 388.0
+margin_bottom = 244.0
+text = "Use Armor Weight Filtering:"
+align = 1
+
+[node name="AWeightSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 248.0
+margin_right = 388.0
+margin_bottom = 314.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 59.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 18.0
+
+[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min Weight:"
+
+[node name="Control" type="Control" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max Weight:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer"]
+margin_top = 22.0
+margin_right = 374.0
+margin_bottom = 52.0
+
+[node name="WeightMinSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 0.1
+allow_greater = true
+
+[node name="ActorRangeButton" type="Button" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="WeightMaxSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[node name="Spacer3" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 318.0
+margin_right = 388.0
+margin_bottom = 318.0
+
+[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 322.0
+margin_right = 388.0
+margin_bottom = 340.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Armor Category Filter:"
+
+[node name="CategorySelect" type="OptionButton" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 344.0
+margin_right = 388.0
+margin_bottom = 364.0
+text = "None"
+items = [ "None", null, false, 0, null, "Heavy Armor", null, false, 1, null, "Light Armor", null, false, 2, null, "Clothing", null, false, 3, null ]
 selected = 0
