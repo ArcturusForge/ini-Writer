@@ -1,7 +1,13 @@
 extends Node
 
-#--- Determines wether ini file matches extension use-case.
-func data_matched(raw:String, fileName:String):
+const my_id = "KID"
+const kidOption = "KID Mod Page"
+
+var pop_manager
+var console_manager
+
+#--- Determines if ini file matches extension use-case.
+func data_matched(_raw:String, fileName:String):
 	if "_KID" in fileName:
 		return true
 	else:
@@ -9,10 +15,19 @@ func data_matched(raw:String, fileName:String):
 
 #--- Called by system when the extension is enabled.
 func enable():
+	pop_manager = Globals.get_manager("popup")
+	console_manager = Globals.get_manager("console")
+	
+	var viewPop = pop_manager.get_popup_data("view")
+	viewPop.register_entity(my_id, self, "handle_view")
+	viewPop.add_option(my_id, kidOption)
 	pass
 
 #--- Called by system when the extension is disabled.
 func disable():
+	var viewPop = pop_manager.get_popup_data("view")
+	viewPop.unregister_entity(my_id)
+	console_manager.post("Unloaded KID Writer")
 	pass
 
 #--- Called by system to structure interp data to be compatible with extension.
@@ -163,7 +178,11 @@ func raw_to_interp(raw:String):
 					skipEdit = true
 				else: #- Line is a standalone comment.
 					line.erase(0, 1)
-					currentEdit.comments[0] = line
+					if not previousEdit == null && previousEdit.type == -1: #- Combines group comments into one comment edit.
+						previousEdit.comments.append(line)
+						skipEdit = true
+					else:
+						currentEdit.comments[0] = line
 			-2:#- Empty line
 				if previousEdit == null:
 					skipEdit = true
@@ -191,7 +210,10 @@ func interp_to_raw(interp): # interp = {}
 		var edit = interp.edits[x]
 		match edit.type:
 			-1: #- Comment
-				raw += ";" + edit.comments[0]
+				for i in range(edit.comments.size()):
+					raw += ";" + edit.comments[i]
+					if not i == edit.comments.size() - 1:
+						raw += "\n"
 			0: #- Keyword
 				#- Handle name
 				if not edit.name == "" || not edit.comments.size() == 0:
@@ -281,7 +303,7 @@ func delete_edit(index, interp):
 	interp.edits.remove(index)
 	pass
 
-#--- Custom: Creates a blank edit to populate with data.
+#--- CUSTOM: Creates a blank edit to populate with data.
 func create_new_edit():
 	var edit = {
 		"newlines":1, #- For how many empty lines after the edit.
@@ -301,6 +323,7 @@ func create_new_edit():
 	}
 	return edit
 
+#--- CUSTOM: Returns the distribution type's name.
 func get_type_name(itemType:int):
 	match itemType:
 		0:
@@ -341,3 +364,11 @@ func get_type_name(itemType:int):
 			return "Talking Activator"
 		18:
 			return "Enchantment"
+
+#--- CUSTOM: Handles view-menu option selections.
+func handle_view(selected):
+	match selected:
+		kidOption:
+			Functions.open_link("https://www.nexusmods.com/skyrimspecialedition/mods/55728")
+			console_manager.generate("Opening link to KID's mod page...", Globals.green)
+	pass

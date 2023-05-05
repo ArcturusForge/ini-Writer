@@ -1,7 +1,7 @@
 extends Node
 
-#--- Determines wether ini file matches extension use-case.
-func data_matched(raw:String, fileName:String):
+#--- Determines if ini file matches extension use-case.
+func data_matched(_raw:String, fileName:String):
 	if "_DISTR" in fileName:
 		return true
 	else:
@@ -76,7 +76,6 @@ func init_interp():
 
 #--- Interpretes the raw string data to data structures used in editor.
 func raw_to_interp(raw:String):
-	raw.replace("\r", "\n")
 	var lines = raw.split("\n")
 	var interp = {
 		"edits":[]
@@ -233,7 +232,7 @@ func interp_to_raw(interp): # interp = {}
 		#- SPID edit type: 
 		if edit.type == -1: #- (-1)Comment
 			raw += ";" + edit.comment
-			for i in range(edit.newlines):
+			for _i in range(edit.newlines):
 				raw += "\n"
 			continue
 		
@@ -361,7 +360,7 @@ func interp_to_raw(interp): # interp = {}
 		line = line.replace("|100", "")
 		
 		raw += line
-		for i in range(edit.newlines):
+		for _i in range(edit.newlines):
 			raw += "\n"
 	return raw
 
