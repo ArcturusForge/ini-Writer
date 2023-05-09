@@ -151,17 +151,17 @@ margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
 margin_top = 2.0
-margin_right = 366.0
+margin_right = 348.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Form Source:"
 
 [node name="SourceHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
-margin_left = 370.0
+margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Form Source is used by ini Writer to help you write RecordIDs correctly.
 
 EditorID's e.g. ActorTypeNPC
@@ -211,17 +211,17 @@ margin_bottom = 76.0
 
 [node name="Label" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
 margin_top = 2.0
-margin_right = 366.0
+margin_right = 348.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Form / Editor ID:"
 
 [node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
-margin_left = 370.0
+margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
 Two approaches are supported by SPID:
 
@@ -279,17 +279,17 @@ margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
 margin_top = 2.0
-margin_right = 366.0
+margin_right = 348.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Source Plugin:"
 
 [node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
-margin_left = 370.0
+margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "What to write:
 - Leave out the tilde symbol '~'
 - You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
@@ -318,19 +318,59 @@ placeholder_text = "e.g. MyMod.esp"
 [node name="FiltersPanel" type="PanelContainer" parent="."]
 margin_top = 448.0
 margin_right = 402.0
-margin_bottom = 462.0
+margin_bottom = 484.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FiltersPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 7.0
+margin_bottom = 29.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FiltersPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label2" type="Label" parent="FiltersPanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "String, FormID & EditorID Filters:"
+
+[node name="Help" type="Label" parent="FiltersPanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "These are mostly generalised filters that can apply to all Item types.
+However there are Forms that are only applicable to specfic types of items, these are:
+
+- Armor/Weapon Items --> enchantment.
+- Ammo Items --> projectile.
+- ﻿Location Items --> music type, crime faction, parent location.
+- Magic Effect Items --> effect shader, hit art, casting art, enchant visuals/effect shader, projectile.
+- Book Items --> learned spell.
+- Spell/Potion/Scroll/Ingredient Items --> magic effects.
+- Enchantment Items --> magic effect/worn restriction formlist.
+- Activator Items --> water type.
+- Flora Items --> produce item.
+- Furniture Items --> associated spell.
+- Race Items --> skin (armor), racial ability.
+- Talking Activator Items --> voice type.
+
+- Equip Slots - for weapons/armor/other equippable items using slots.
+﻿- Formlist - checks whether any of the form filters included in the list are valid."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
 
 [node name="WeaponTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 466.0
+margin_top = 488.0
 margin_right = 402.0
-margin_bottom = 836.0
+margin_bottom = 858.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WeaponTraitsPanel"]
@@ -369,14 +409,20 @@ margin_top = 26.0
 margin_right = 388.0
 margin_bottom = 78.0
 
+[node name="Spacer" type="Control" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 33.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_right = 192.0
+margin_left = 37.0
+margin_right = 197.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="E_CheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 192.0
+margin_right = 160.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -384,21 +430,27 @@ text = "Use Enchanted Filter"
 
 [node name="T_CheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_top = 28.0
-margin_right = 192.0
+margin_right = 160.0
 margin_bottom = 52.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Template Filter"
 
+[node name="Spacer2" type="Control" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 201.0
+margin_right = 234.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_left = 196.0
-margin_right = 388.0
+margin_left = 238.0
+margin_right = 351.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="E_ExcludeCheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -406,216 +458,222 @@ text = "Must Exclude"
 
 [node name="T_ExcludeCheckBox" type="CheckBox" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_top = 28.0
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 52.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Must Exclude"
 
-[node name="WWeightCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 82.0
+[node name="Spacer3" type="Control" parent="WeaponTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 355.0
 margin_right = 388.0
-margin_bottom = 122.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Use Weapon Weight Filtering:"
-align = 1
-
-[node name="WWeightSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
-self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 126.0
-margin_right = 388.0
-margin_bottom = 192.0
-
-[node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 381.0
-margin_bottom = 59.0
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer"]
-margin_right = 374.0
-margin_bottom = 18.0
-
-[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer2"]
-margin_right = 168.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Min Weight:"
-
-[node name="Control" type="Control" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer2"]
-margin_left = 172.0
-margin_right = 202.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 30, 0 )
-
-[node name="Label3" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer2"]
-margin_left = 206.0
-margin_right = 374.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Max Weight:"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer"]
-margin_top = 22.0
-margin_right = 374.0
 margin_bottom = 52.0
-
-[node name="WeightMinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer"]
-margin_right = 168.0
-margin_bottom = 30.0
 size_flags_horizontal = 3
-step = 0.1
-value = 0.1
-allow_greater = true
-
-[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer"]
-margin_left = 172.0
-margin_right = 202.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-hint_tooltip = "Locked:
-- Allows only a single value.
-- e.g. Only the value of 12 is acceptable.
-
-Unlocked:
-- Allows for a value range. (Includes all values in between)
-- e.g. All values between 12 and 34 are acceptable."
-focus_mode = 0
-toggle_mode = true
-enabled_focus_mode = 0
-icon = ExtResource( 4 )
-expand_icon = true
-
-[node name="WeightMaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WWeightSubPanel/NodeContainer/HBoxContainer"]
-margin_left = 206.0
-margin_right = 374.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-step = 0.1
-value = 1.0
-allow_greater = true
-
-[node name="WDamageCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 196.0
-margin_right = 388.0
-margin_bottom = 236.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Use Weapon Damage Filtering:"
-align = 1
-
-[node name="WDamageSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
-self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 240.0
-margin_right = 388.0
-margin_bottom = 306.0
-
-[node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 381.0
-margin_bottom = 59.0
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer"]
-margin_right = 374.0
-margin_bottom = 18.0
-
-[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer2"]
-margin_right = 168.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Min Weight:"
-
-[node name="Control" type="Control" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer2"]
-margin_left = 172.0
-margin_right = 202.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 30, 0 )
-
-[node name="Label3" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer2"]
-margin_left = 206.0
-margin_right = 374.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Max Weight:"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer"]
-margin_top = 22.0
-margin_right = 374.0
-margin_bottom = 52.0
-
-[node name="WeightMinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer"]
-margin_right = 168.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-step = 0.1
-value = 0.1
-allow_greater = true
-
-[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer"]
-margin_left = 172.0
-margin_right = 202.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-hint_tooltip = "Locked:
-- Allows only a single value.
-- e.g. Only the value of 12 is acceptable.
-
-Unlocked:
-- Allows for a value range. (Includes all values in between)
-- e.g. All values between 12 and 34 are acceptable."
-focus_mode = 0
-toggle_mode = true
-enabled_focus_mode = 0
-icon = ExtResource( 4 )
-expand_icon = true
-
-[node name="WeightMaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WDamageSubPanel/NodeContainer/HBoxContainer"]
-margin_left = 206.0
-margin_right = 374.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-step = 0.1
-value = 1.0
-allow_greater = true
 
 [node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 310.0
+margin_top = 82.0
 margin_right = 388.0
-margin_bottom = 328.0
+margin_bottom = 100.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Weapon Category Filter:"
 
 [node name="CategorySelect" type="OptionButton" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 332.0
+margin_top = 104.0
 margin_right = 388.0
-margin_bottom = 352.0
+margin_bottom = 124.0
 text = "None"
 items = [ "None", null, false, 0, null, "Hand-To-Hand Melee", null, false, 1, null, "One-Hand Sword", null, false, 2, null, "One-Hand Dagger", null, false, 3, null, "One-Hand Axe", null, false, 4, null, "One-Hand Mace", null, false, 5, null, "Two-Hand Sword", null, false, 6, null, "Two-Hand Axe", null, false, 7, null, "Bow", null, false, 8, null, "Staff", null, false, 9, null, "Crossbow", null, false, 10, null ]
 selected = 0
 
-[node name="Spacer" type="Control" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 356.0
+[node name="Spacer4" type="Control" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 128.0
+margin_right = 388.0
+margin_bottom = 128.0
+
+[node name="WeightCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 132.0
+margin_right = 388.0
+margin_bottom = 172.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Use Weapon Weight Filtering:"
+align = 1
+
+[node name="WeightSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 176.0
+margin_right = 388.0
+margin_bottom = 242.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 59.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 18.0
+
+[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min Weight:"
+
+[node name="Control" type="Control" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max Weight:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer"]
+margin_top = 22.0
+margin_right = 374.0
+margin_bottom = 52.0
+
+[node name="WeightMinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 0.1
+allow_greater = true
+
+[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+focus_mode = 0
+toggle_mode = true
+enabled_focus_mode = 0
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="WeightMaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[node name="DamageCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 246.0
+margin_right = 388.0
+margin_bottom = 286.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Use Weapon Damage Filtering:"
+align = 1
+
+[node name="DamageSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 290.0
 margin_right = 388.0
 margin_bottom = 356.0
 
+[node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 59.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 18.0
+
+[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min Weight:"
+
+[node name="Control" type="Control" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer2"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max Weight:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer"]
+margin_top = 22.0
+margin_right = 374.0
+margin_bottom = 52.0
+
+[node name="WeightMinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 0.1
+allow_greater = true
+
+[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+focus_mode = 0
+toggle_mode = true
+enabled_focus_mode = 0
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="WeightMaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+
 [node name="ArmorTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 840.0
+margin_top = 862.0
 margin_right = 402.0
-margin_bottom = 1222.0
+margin_bottom = 1240.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ArmorTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 375.0
+margin_bottom = 371.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -647,14 +705,20 @@ margin_top = 26.0
 margin_right = 388.0
 margin_bottom = 78.0
 
+[node name="Spacer" type="Control" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 33.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_right = 192.0
+margin_left = 37.0
+margin_right = 197.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="E_CheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 192.0
+margin_right = 160.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -662,21 +726,27 @@ text = "Use Enchanted Filter"
 
 [node name="T_CheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_top = 28.0
-margin_right = 192.0
+margin_right = 160.0
 margin_bottom = 52.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Template Filter"
 
+[node name="Spacer5" type="Control" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 201.0
+margin_right = 234.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_left = 196.0
-margin_right = 388.0
+margin_left = 238.0
+margin_right = 351.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="E_ExcludeCheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -684,21 +754,48 @@ text = "Must Exclude"
 
 [node name="T_ExcludeCheckBox" type="CheckBox" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_top = 28.0
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 52.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Must Exclude"
+
+[node name="Spacer6" type="Control" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 355.0
+margin_right = 388.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
 
 [node name="Spacer" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
 margin_top = 82.0
 margin_right = 388.0
 margin_bottom = 82.0
 
-[node name="RatingCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
+[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer"]
 margin_top = 86.0
 margin_right = 388.0
-margin_bottom = 126.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Armor Category Filter:"
+
+[node name="CategorySelect" type="OptionButton" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 108.0
+margin_right = 388.0
+margin_bottom = 128.0
+text = "None"
+items = [ "None", null, false, 0, null, "Heavy Armor", null, false, 1, null, "Light Armor", null, false, 2, null, "Clothing", null, false, 3, null ]
+selected = 0
+
+[node name="Spacer4" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 132.0
+margin_right = 388.0
+margin_bottom = 132.0
+
+[node name="RatingCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 136.0
+margin_right = 388.0
+margin_bottom = 176.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Armor Rating Filtering:"
@@ -706,9 +803,9 @@ align = 1
 
 [node name="RatingSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 130.0
+margin_top = 180.0
 margin_right = 388.0
-margin_bottom = 196.0
+margin_bottom = 246.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel"]
 margin_left = 7.0
@@ -782,14 +879,14 @@ value = 1.0
 allow_greater = true
 
 [node name="Spacer2" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 200.0
+margin_top = 250.0
 margin_right = 388.0
-margin_bottom = 200.0
+margin_bottom = 250.0
 
 [node name="AWeightCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 204.0
+margin_top = 254.0
 margin_right = 388.0
-margin_bottom = 244.0
+margin_bottom = 294.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Armor Weight Filtering:"
@@ -797,9 +894,9 @@ align = 1
 
 [node name="AWeightSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 248.0
+margin_top = 298.0
 margin_right = 388.0
-margin_bottom = 314.0
+margin_bottom = 364.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel"]
 margin_left = 7.0
@@ -872,36 +969,10 @@ step = 0.1
 value = 1.0
 allow_greater = true
 
-[node name="Spacer3" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 318.0
-margin_right = 388.0
-margin_bottom = 318.0
-
-[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 322.0
-margin_right = 388.0
-margin_bottom = 340.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Armor Category Filter:"
-
-[node name="CategorySelect" type="OptionButton" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 344.0
-margin_right = 388.0
-margin_bottom = 364.0
-text = "None"
-items = [ "None", null, false, 0, null, "Heavy Armor", null, false, 1, null, "Light Armor", null, false, 2, null, "Clothing", null, false, 3, null ]
-selected = 0
-
-[node name="Spacer4" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 368.0
-margin_right = 388.0
-margin_bottom = 368.0
-
 [node name="AmmoTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1226.0
+margin_top = 1244.0
 margin_right = 402.0
-margin_bottom = 1404.0
+margin_bottom = 1422.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmmoTraitsPanel"]
@@ -940,32 +1011,50 @@ margin_top = 26.0
 margin_right = 388.0
 margin_bottom = 50.0
 
+[node name="Spacer" type="Control" parent="AmmoTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 41.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_right = 192.0
+margin_left = 45.0
+margin_right = 181.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="B_CheckBox" type="CheckBox" parent="AmmoTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 192.0
+margin_right = 136.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Use Crossbow Bolt Filter"
+text = "Use Is Bolt Filter"
+
+[node name="Spacer2" type="Control" parent="AmmoTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 185.0
+margin_right = 226.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_left = 196.0
-margin_right = 388.0
+margin_left = 230.0
+margin_right = 343.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="B_ExcludeCheckBox" type="CheckBox" parent="AmmoTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Must Exclude"
+
+[node name="Spacer3" type="Control" parent="AmmoTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 347.0
+margin_right = 388.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
 
 [node name="RatingCheckButton" type="CheckButton" parent="AmmoTraitsPanel/VBoxContainer"]
 margin_top = 54.0
@@ -1054,16 +1143,16 @@ value = 1.0
 allow_greater = true
 
 [node name="MagicEffectTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1408.0
+margin_top = 1426.0
 margin_right = 402.0
-margin_bottom = 1688.0
+margin_bottom = 1762.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MagicEffectTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 273.0
+margin_bottom = 329.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -1093,71 +1182,150 @@ align = 1
 [node name="HBoxContainer2" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_top = 26.0
 margin_right = 388.0
-margin_bottom = 106.0
+margin_bottom = 50.0
+
+[node name="Spacer" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 34.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_right = 192.0
-margin_bottom = 80.0
+margin_left = 38.0
+margin_right = 194.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="H_CheckBox" type="CheckBox" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 192.0
+margin_right = 156.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Use Hostile Filter"
+text = "Use Is Hostile Filter"
 
-[node name="D_CheckBox" type="CheckBox" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 28.0
-margin_right = 192.0
-margin_bottom = 52.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Use Delivery Filter"
-
-[node name="CT_CheckBox" type="CheckBox" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 56.0
-margin_right = 192.0
-margin_bottom = 80.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Use Casting Type Filter"
+[node name="Spacer2" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 198.0
+margin_right = 232.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_left = 196.0
-margin_right = 388.0
-margin_bottom = 80.0
+margin_left = 236.0
+margin_right = 349.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="H_ExcludeCheckBox" type="CheckBox" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Must Exclude"
 
-[node name="D_ExcludeCheckBox" type="CheckBox" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_top = 28.0
-margin_right = 192.0
-margin_bottom = 52.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Must Exclude"
+[node name="Spacer3" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 353.0
+margin_right = 388.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
 
-[node name="CT_ExcludeCheckBox" type="CheckBox" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_top = 56.0
-margin_right = 192.0
+[node name="Spacer6" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer"]
+margin_top = 54.0
+margin_right = 388.0
+margin_bottom = 54.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
+margin_top = 58.0
+margin_right = 388.0
 margin_bottom = 80.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Must Exclude"
+
+[node name="Label2" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer3"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Delivery Type Filter:"
+
+[node name="Help" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer3"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "A Delivery Type indicates how a Spell reaches its target. The Delivery Types are:
+
+- Self [0] - The spell targets the caster.
+- Touch [1] - The spell targets someone within weapon reach (used for weapon enchantments).
+- Aimed [2] - The spell launches a Projectile.
+- Target Actor [3] - The spell immediately affects the Actor the caster is looking at.
+- Target Location [4] - The spell immediately affects the location the caster is looking at."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="CategorySelect2" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
+margin_top = 84.0
+margin_right = 388.0
+margin_bottom = 104.0
+text = "None"
+items = [ "None", null, false, 0, null, "Self", null, false, 1, null, "Touch", null, false, 2, null, "Aimed", null, false, 3, null, "Target Actor", null, false, 4, null, "Target Location", null, false, 5, null ]
+selected = 0
+
+[node name="Spacer8" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer"]
+margin_top = 108.0
+margin_right = 388.0
+margin_bottom = 108.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
+margin_top = 112.0
+margin_right = 388.0
+margin_bottom = 134.0
+
+[node name="Label2" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer4"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Casting Type Filter:"
+
+[node name="Help" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer4"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "All Spells, Enchantments, Potions, and Scrolls have a Casting Type, which must match the Casting Type of the Magic Effects in their Effects list. The casting types are defined as follows:
+
+- Constant Effect [0] - These spells are always active (like Racial Abilities), or start and end based on a specific action (like equipping enchanted armor).
+
+- Fire and Forget [1] - These spells are cast once, and end when their duration expires or the target somehow dispels the spell.
+--> 'Instant' effects, such as most Powers and Potions, use the Fire and Forget Casting Type.
+
+- Concentration [2] - The caster of the spell must maintain the spell. 
+--> The spell starts when the actor casts it, and ends when the caster deliberately stops casting it, runs out of magicka, or is otherwise interrupted."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="CategorySelect3" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
+margin_top = 138.0
+margin_right = 388.0
+margin_bottom = 158.0
+text = "None"
+items = [ "None", null, false, 0, null, "Constant Effect", null, false, 1, null, "Fire and Forget", null, false, 2, null, "Concentration", null, false, 3, null ]
+selected = 0
+
+[node name="Spacer7" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer"]
+margin_top = 162.0
+margin_right = 388.0
+margin_bottom = 162.0
 
 [node name="RatingCheckButton" type="CheckButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
-margin_top = 110.0
+margin_top = 166.0
 margin_right = 388.0
-margin_bottom = 150.0
+margin_bottom = 206.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Magic School Filtering:"
@@ -1165,9 +1333,9 @@ align = 1
 
 [node name="RatingSubPanel" type="PanelContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 154.0
+margin_top = 210.0
 margin_right = 388.0
-margin_bottom = 266.0
+margin_bottom = 322.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel"]
 margin_left = 7.0
@@ -1255,9 +1423,9 @@ rounded = true
 allow_greater = true
 
 [node name="PotionTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1692.0
+margin_top = 1766.0
 margin_right = 402.0
-margin_bottom = 1784.0
+margin_bottom = 1858.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PotionTraitsPanel"]
@@ -1296,14 +1464,20 @@ margin_top = 26.0
 margin_right = 388.0
 margin_bottom = 78.0
 
+[node name="Spacer" type="Control" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 40.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_right = 192.0
+margin_left = 44.0
+margin_right = 181.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="P_CheckBox" type="CheckBox" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 192.0
+margin_right = 137.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -1311,21 +1485,27 @@ text = "Use Poison Filter"
 
 [node name="F_CheckBox" type="CheckBox" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_top = 28.0
-margin_right = 192.0
+margin_right = 137.0
 margin_bottom = 52.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Food Filter"
 
+[node name="Spacer2" type="Control" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 185.0
+margin_right = 226.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_left = 196.0
-margin_right = 388.0
+margin_left = 230.0
+margin_right = 343.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="P_ExcludeCheckBox" type="CheckBox" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -1333,16 +1513,22 @@ text = "Must Exclude"
 
 [node name="F_ExcludeCheckBox" type="CheckBox" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_top = 28.0
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 52.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Must Exclude"
 
+[node name="Spacer3" type="Control" parent="PotionTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 347.0
+margin_right = 388.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="IngredientTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1788.0
+margin_top = 1862.0
 margin_right = 402.0
-margin_bottom = 1852.0
+margin_bottom = 1926.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="IngredientTraitsPanel"]
@@ -1381,44 +1567,62 @@ margin_top = 26.0
 margin_right = 388.0
 margin_bottom = 50.0
 
+[node name="Spacer" type="Control" parent="IngredientTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 44.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="IngredientTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_right = 192.0
+margin_left = 48.0
+margin_right = 173.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="F_CheckBox" type="CheckBox" parent="IngredientTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 192.0
+margin_right = 125.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Food Filter"
 
+[node name="Spacer2" type="Control" parent="IngredientTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 177.0
+margin_right = 222.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="IngredientTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_left = 196.0
-margin_right = 388.0
+margin_left = 226.0
+margin_right = 339.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="F_ExcludeCheckBox" type="CheckBox" parent="IngredientTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Must Exclude"
 
+[node name="Spacer3" type="Control" parent="IngredientTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 343.0
+margin_right = 388.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
 [node name="BookTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1856.0
+margin_top = 1930.0
 margin_right = 402.0
-margin_bottom = 2084.0
+margin_bottom = 2076.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BookTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 221.0
+margin_bottom = 139.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BookTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -1448,151 +1652,106 @@ align = 1
 [node name="HBoxContainer2" type="HBoxContainer" parent="BookTraitsPanel/VBoxContainer"]
 margin_top = 26.0
 margin_right = 388.0
-margin_bottom = 50.0
+margin_bottom = 78.0
+
+[node name="Spacer" type="Control" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 26.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_right = 192.0
-margin_bottom = 24.0
+margin_left = 30.0
+margin_right = 211.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="S_CheckBox" type="CheckBox" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 192.0
+margin_right = 181.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Teaches Spell Filter"
 
+[node name="T_CheckBox" type="CheckBox" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 28.0
+margin_right = 181.0
+margin_bottom = 52.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Use Teaches Skill Filter"
+
+[node name="Spacer2" type="Control" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 215.0
+margin_right = 241.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2"]
-margin_left = 196.0
-margin_right = 388.0
-margin_bottom = 24.0
+margin_left = 245.0
+margin_right = 358.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="S_ExcludeCheckBox" type="CheckBox" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-margin_right = 192.0
+margin_right = 113.0
 margin_bottom = 24.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Must Exclude"
 
-[node name="Spacer" type="Control" parent="BookTraitsPanel/VBoxContainer"]
-margin_top = 54.0
-margin_right = 388.0
-margin_bottom = 54.0
-
-[node name="BookCheckButton" type="CheckButton" parent="BookTraitsPanel/VBoxContainer"]
-margin_top = 58.0
-margin_right = 388.0
-margin_bottom = 98.0
+[node name="T_ExcludeCheckBox" type="CheckBox" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_top = 28.0
+margin_right = 113.0
+margin_bottom = 52.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Use Magic School Filtering:"
-align = 1
+text = "Must Exclude"
 
-[node name="SubPanel" type="PanelContainer" parent="BookTraitsPanel/VBoxContainer"]
-self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 102.0
+[node name="Spacer3" type="Control" parent="BookTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 362.0
 margin_right = 388.0
-margin_bottom = 214.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
 
-[node name="NodeContainer" type="VBoxContainer" parent="BookTraitsPanel/VBoxContainer/SubPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 381.0
-margin_bottom = 105.0
+[node name="Spacer" type="Control" parent="BookTraitsPanel/VBoxContainer"]
+margin_top = 82.0
+margin_right = 388.0
+margin_bottom = 82.0
 
-[node name="Label2" type="Label" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer"]
-margin_right = 374.0
-margin_bottom = 18.0
+[node name="Label2" type="Label" parent="BookTraitsPanel/VBoxContainer"]
+margin_top = 86.0
+margin_right = 388.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
-text = "Magic School:"
+text = "Magic School Filter:"
 
-[node name="SchoolSelect" type="OptionButton" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer"]
-margin_top = 22.0
-margin_right = 374.0
-margin_bottom = 42.0
-text = "Alteration"
-items = [ "Alteration", null, false, 1, null, "Conjuration", null, false, 2, null, "Destruction", null, false, 3, null, "Illusion", null, false, 4, null, "Restoration", null, false, 5, null ]
+[node name="SchoolSelect" type="OptionButton" parent="BookTraitsPanel/VBoxContainer"]
+margin_top = 108.0
+margin_right = 388.0
+margin_bottom = 128.0
+text = "None"
+items = [ "None", null, false, 1, null, "Alteration", null, false, 2, null, "Conjuration", null, false, 3, null, "Destruction", null, false, 4, null, "Illusion", null, false, 5, null, "Restoration", null, false, 5, null ]
 selected = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer"]
-margin_top = 46.0
-margin_right = 374.0
-margin_bottom = 64.0
-
-[node name="Label2" type="Label" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer2"]
-margin_right = 168.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Min Damage:"
-
-[node name="Control" type="Control" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer2"]
-margin_left = 172.0
-margin_right = 202.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 30, 0 )
-
-[node name="Label3" type="Label" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer2"]
-margin_left = 206.0
-margin_right = 374.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Max Damage:"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer"]
-margin_top = 68.0
-margin_right = 374.0
-margin_bottom = 98.0
-
-[node name="RatingMinSpinBox" type="SpinBox" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer"]
-margin_right = 168.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-rounded = true
-allow_greater = true
-
-[node name="ActorRangeButton" type="Button" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer"]
-margin_left = 172.0
-margin_right = 202.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-hint_tooltip = "Locked:
-- Allows only a single value.
-- e.g. Only the value of 12 is acceptable.
-
-Unlocked:
-- Allows for a value range. (Includes all values in between)
-- e.g. All values between 12 and 34 are acceptable."
-focus_mode = 0
-toggle_mode = true
-enabled_focus_mode = 0
-icon = ExtResource( 4 )
-expand_icon = true
-
-[node name="RatingMaxSpinBox" type="SpinBox" parent="BookTraitsPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer"]
-margin_left = 206.0
-margin_right = 374.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-rounded = true
-allow_greater = true
+[node name="Spacer2" type="Control" parent="BookTraitsPanel/VBoxContainer"]
+margin_top = 132.0
+margin_right = 388.0
+margin_bottom = 132.0
 
 [node name="SoulGemTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2088.0
+margin_top = 2080.0
 margin_right = 402.0
-margin_bottom = 2274.0
+margin_bottom = 2248.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SoulGemTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 179.0
+margin_bottom = 161.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SoulGemTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -1619,80 +1778,115 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
-[node name="Label4" type="Label" parent="SoulGemTraitsPanel/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="SoulGemTraitsPanel/VBoxContainer"]
 margin_top = 26.0
 margin_right = 388.0
-margin_bottom = 44.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Can Hold NPC Soul?:"
+margin_bottom = 50.0
 
-[node name="OptionButton3" type="OptionButton" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 48.0
+[node name="Spacer" type="Control" parent="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_right = 26.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 30.0
+margin_right = 209.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="B_CheckBox" type="CheckBox" parent="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_right = 179.0
+margin_bottom = 24.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Use Is Black Gem Filter"
+
+[node name="Spacer2" type="Control" parent="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 213.0
+margin_right = 240.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 244.0
+margin_right = 357.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="B_ExcludeCheckBox" type="CheckBox" parent="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_right = 113.0
+margin_bottom = 24.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Must Exclude"
+
+[node name="Spacer3" type="Control" parent="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 361.0
 margin_right = 388.0
-margin_bottom = 68.0
-text = "No"
-items = [ "No", null, false, 0, null, "Yes", null, false, 1, null ]
-selected = 0
+margin_bottom = 24.0
+size_flags_horizontal = 3
 
 [node name="Spacer" type="Control" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 72.0
+margin_top = 54.0
 margin_right = 388.0
-margin_bottom = 72.0
+margin_bottom = 54.0
 
 [node name="Label2" type="Label" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 76.0
+margin_top = 58.0
 margin_right = 388.0
-margin_bottom = 94.0
+margin_bottom = 76.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Soul Size Filter:"
 
 [node name="OptionButton" type="OptionButton" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 98.0
+margin_top = 80.0
 margin_right = 388.0
-margin_bottom = 118.0
+margin_bottom = 100.0
 text = "None"
 items = [ "None", null, false, 0, null, "Petty", null, false, 1, null, "Lesser", null, false, 2, null, "Common", null, false, 3, null, "Greater", null, false, 4, null, "Grand", null, false, 5, null ]
 selected = 0
 
 [node name="Spacer2" type="Control" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 122.0
+margin_top = 104.0
 margin_right = 388.0
-margin_bottom = 122.0
+margin_bottom = 104.0
 
 [node name="Label3" type="Label" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 126.0
+margin_top = 108.0
 margin_right = 388.0
-margin_bottom = 144.0
+margin_bottom = 126.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Soulgem Size Filter:"
 
 [node name="OptionButton2" type="OptionButton" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 148.0
+margin_top = 130.0
 margin_right = 388.0
-margin_bottom = 168.0
+margin_bottom = 150.0
 text = "None"
 items = [ "None", null, false, 0, null, "Petty", null, false, 1, null, "Lesser", null, false, 2, null, "Common", null, false, 3, null, "Greater", null, false, 4, null, "Grand", null, false, 5, null ]
 selected = 0
 
 [node name="Spacer3" type="Control" parent="SoulGemTraitsPanel/VBoxContainer"]
-margin_top = 172.0
+margin_top = 154.0
 margin_right = 388.0
-margin_bottom = 172.0
+margin_bottom = 154.0
 
 [node name="SpellTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2278.0
+margin_top = 2252.0
 margin_right = 402.0
-margin_bottom = 2314.0
+margin_bottom = 2500.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SpellTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 29.0
+margin_bottom = 241.0
+rect_pivot_offset = Vector2( -376, -142 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SpellTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -1719,17 +1913,169 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
+[node name="Label2" type="Label" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Spell Type Filter:"
+
+[node name="CategorySelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 48.0
+margin_right = 388.0
+margin_bottom = 68.0
+text = "None"
+items = [ "None", null, false, 0, null, "Spell", null, false, 1, null, "Disease", null, false, 2, null, "Power", null, false, 3, null, "Lesser Power", null, false, 4, null, "Ability", null, false, 5, null, "Poison", null, false, 6, null, "Enchantment", null, false, 7, null, "Potion", null, false, 8, null, "Ingredient", null, false, 9, null, "Leveled Spell", null, false, 10, null, "Addiction", null, false, 11, null, "Voice Power", null, false, 12, null, "Staff Enchantment", null, false, 13, null, "Scroll", null, false, 14, null ]
+selected = 0
+
+[node name="Spacer4" type="Control" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 72.0
+margin_right = 388.0
+margin_bottom = 72.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 76.0
+margin_right = 388.0
+margin_bottom = 98.0
+
+[node name="Label2" type="Label" parent="SpellTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Delivery Type Filter:"
+
+[node name="Help" type="Label" parent="SpellTraitsPanel/VBoxContainer/HBoxContainer2"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "A Delivery Type indicates how a Spell reaches its target. The Delivery Types are:
+
+- Self [0] - The spell targets the caster.
+- Touch [1] - The spell targets someone within weapon reach (used for weapon enchantments).
+- Aimed [2] - The spell launches a Projectile.
+- Target Actor [3] - The spell immediately affects the Actor the caster is looking at.
+- Target Location [4] - The spell immediately affects the location the caster is looking at."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="CategorySelect2" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 102.0
+margin_right = 388.0
+margin_bottom = 122.0
+text = "None"
+items = [ "None", null, false, 0, null, "Self", null, false, 1, null, "Touch", null, false, 2, null, "Aimed", null, false, 3, null, "Target Actor", null, false, 4, null, "Target Location", null, false, 5, null ]
+selected = 0
+
+[node name="Spacer5" type="Control" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 126.0
+margin_right = 388.0
+margin_bottom = 126.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 130.0
+margin_right = 388.0
+margin_bottom = 152.0
+
+[node name="Label2" type="Label" parent="SpellTraitsPanel/VBoxContainer/HBoxContainer3"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Casting Type Filter:"
+
+[node name="Help" type="Label" parent="SpellTraitsPanel/VBoxContainer/HBoxContainer3"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "All Spells, Enchantments, Potions, and Scrolls have a Casting Type, which must match the Casting Type of the Magic Effects in their Effects list. The casting types are defined as follows:
+
+- Constant Effect [0] - These spells are always active (like Racial Abilities), or start and end based on a specific action (like equipping enchanted armor).
+
+- Fire and Forget [1] - These spells are cast once, and end when their duration expires or the target somehow dispels the spell.
+--> 'Instant' effects, such as most Powers and Potions, use the Fire and Forget Casting Type.
+
+- Concentration [2] - The caster of the spell must maintain the spell. 
+--> The spell starts when the actor casts it, and ends when the caster deliberately stops casting it, runs out of magicka, or is otherwise interrupted."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="CategorySelect3" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 156.0
+margin_right = 388.0
+margin_bottom = 176.0
+text = "None"
+items = [ "None", null, false, 0, null, "Constant Effect", null, false, 1, null, "Fire and Forget", null, false, 2, null, "Concentration", null, false, 3, null ]
+selected = 0
+
+[node name="Spacer6" type="Control" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 180.0
+margin_right = 388.0
+margin_bottom = 180.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 184.0
+margin_right = 388.0
+margin_bottom = 206.0
+
+[node name="Label2" type="Label" parent="SpellTraitsPanel/VBoxContainer/HBoxContainer4"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Magic School Filter:"
+
+[node name="Help" type="Label" parent="SpellTraitsPanel/VBoxContainer/HBoxContainer4"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "A Magic School indicates which school to filter for. The Schools are:
+
+- Alteration : 18
+- Conjuration : 19
+- Destruction : 20
+- Illusion : 21
+- Restoration : 22"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="CategorySelect4" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 210.0
+margin_right = 388.0
+margin_bottom = 230.0
+text = "None"
+items = [ "None", null, false, 0, null, "Self", null, false, 1, null, "Touch", null, false, 2, null, "Aimed", null, false, 3, null, "Target Actor", null, false, 4, null, "Target Location", null, false, 5, null ]
+selected = 0
+
+[node name="Spacer7" type="Control" parent="SpellTraitsPanel/VBoxContainer"]
+margin_top = 234.0
+margin_right = 388.0
+margin_bottom = 234.0
+
 [node name="FurnitureTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2318.0
+margin_top = 2504.0
 margin_right = 402.0
-margin_bottom = 2354.0
+margin_bottom = 2690.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FurnitureTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 29.0
+margin_bottom = 179.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FurnitureTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -1756,10 +2102,73 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
+[node name="Label2" type="Label" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Furniture Type Filter:"
+
+[node name="CategorySelect" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 48.0
+margin_right = 388.0
+margin_bottom = 68.0
+text = "None"
+items = [ "None", null, false, 0, null, "Perch", null, false, 1, null, "Lean", null, false, 2, null, "Sit", null, false, 3, null, "Sleep", null, false, 4, null ]
+selected = 0
+
+[node name="Spacer" type="Control" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 72.0
+margin_right = 388.0
+margin_bottom = 72.0
+
+[node name="Label3" type="Label" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 76.0
+margin_right = 388.0
+margin_bottom = 94.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Bench Type Filter:"
+
+[node name="CategorySelect2" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 98.0
+margin_right = 388.0
+margin_bottom = 118.0
+text = "None"
+items = [ "None", null, false, 0, null, "Create Object", null, false, 1, null, "Smithing Weapon", null, false, 2, null, "Enchanting", null, false, 3, null, "Enchanting Experiment", null, false, 4, null, "Alchemy", null, false, 5, null, "Alchemy Experiment", null, false, 6, null, "Smithing Armor", null, false, 7, null ]
+selected = 0
+
+[node name="Spacer2" type="Control" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 122.0
+margin_right = 388.0
+margin_bottom = 122.0
+
+[node name="Label4" type="Label" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 126.0
+margin_right = 388.0
+margin_bottom = 144.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Bench Used Skill Filter:"
+
+[node name="SkillSelect" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 148.0
+margin_right = 388.0
+margin_bottom = 168.0
+text = "None"
+items = [ "None", null, false, 0, null, "One Handed", null, false, 1, null, "Two Handed", null, false, 2, null, "Marksman", null, false, 3, null, "Block", null, false, 4, null, "Smithing", null, false, 5, null, "Heavy Armor", null, false, 6, null, "Light Armor", null, false, 7, null, "Pickpocket", null, false, 8, null, "Lockpicking", null, false, 9, null, "Sneak", null, false, 10, null, "Alchemy", null, false, 11, null, "Speechcraft", null, false, 12, null, "Alteration", null, false, 13, null, "Conjuration", null, false, 14, null, "Destruction", null, false, 15, null, "Illusion", null, false, 16, null, "Restoration", null, false, 17, null, "Enchanting", null, false, 18, null ]
+selected = 0
+
+[node name="Spacer3" type="Control" parent="FurnitureTraitsPanel/VBoxContainer"]
+margin_top = 172.0
+margin_right = 388.0
+margin_bottom = 172.0
+
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 2358.0
+margin_top = 2694.0
 margin_right = 402.0
-margin_bottom = 2422.0
+margin_bottom = 2758.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -1800,9 +2209,9 @@ value = 100.0
 rounded = true
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 2426.0
+margin_top = 2762.0
 margin_right = 402.0
-margin_bottom = 2482.0
+margin_bottom = 2818.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
