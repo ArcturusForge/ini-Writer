@@ -89,18 +89,20 @@ func raw_to_interp(raw:String):
 						0:#- Subject
 							if "0x" in currentFilter || "0X" in currentFilter:
 								#- Subject comes from FormID
-								var id = currentFilter.get_slice("x", 1) if "0x" in currentFilter else currentFilter.get_slice("x", 1)
+								var id = currentFilter.get_slice("x", 1) if "0x" in currentFilter else currentFilter.get_slice("X", 1)
 								if ".esm" in currentFilter || ".esp" in currentFilter:
 									#- Comes from a different plugin than skyrim and the original dlc.
 									currentEdit.objectId.type = 1
 									currentEdit.objectId.value = id.get_slice("~", 0)
+									currentEdit.objectId.source = id.get_slice("~", 1)
 								elif ".esl" in currentFilter:
 									#- Comes from a light plugin.
 									currentEdit.objectId.type = 2
 									currentEdit.objectId.value = id.get_slice("~", 0)
+									currentEdit.objectId.source = id.get_slice("~", 1)
 								else:
 									#- Comes from skyrim or original dlc.
-									currentEdit.objectId.type = 3
+									currentEdit.objectId.type = 1
 									currentEdit.objectId.value = id
 							else:
 								#- Subject comes from custom keyword.
@@ -217,7 +219,11 @@ func interp_to_raw(interp): # interp = {}
 			0: #- Keyword
 				#- Handle name
 				if not edit.name == "" || not edit.comments.size() == 0:
-					raw += ";" + "[" + edit.name + "]" + edit.comments[0] + "\n"
+					raw += ";" + "[" + edit.name + "]"
+					if edit.comments.size() > 0:
+						raw += edit.comments[0] + "\n"
+					else:
+						raw += "\n"
 					for i in range(edit.comments.size()):
 						if i == 0:
 							continue
@@ -312,7 +318,7 @@ func create_new_edit():
 		"name":"",
 		"comments":[""],
 		"objectId":{
-			"type":0, #- Types: (0)editorID, (1)esp/esm[6digits], (2)esl[3digits], (3)skyrim/original dlc[6digits]
+			"type":0, #- Types: (0)editorID, (1)esp/esm[6digits], (2)esl[3digits]
 			"value":"", #- Erase leading 0's if there are any. -> {00}65AFD
 			"source":""
 		},
@@ -326,6 +332,8 @@ func create_new_edit():
 #--- CUSTOM: Returns the distribution type's name.
 func get_type_name(itemType:int):
 	match itemType:
+		-1:
+			return "ERROR"
 		0:
 			return "Weapon"
 		1:

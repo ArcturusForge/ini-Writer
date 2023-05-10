@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/KidEditDriver.gd" type="Script" id=3]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=4]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SourcePanelDriver.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -138,6 +139,7 @@ bookmark_gutter = true
 margin_top = 264.0
 margin_right = 402.0
 margin_bottom = 444.0
+script = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
 margin_left = 7.0
@@ -2259,3 +2261,5 @@ margin_left = 302.0
 margin_right = 388.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+
+[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
