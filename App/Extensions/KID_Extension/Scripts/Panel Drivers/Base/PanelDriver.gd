@@ -1,11 +1,15 @@
 extends PanelContainer
 
-#--- Used to init the ui.
-func set_data(data):
+#--- SYSTEM: Reset ui to init user state.
+func init():
 	pass
 
-#--- Used to compile the data into an edit.
-#--- [edit] is a instance reference so changes will apply for all viewers.
-func assign_data(edit):
+#--- SYSTEM: Used to init the ui.
+func set_data(edit):
+	pass
+
+#--- SYSTEM: Used to compile the data into an edit.
+#--- [edit] is an instance reference so changes will apply for all viewers.
+func apply_data(edit):
 	
 	pass

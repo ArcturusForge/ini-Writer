@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/KidEditDriver.gd" type="Script" id=3]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=4]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SourcePanelDriver.gd" type="Script" id=5]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/WeaponPanelDriver.gd" type="Script" id=6]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/ArmorPanelDriver.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -372,14 +374,15 @@ align = 1
 [node name="WeaponTraitsPanel" type="PanelContainer" parent="."]
 margin_top = 488.0
 margin_right = 402.0
-margin_bottom = 858.0
+margin_bottom = 866.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 6 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WeaponTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 363.0
+margin_bottom = 371.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -472,31 +475,36 @@ margin_right = 388.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer"]
+[node name="Spacer" type="Control" parent="WeaponTraitsPanel/VBoxContainer"]
 margin_top = 82.0
 margin_right = 388.0
-margin_bottom = 100.0
+margin_bottom = 82.0
+
+[node name="Label2" type="Label" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 86.0
+margin_right = 388.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Weapon Category Filter:"
 
 [node name="CategorySelect" type="OptionButton" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 104.0
+margin_top = 108.0
 margin_right = 388.0
-margin_bottom = 124.0
+margin_bottom = 128.0
 text = "None"
 items = [ "None", null, false, 0, null, "Hand-To-Hand Melee", null, false, 1, null, "One-Hand Sword", null, false, 2, null, "One-Hand Dagger", null, false, 3, null, "One-Hand Axe", null, false, 4, null, "One-Hand Mace", null, false, 5, null, "Two-Hand Sword", null, false, 6, null, "Two-Hand Axe", null, false, 7, null, "Bow", null, false, 8, null, "Staff", null, false, 9, null, "Crossbow", null, false, 10, null ]
 selected = 0
 
 [node name="Spacer4" type="Control" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 128.0
-margin_right = 388.0
-margin_bottom = 128.0
-
-[node name="WeightCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
 margin_top = 132.0
 margin_right = 388.0
-margin_bottom = 172.0
+margin_bottom = 132.0
+
+[node name="WeightCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 136.0
+margin_right = 388.0
+margin_bottom = 176.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Weapon Weight Filtering:"
@@ -504,9 +512,9 @@ align = 1
 
 [node name="WeightSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 176.0
+margin_top = 180.0
 margin_right = 388.0
-margin_bottom = 242.0
+margin_bottom = 246.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel"]
 margin_left = 7.0
@@ -552,7 +560,7 @@ step = 0.1
 value = 0.1
 allow_greater = true
 
-[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
+[node name="WeightRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 30.0
@@ -579,10 +587,15 @@ step = 0.1
 value = 1.0
 allow_greater = true
 
-[node name="DamageCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
-margin_top = 246.0
+[node name="Spacer2" type="Control" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 250.0
 margin_right = 388.0
-margin_bottom = 286.0
+margin_bottom = 250.0
+
+[node name="DamageCheckButton" type="CheckButton" parent="WeaponTraitsPanel/VBoxContainer"]
+margin_top = 254.0
+margin_right = 388.0
+margin_bottom = 294.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Weapon Damage Filtering:"
@@ -590,9 +603,9 @@ align = 1
 
 [node name="DamageSubPanel" type="PanelContainer" parent="WeaponTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 290.0
+margin_top = 298.0
 margin_right = 388.0
-margin_bottom = 356.0
+margin_bottom = 364.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel"]
 margin_left = 7.0
@@ -630,7 +643,7 @@ margin_top = 22.0
 margin_right = 374.0
 margin_bottom = 52.0
 
-[node name="WeightMinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
+[node name="MinSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
 margin_right = 168.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
@@ -638,7 +651,7 @@ step = 0.1
 value = 0.1
 allow_greater = true
 
-[node name="ActorRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
+[node name="DamageRangeButton" type="Button" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 30.0
@@ -656,7 +669,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 4 )
 expand_icon = true
 
-[node name="WeightMaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
+[node name="MaxSpinBox" type="SpinBox" parent="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 206.0
 margin_right = 374.0
 margin_bottom = 30.0
@@ -666,10 +679,11 @@ value = 1.0
 allow_greater = true
 
 [node name="ArmorTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 862.0
+margin_top = 870.0
 margin_right = 402.0
-margin_bottom = 1240.0
+margin_bottom = 1248.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 7 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ArmorTraitsPanel"]
 margin_left = 7.0
@@ -853,7 +867,7 @@ step = 0.1
 value = 0.1
 allow_greater = true
 
-[node name="ActorRangeButton" type="Button" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+[node name="RatingRangeButton" type="Button" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 30.0
@@ -885,7 +899,7 @@ margin_top = 250.0
 margin_right = 388.0
 margin_bottom = 250.0
 
-[node name="AWeightCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
+[node name="WeightCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
 margin_top = 254.0
 margin_right = 388.0
 margin_bottom = 294.0
@@ -894,36 +908,36 @@ enabled_focus_mode = 0
 text = "Use Armor Weight Filtering:"
 align = 1
 
-[node name="AWeightSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
+[node name="WeightSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
 margin_top = 298.0
 margin_right = 388.0
 margin_bottom = 364.0
 
-[node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel"]
+[node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 381.0
 margin_bottom = 59.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer"]
 margin_right = 374.0
 margin_bottom = 18.0
 
-[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer2"]
 margin_right = 168.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Min Weight:"
 
-[node name="Control" type="Control" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Control" type="Control" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer2"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 30, 0 )
 
-[node name="Label3" type="Label" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Label3" type="Label" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer2"]
 margin_left = 206.0
 margin_right = 374.0
 margin_bottom = 18.0
@@ -931,12 +945,12 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Max Weight:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer"]
 margin_top = 22.0
 margin_right = 374.0
 margin_bottom = 52.0
 
-[node name="WeightMinSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer"]
+[node name="WeightMinSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
 margin_right = 168.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
@@ -944,7 +958,7 @@ step = 0.1
 value = 0.1
 allow_greater = true
 
-[node name="ActorRangeButton" type="Button" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer"]
+[node name="WeightRangeButton" type="Button" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 30.0
@@ -962,7 +976,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 4 )
 expand_icon = true
 
-[node name="WeightMaxSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/AWeightSubPanel/NodeContainer/HBoxContainer"]
+[node name="WeightMaxSpinBox" type="SpinBox" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 206.0
 margin_right = 374.0
 margin_bottom = 30.0
@@ -972,16 +986,16 @@ value = 1.0
 allow_greater = true
 
 [node name="AmmoTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1244.0
+margin_top = 1252.0
 margin_right = 402.0
-margin_bottom = 1422.0
+margin_bottom = 1434.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmmoTraitsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 171.0
+margin_bottom = 175.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AmmoTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -1058,10 +1072,15 @@ margin_right = 388.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
-[node name="RatingCheckButton" type="CheckButton" parent="AmmoTraitsPanel/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="AmmoTraitsPanel/VBoxContainer"]
 margin_top = 54.0
 margin_right = 388.0
-margin_bottom = 94.0
+margin_bottom = 54.0
+
+[node name="RatingCheckButton" type="CheckButton" parent="AmmoTraitsPanel/VBoxContainer"]
+margin_top = 58.0
+margin_right = 388.0
+margin_bottom = 98.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Ammo Damage Filtering:"
@@ -1069,9 +1088,9 @@ align = 1
 
 [node name="RatingSubPanel" type="PanelContainer" parent="AmmoTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 98.0
+margin_top = 102.0
 margin_right = 388.0
-margin_bottom = 164.0
+margin_bottom = 168.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel"]
 margin_left = 7.0
@@ -1145,9 +1164,9 @@ value = 1.0
 allow_greater = true
 
 [node name="MagicEffectTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1426.0
+margin_top = 1438.0
 margin_right = 402.0
-margin_bottom = 1762.0
+margin_bottom = 1774.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MagicEffectTraitsPanel"]
@@ -1425,9 +1444,9 @@ rounded = true
 allow_greater = true
 
 [node name="PotionTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1766.0
+margin_top = 1778.0
 margin_right = 402.0
-margin_bottom = 1858.0
+margin_bottom = 1870.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PotionTraitsPanel"]
@@ -1528,9 +1547,9 @@ margin_bottom = 52.0
 size_flags_horizontal = 3
 
 [node name="IngredientTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1862.0
+margin_top = 1874.0
 margin_right = 402.0
-margin_bottom = 1926.0
+margin_bottom = 1938.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="IngredientTraitsPanel"]
@@ -1615,9 +1634,9 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="BookTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1930.0
+margin_top = 1942.0
 margin_right = 402.0
-margin_bottom = 2076.0
+margin_bottom = 2088.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BookTraitsPanel"]
@@ -1744,9 +1763,9 @@ margin_right = 388.0
 margin_bottom = 132.0
 
 [node name="SoulGemTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2080.0
+margin_top = 2092.0
 margin_right = 402.0
-margin_bottom = 2248.0
+margin_bottom = 2260.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SoulGemTraitsPanel"]
@@ -1878,9 +1897,9 @@ margin_right = 388.0
 margin_bottom = 154.0
 
 [node name="SpellTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2252.0
+margin_top = 2264.0
 margin_right = 402.0
-margin_bottom = 2500.0
+margin_bottom = 2512.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SpellTraitsPanel"]
@@ -2068,9 +2087,9 @@ margin_right = 388.0
 margin_bottom = 234.0
 
 [node name="FurnitureTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2504.0
+margin_top = 2516.0
 margin_right = 402.0
-margin_bottom = 2690.0
+margin_bottom = 2702.0
 rect_pivot_offset = Vector2( -290, -73 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FurnitureTraitsPanel"]
@@ -2168,9 +2187,9 @@ margin_right = 388.0
 margin_bottom = 172.0
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 2694.0
+margin_top = 2706.0
 margin_right = 402.0
-margin_bottom = 2758.0
+margin_bottom = 2770.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -2211,9 +2230,9 @@ value = 100.0
 rounded = true
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 2762.0
+margin_top = 2774.0
 margin_right = 402.0
-margin_bottom = 2818.0
+margin_bottom = 2830.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
@@ -2262,4 +2281,17 @@ margin_right = 388.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/E_CheckBox" to="WeaponTraitsPanel" method="_on_E_CheckBox_pressed"]
+[connection signal="pressed" from="WeaponTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/T_CheckBox" to="WeaponTraitsPanel" method="_on_T_CheckBox_pressed"]
+[connection signal="toggled" from="WeaponTraitsPanel/VBoxContainer/WeightCheckButton" to="WeaponTraitsPanel" method="_on_WeightCheckButton_toggled"]
+[connection signal="toggled" from="WeaponTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer/WeightRangeButton" to="WeaponTraitsPanel" method="_on_WeightRangeButton_toggled"]
+[connection signal="toggled" from="WeaponTraitsPanel/VBoxContainer/DamageCheckButton" to="WeaponTraitsPanel" method="_on_DamageCheckButton_toggled"]
+[connection signal="toggled" from="WeaponTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer/DamageRangeButton" to="WeaponTraitsPanel" method="_on_DamageRangeButton_toggled"]
+[connection signal="pressed" from="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/E_CheckBox" to="ArmorTraitsPanel" method="_on_E_CheckBox_pressed"]
+[connection signal="pressed" from="ArmorTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/T_CheckBox" to="ArmorTraitsPanel" method="_on_T_CheckBox_pressed"]
+[connection signal="toggled" from="ArmorTraitsPanel/VBoxContainer/RatingCheckButton" to="ArmorTraitsPanel" method="_on_RatingCheckButton_toggled"]
+[connection signal="toggled" from="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer/RatingRangeButton" to="ArmorTraitsPanel" method="_on_RatingRangeButton_toggled"]
+[connection signal="toggled" from="ArmorTraitsPanel/VBoxContainer/WeightCheckButton" to="ArmorTraitsPanel" method="_on_WeightCheckButton_toggled"]
+[connection signal="toggled" from="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer/WeightRangeButton" to="ArmorTraitsPanel" method="_on_WeightRangeButton_toggled"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
+[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

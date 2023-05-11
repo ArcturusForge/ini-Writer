@@ -21,7 +21,7 @@ func set_data(edit):
 
 #--- Used to compile the data into an edit.
 #--- [edit] is a instance reference so changes will apply for all viewers.
-func assign_data(edit):
+func apply_data(edit):
 	edit.objectId.type = source_select.selected
 	edit.objectId.value = id_edit.text
 	edit.objectId.source = source_edit.text

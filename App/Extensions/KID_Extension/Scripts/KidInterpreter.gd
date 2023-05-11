@@ -182,9 +182,10 @@ func raw_to_interp(raw:String):
 					line.erase(0, 1)
 					if not previousEdit == null && previousEdit.type == -1: #- Combines group comments into one comment edit.
 						previousEdit.comments.append(line)
+						previousEdit.lineNumber += 1
 						skipEdit = true
 					else:
-						currentEdit.comments[0] = line
+						currentEdit.comments.append(line)
 			-2:#- Empty line
 				if previousEdit == null:
 					skipEdit = true
@@ -244,16 +245,20 @@ func interp_to_raw(interp): # interp = {}
 					raw += "|NONE"
 				else:
 					raw += "|"
-					for filter in edit.stringAndFormFilters:
-						raw += filter
+					for i in range(edit.stringAndFormFilters.size()):
+						if i > 0:
+							raw += ","
+						raw += edit.stringAndFormFilters[i]
 				
 				#- Handle traits
 				if edit.traitFilters.size() == 0:
 					raw += "|NONE"
 				else:
 					raw += "|"
-					for filter in edit.traitFilters:
-						raw += filter
+					for i in range(edit.traitFilters.size()):
+						if i > 0:
+							raw += ","
+						raw += edit.traitFilters[i]
 				
 				#- Handle chance
 				raw += "|" + str(edit.chance)
@@ -291,12 +296,16 @@ func get_edit_count(interp):
 #--- Returns the name of an edit inside the interp data.
 func get_edit_name(interp, index):
 	var edit = interp.edits[index]
-	var eName = str(edit.lineNumber) + " "
+	var eName = ""
 	match edit.type:
 		-1: #- (-1)Comment
+			eName += str(edit.lineNumber - edit.comments.size() + 1) + "~" if edit.comments.size() > 1 else ""
+			eName += str(edit.lineNumber) + " "
 			eName += "Comment: " + edit.comments[0]
 			return eName
-		0: #- (0)Spell
+		0: #- (0)Keyword
+			eName += str(edit.lineNumber - edit.comments.size()) + "~" if (edit.comments.size() > 0 && edit.comments[0] != "") || edit.name != "" else ""
+			eName += str(edit.lineNumber) + " "
 			eName += get_type_name(edit.itemType) + ": "
 	if edit.name == "":
 		eName += edit.objectId.value
@@ -316,7 +325,7 @@ func create_new_edit():
 		"lineNumber":-1, #- For which line the edit originates from.
 		"type":-1,
 		"name":"",
-		"comments":[""],
+		"comments":[],
 		"objectId":{
 			"type":0, #- Types: (0)editorID, (1)esp/esm[6digits], (2)esl[3digits]
 			"value":"", #- Erase leading 0's if there are any. -> {00}65AFD

@@ -66,33 +66,53 @@ func apply_edit(interp):
 	else:
 		edit.type = 0
 		edit.itemType = type_select.selected - 1
+		apply_trait_data(edit)
 	
 	
 	#- Assign data to edit
-	source_panel.assign_data(edit)
+	source_panel.apply_data(edit)
 	
+	#- Generate line number and assign to interp database.
 	if not isNew:
 		var ogEdit = interp.edits[workingIndex]
-		var linesToAdd = 0
-		
-		if (edit.name != "" || edit.comments.size() > 0) && (ogEdit.name == "" && ogEdit.comments.size() == 0):
-			linesToAdd += 1
-		elif (edit.name == "" && edit.comments.size() == 0) && (ogEdit.name != "" || ogEdit.comments.size() > 0):
-			linesToAdd -= 1
-		
-		if edit.comments.size() > ogEdit.comments.size() && edit.comments.size() > 1:
-			linesToAdd += (edit.comments.size() - ogEdit.comments.size()) - 1
-		elif edit.comments.size() < ogEdit.comments.size() && ogEdit.comments.size() > 1:
-			linesToAdd -= (ogEdit.comments.size() - edit.comments.size()) + 1
-		
-		edit.lineNumber = ogEdit.lineNumber + linesToAdd
+		var ogLines = 0
+		if ogEdit.comments.size() > 0:
+			ogLines += ogEdit.comments.size()
+		elif ogEdit.name != "":
+			ogLines += 1
+			
+		var lNum = 1 if edit.type != -1 else 0
+		if edit.comments.size() < ogEdit.comments.size():
+			var dif = abs(edit.comments.size() - ogEdit.comments.size())
+			lNum += ogLines - dif
+			#- Propagate the difference in line number to proceeding edits.
+			for i in range(workingIndex + 1, interp.edits.size()):
+				var procEdit = interp.edits[i]
+				procEdit.lineNumber -= dif
+		elif edit.comments.size() > ogEdit.comments.size():
+			var dif = abs(edit.comments.size() - ogEdit.comments.size())
+			lNum += ogLines + dif
+			#- Propagate the difference in line number to proceeding edits.
+			for i in range(workingIndex + 1, interp.edits.size()):
+				var procEdit = interp.edits[i]
+				procEdit.lineNumber += dif
+		else:
+			lNum = ogEdit.lineNumber
+
+		edit.lineNumber = lNum
 		interp.edits[workingIndex] = edit
 		Globals.get_manager("console").post("Modified (" + interpreter.get_edit_name(interp, workingIndex) + ")")
 	else:
-		var lNum = 1
+		var lNum = 1 if edit.type != -1 else 0
 		if interp.edits.size() > 0:
 			var prevEdit = interp.edits[interp.edits.size()-1] 
-			lNum = prevEdit.lineNumber + prevEdit.newlines + prevEdit.comments.size()
+			lNum += prevEdit.lineNumber + prevEdit.newlines - 1
+		
+		if edit.comments.size() > 0:
+			lNum += edit.comments.size()
+		elif edit.name != "":
+			lNum += 1
+		
 		edit.lineNumber = lNum
 		interp.edits.append(edit)
 		Globals.get_manager("console").post("Created (" + interpreter.get_edit_name(interp, interp.edits.size()-1) + ")")
@@ -101,6 +121,11 @@ func apply_edit(interp):
 #--- CUSTOM: Called by the apply edit button.
 func _on_ApplyButton_pressed():
 	notify_system()
+	pass
+
+#--- CUSTOM: Called by the cancel edit button.
+func _on_CancelButton_pressed():
+	system.cancel_create()
 	pass
 
 #--- CUSTOM: Generate the UI for a particular edit.
@@ -118,6 +143,8 @@ func draw_ui(edit):
 		comment_edit.text += comment + "\n"
 
 	source_panel.set_data(edit)
+	init_panels()
+	set_trait_data(edit)
 	pass
 
 #--- CUSTOM: Handle which panels are active for the current edit type.
@@ -145,7 +172,7 @@ func handle_type_select(selected):
 			toggle_visiblity(true, true, true, false, false, false, false, false, false, false, false, true)
 		16: #- Furniture
 			toggle_visiblity(true, true, true, false, false, false, false, false, false, false, false, false, true)
-		6,7,10,14,15,17,18: #- GENERICS: Scroll, Location, Misc Item, Key, Activator, Flora, Race, Talking Activator
+		6,7,10,11,14,15,17,18: #- GENERICS: Scroll, Location, Misc Item, Key, Activator, Flora, Race, Talking Activator
 			toggle_visiblity(true, true, true)
 	pass
 
@@ -166,4 +193,68 @@ func toggle_visiblity(name:bool, source:bool, filters:bool, weapon:bool = false,
 	spell_traits_panel.visible = spell
 	furniture_traits_panel.visible = furniture
 	chance_panel.visible = chance
+	pass
+
+#--- CUSTOM: Utility for reseting panels to default state
+func init_panels():
+	weapon_traits_panel.init()
+	armor_traits_panel.init()
+	# ammo_traits_panel.init()
+	# magic_effect_traits_panel.init()
+	# potion_traits_panel.init()
+	# ingredient_traits_panel.init()
+	# book_traits_panel.init()
+	# soul_gem_traits_panel.init()
+	# spell_traits_panel.init()
+	# furniture_traits_panel.init()
+	pass
+
+#--- CUSTOM: Utility for assigning trait data to the edit's type panel.
+func set_trait_data(edit):
+	match edit.itemType + 1:
+		1: #- Weapon
+			weapon_traits_panel.set_data(edit)
+		2: #- Armor
+			armor_traits_panel.set_data(edit)
+		3: #- Ammo
+			ammo_traits_panel.set_data(edit)
+		4: #- Magic effect
+			magic_effect_traits_panel.set_data(edit)
+		5: #- Potion
+			potion_traits_panel.set_data(edit)
+		8: #- Ingredient
+			ingredient_traits_panel.set_data(edit)
+		9: #- Book
+			book_traits_panel.set_data(edit)
+		12: #- Soulgem
+			soul_gem_traits_panel.set_data(edit)
+		13,19: #- Spell, Enchantment
+			spell_traits_panel.set_data(edit)
+		16: #- Furniture
+			furniture_traits_panel.set_data(edit)
+	pass
+
+#--- CUSTOM: Utility for applying user edits to the KID file.
+func apply_trait_data(edit):
+	match edit.itemType + 1:
+		1: #- Weapon
+			weapon_traits_panel.apply_data(edit)
+		2: #- Armor
+			armor_traits_panel.apply_data(edit)
+		3: #- Ammo
+			ammo_traits_panel.apply_data(edit)
+		4: #- Magic effect
+			magic_effect_traits_panel.apply_data(edit)
+		5: #- Potion
+			potion_traits_panel.apply_data(edit)
+		8: #- Ingredient
+			ingredient_traits_panel.apply_data(edit)
+		9: #- Book
+			book_traits_panel.apply_data(edit)
+		12: #- Soulgem
+			soul_gem_traits_panel.apply_data(edit)
+		13,19: #- Spell, Enchantment
+			spell_traits_panel.apply_data(edit)
+		16: #- Furniture
+			furniture_traits_panel.apply_data(edit)
 	pass
