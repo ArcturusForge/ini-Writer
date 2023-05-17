@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
@@ -7,6 +7,12 @@
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SourcePanelDriver.gd" type="Script" id=5]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/WeaponPanelDriver.gd" type="Script" id=6]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/ArmorPanelDriver.gd" type="Script" id=7]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/AmmoPanelDriver.gd" type="Script" id=8]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/MagicEffectPanelDriver.gd" type="Script" id=9]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/PotionPanelDriver.gd" type="Script" id=10]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/IngredientPanelDriver.gd" type="Script" id=11]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/BookPanelDriver.gd" type="Script" id=12]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SoulGemPanelDriver.gd" type="Script" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -990,6 +996,7 @@ margin_top = 1252.0
 margin_right = 402.0
 margin_bottom = 1434.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmmoTraitsPanel"]
 margin_left = 7.0
@@ -1077,7 +1084,7 @@ margin_top = 54.0
 margin_right = 388.0
 margin_bottom = 54.0
 
-[node name="RatingCheckButton" type="CheckButton" parent="AmmoTraitsPanel/VBoxContainer"]
+[node name="DamageCheckButton" type="CheckButton" parent="AmmoTraitsPanel/VBoxContainer"]
 margin_top = 58.0
 margin_right = 388.0
 margin_bottom = 98.0
@@ -1086,36 +1093,36 @@ enabled_focus_mode = 0
 text = "Use Ammo Damage Filtering:"
 align = 1
 
-[node name="RatingSubPanel" type="PanelContainer" parent="AmmoTraitsPanel/VBoxContainer"]
+[node name="DamageSubPanel" type="PanelContainer" parent="AmmoTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
 margin_top = 102.0
 margin_right = 388.0
 margin_bottom = 168.0
 
-[node name="NodeContainer" type="VBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel"]
+[node name="NodeContainer" type="VBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 381.0
 margin_bottom = 59.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer"]
 margin_right = 374.0
 margin_bottom = 18.0
 
-[node name="Label2" type="Label" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer2"]
 margin_right = 168.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Min Damage:"
 
-[node name="Control" type="Control" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Control" type="Control" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer2"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 30, 0 )
 
-[node name="Label3" type="Label" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Label3" type="Label" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer2"]
 margin_left = 206.0
 margin_right = 374.0
 margin_bottom = 18.0
@@ -1123,12 +1130,12 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Max Damage:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer"]
 margin_top = 22.0
 margin_right = 374.0
 margin_bottom = 52.0
 
-[node name="RatingMinSpinBox" type="SpinBox" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+[node name="DamageMinSpinBox" type="SpinBox" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
 margin_right = 168.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
@@ -1136,7 +1143,7 @@ step = 0.1
 value = 0.1
 allow_greater = true
 
-[node name="ActorRangeButton" type="Button" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+[node name="DamageRangeButton" type="Button" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 30.0
@@ -1154,7 +1161,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 4 )
 expand_icon = true
 
-[node name="RatingMaxSpinBox" type="SpinBox" parent="AmmoTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+[node name="DamageMaxSpinBox" type="SpinBox" parent="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 206.0
 margin_right = 374.0
 margin_bottom = 30.0
@@ -1168,6 +1175,7 @@ margin_top = 1438.0
 margin_right = 402.0
 margin_bottom = 1774.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 9 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MagicEffectTraitsPanel"]
 margin_left = 7.0
@@ -1285,7 +1293,7 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
-[node name="CategorySelect2" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
+[node name="DeliveryTypeSelect" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_top = 84.0
 margin_right = 388.0
 margin_bottom = 104.0
@@ -1330,7 +1338,7 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
-[node name="CategorySelect3" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
+[node name="CastingTypeSelect" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_top = 138.0
 margin_right = 388.0
 margin_bottom = 158.0
@@ -1343,7 +1351,7 @@ margin_top = 162.0
 margin_right = 388.0
 margin_bottom = 162.0
 
-[node name="RatingCheckButton" type="CheckButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
+[node name="SchoolCheckButton" type="CheckButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_top = 166.0
 margin_right = 388.0
 margin_bottom = 206.0
@@ -1352,26 +1360,26 @@ enabled_focus_mode = 0
 text = "Use Magic School Filtering:"
 align = 1
 
-[node name="RatingSubPanel" type="PanelContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
+[node name="SchoolSubPanel" type="PanelContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
 margin_top = 210.0
 margin_right = 388.0
 margin_bottom = 322.0
 
-[node name="NodeContainer" type="VBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel"]
+[node name="NodeContainer" type="VBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 381.0
 margin_bottom = 105.0
 
-[node name="Label2" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+[node name="Label2" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer"]
 margin_right = 374.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Magic School:"
 
-[node name="SchoolSelect" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+[node name="SchoolSelect" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer"]
 margin_top = 22.0
 margin_right = 374.0
 margin_bottom = 42.0
@@ -1379,25 +1387,25 @@ text = "Alteration"
 items = [ "Alteration", null, false, 1, null, "Conjuration", null, false, 2, null, "Destruction", null, false, 3, null, "Illusion", null, false, 4, null, "Restoration", null, false, 5, null ]
 selected = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer"]
 margin_top = 46.0
 margin_right = 374.0
 margin_bottom = 64.0
 
-[node name="Label2" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer/HBoxContainer2"]
 margin_right = 168.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Min Damage:"
 
-[node name="Control" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Control" type="Control" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer/HBoxContainer2"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 30, 0 )
 
-[node name="Label3" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer2"]
+[node name="Label3" type="Label" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer/HBoxContainer2"]
 margin_left = 206.0
 margin_right = 374.0
 margin_bottom = 18.0
@@ -1405,19 +1413,19 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Max Damage:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer"]
 margin_top = 68.0
 margin_right = 374.0
 margin_bottom = 98.0
 
-[node name="RatingMinSpinBox" type="SpinBox" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+[node name="SchoolMinSpinBox" type="SpinBox" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer/HBoxContainer"]
 margin_right = 168.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
 rounded = true
 allow_greater = true
 
-[node name="ActorRangeButton" type="Button" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+[node name="SchoolRangeButton" type="Button" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 30.0
@@ -1435,7 +1443,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 4 )
 expand_icon = true
 
-[node name="RatingMaxSpinBox" type="SpinBox" parent="MagicEffectTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer"]
+[node name="SchoolMaxSpinBox" type="SpinBox" parent="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer/HBoxContainer"]
 margin_left = 206.0
 margin_right = 374.0
 margin_bottom = 30.0
@@ -1448,6 +1456,7 @@ margin_top = 1778.0
 margin_right = 402.0
 margin_bottom = 1870.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PotionTraitsPanel"]
 margin_left = 7.0
@@ -1551,6 +1560,7 @@ margin_top = 1874.0
 margin_right = 402.0
 margin_bottom = 1938.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 11 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="IngredientTraitsPanel"]
 margin_left = 7.0
@@ -1638,6 +1648,7 @@ margin_top = 1942.0
 margin_right = 402.0
 margin_bottom = 2088.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BookTraitsPanel"]
 margin_left = 7.0
@@ -1767,6 +1778,7 @@ margin_top = 2092.0
 margin_right = 402.0
 margin_bottom = 2260.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 13 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SoulGemTraitsPanel"]
 margin_left = 7.0
@@ -1862,7 +1874,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Soul Size Filter:"
 
-[node name="OptionButton" type="OptionButton" parent="SoulGemTraitsPanel/VBoxContainer"]
+[node name="SoulSizeSelect" type="OptionButton" parent="SoulGemTraitsPanel/VBoxContainer"]
 margin_top = 80.0
 margin_right = 388.0
 margin_bottom = 100.0
@@ -1883,7 +1895,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Soulgem Size Filter:"
 
-[node name="OptionButton2" type="OptionButton" parent="SoulGemTraitsPanel/VBoxContainer"]
+[node name="GemSizeSelect" type="OptionButton" parent="SoulGemTraitsPanel/VBoxContainer"]
 margin_top = 130.0
 margin_right = 388.0
 margin_bottom = 150.0
@@ -2293,5 +2305,16 @@ size_flags_horizontal = 3
 [connection signal="toggled" from="ArmorTraitsPanel/VBoxContainer/RatingSubPanel/NodeContainer/HBoxContainer/RatingRangeButton" to="ArmorTraitsPanel" method="_on_RatingRangeButton_toggled"]
 [connection signal="toggled" from="ArmorTraitsPanel/VBoxContainer/WeightCheckButton" to="ArmorTraitsPanel" method="_on_WeightCheckButton_toggled"]
 [connection signal="toggled" from="ArmorTraitsPanel/VBoxContainer/WeightSubPanel/NodeContainer/HBoxContainer/WeightRangeButton" to="ArmorTraitsPanel" method="_on_WeightRangeButton_toggled"]
+[connection signal="pressed" from="AmmoTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/B_CheckBox" to="AmmoTraitsPanel" method="_on_B_CheckBox_pressed"]
+[connection signal="toggled" from="AmmoTraitsPanel/VBoxContainer/DamageCheckButton" to="AmmoTraitsPanel" method="_on_DamageCheckButton_toggled"]
+[connection signal="toggled" from="AmmoTraitsPanel/VBoxContainer/DamageSubPanel/NodeContainer/HBoxContainer/DamageRangeButton" to="AmmoTraitsPanel" method="_on_DamageRangeButton_toggled"]
+[connection signal="pressed" from="MagicEffectTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/H_CheckBox" to="MagicEffectTraitsPanel" method="_on_H_CheckBox_pressed"]
+[connection signal="toggled" from="MagicEffectTraitsPanel/VBoxContainer/SchoolCheckButton" to="MagicEffectTraitsPanel" method="_on_SchoolCheckButton_toggled"]
+[connection signal="toggled" from="MagicEffectTraitsPanel/VBoxContainer/SchoolSubPanel/NodeContainer/HBoxContainer/SchoolRangeButton" to="MagicEffectTraitsPanel" method="_on_SchoolRangeButton_toggled"]
+[connection signal="pressed" from="PotionTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/P_CheckBox" to="PotionTraitsPanel" method="_on_P_CheckBox_pressed"]
+[connection signal="pressed" from="PotionTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/F_CheckBox" to="PotionTraitsPanel" method="_on_F_CheckBox_pressed"]
+[connection signal="pressed" from="IngredientTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/F_CheckBox" to="IngredientTraitsPanel" method="_on_F_CheckBox_pressed"]
+[connection signal="pressed" from="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/S_CheckBox" to="BookTraitsPanel" method="_on_S_CheckBox_pressed"]
+[connection signal="pressed" from="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/T_CheckBox" to="BookTraitsPanel" method="_on_T_CheckBox_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]
