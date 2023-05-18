@@ -30,7 +30,7 @@ func set_data(edit):
 	pass
 
 #--- Used to compile the data into an edit.
-#--- [edit] is an instance reference so changes will apply for all viewers.
+#--- [edit] is an instance reference so changes will apply for all ref holders.
 func apply_data(edit):
 	if p_check_box.pressed:
 		var pfilt = ""

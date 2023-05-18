@@ -11,6 +11,7 @@ onready var type_select:OptionButton = $TypePanel/VBoxContainer/TypeSelect
 onready var name_label = $NamePanel/VBoxContainer/Label
 onready var name_edit:LineEdit = $NamePanel/VBoxContainer/LineEdit
 onready var comment_edit:TextEdit = $NamePanel/VBoxContainer/TextEdit
+onready var chance_spin_box = $ChancePanel/VBoxContainer/ChanceSpinBox
 
 #-- Panels
 onready var source_panel = $SourcePanel
@@ -60,6 +61,7 @@ func apply_edit(interp):
 	var edit = interpreter.create_new_edit()
 	edit.name = name_edit.text
 	edit.comments = comment_edit.text.split("\n", false)
+	edit.chance = chance_spin_box.value
 	
 	if type_select.selected == 0:
 		edit.type = -1
@@ -141,7 +143,8 @@ func draw_ui(edit):
 		if comment == "":
 			continue
 		comment_edit.text += comment + "\n"
-
+	
+	chance_spin_box.value = edit.chance
 	source_panel.set_data(edit)
 	init_panels()
 	set_trait_data(edit)
@@ -204,9 +207,9 @@ func init_panels():
 	potion_traits_panel.init()
 	ingredient_traits_panel.init()
 	book_traits_panel.init()
-	# soul_gem_traits_panel.init()
-	# spell_traits_panel.init()
-	# furniture_traits_panel.init()
+	soul_gem_traits_panel.init()
+	spell_traits_panel.init()
+	furniture_traits_panel.init()
 	pass
 
 #--- CUSTOM: Utility for assigning trait data to the edit's type panel.

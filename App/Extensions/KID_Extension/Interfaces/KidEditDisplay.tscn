@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/IngredientPanelDriver.gd" type="Script" id=11]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/BookPanelDriver.gd" type="Script" id=12]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SoulGemPanelDriver.gd" type="Script" id=13]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SpellPanelDriver.gd" type="Script" id=14]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/FurniturePanelDriver.gd" type="Script" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -356,6 +358,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "These are mostly generalised filters that can apply to all Item types.
 However there are Forms that are only applicable to specfic types of items, these are:
+KEY: distribution type --> formID type
 
 - Armor/Weapon Items --> enchantment.
 - Ammo Items --> projectile.
@@ -370,6 +373,8 @@ However there are Forms that are only applicable to specfic types of items, thes
 - Race Items --> skin (armor), racial ability.
 - Talking Activator Items --> voice type.
 
+Additional filters include:
+KEY: filter - applicable distribution types
 - Equip Slots - for weapons/armor/other equippable items using slots.
 ﻿- Formlist - checks whether any of the form filters included in the list are valid."
 mouse_filter = 1
@@ -1805,7 +1810,10 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "These traits are specific to Soul Gem targeting keyword distribution.
 
-These filters will NOT work on other item types."
+These filters will NOT work on other item types.
+
+Soul Gem Sizing:
+- Alternative -> Applicable to Soulgems that do not follow the standard sizing. e.g. Azura's Star."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -1879,7 +1887,7 @@ margin_top = 80.0
 margin_right = 388.0
 margin_bottom = 100.0
 text = "None"
-items = [ "None", null, false, 0, null, "Petty", null, false, 1, null, "Lesser", null, false, 2, null, "Common", null, false, 3, null, "Greater", null, false, 4, null, "Grand", null, false, 5, null ]
+items = [ "None", null, false, 0, null, "Empty", null, false, 1, null, "Petty", null, false, 2, null, "Lesser", null, false, 3, null, "Common", null, false, 4, null, "Greater", null, false, 5, null, "Grand", null, false, 6, null ]
 selected = 0
 
 [node name="Spacer2" type="Control" parent="SoulGemTraitsPanel/VBoxContainer"]
@@ -1900,7 +1908,7 @@ margin_top = 130.0
 margin_right = 388.0
 margin_bottom = 150.0
 text = "None"
-items = [ "None", null, false, 0, null, "Petty", null, false, 1, null, "Lesser", null, false, 2, null, "Common", null, false, 3, null, "Greater", null, false, 4, null, "Grand", null, false, 5, null ]
+items = [ "None", null, false, 0, null, "Alternative", null, false, 1, null, "Petty", null, false, 2, null, "Lesser", null, false, 3, null, "Common", null, false, 4, null, "Greater", null, false, 5, null, "Grand", null, false, 6, null ]
 selected = 0
 
 [node name="Spacer3" type="Control" parent="SoulGemTraitsPanel/VBoxContainer"]
@@ -1913,6 +1921,7 @@ margin_top = 2264.0
 margin_right = 402.0
 margin_bottom = 2512.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 14 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SpellTraitsPanel"]
 margin_left = 7.0
@@ -1954,7 +1963,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Spell Type Filter:"
 
-[node name="CategorySelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+[node name="SpellTypeSelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 48.0
 margin_right = 388.0
 margin_bottom = 68.0
@@ -1997,7 +2006,7 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
-[node name="CategorySelect2" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+[node name="DeliveryTypeSelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 102.0
 margin_right = 388.0
 margin_bottom = 122.0
@@ -2042,7 +2051,7 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
-[node name="CategorySelect3" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+[node name="CastingTypeSelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 156.0
 margin_right = 388.0
 margin_bottom = 176.0
@@ -2085,12 +2094,12 @@ custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 
-[node name="CategorySelect4" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
+[node name="SchoolSelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 210.0
 margin_right = 388.0
 margin_bottom = 230.0
 text = "None"
-items = [ "None", null, false, 0, null, "Self", null, false, 1, null, "Touch", null, false, 2, null, "Aimed", null, false, 3, null, "Target Actor", null, false, 4, null, "Target Location", null, false, 5, null ]
+items = [ "None", null, false, 1, null, "Alteration", null, false, 2, null, "Conjuration", null, false, 3, null, "Destruction", null, false, 4, null, "Illusion", null, false, 5, null, "Restoration", null, false, 5, null ]
 selected = 0
 
 [node name="Spacer7" type="Control" parent="SpellTraitsPanel/VBoxContainer"]
@@ -2103,6 +2112,7 @@ margin_top = 2516.0
 margin_right = 402.0
 margin_bottom = 2702.0
 rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 15 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FurnitureTraitsPanel"]
 margin_left = 7.0
@@ -2143,7 +2153,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Furniture Type Filter:"
 
-[node name="CategorySelect" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
+[node name="FurnitureTypeSelect" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
 margin_top = 48.0
 margin_right = 388.0
 margin_bottom = 68.0
@@ -2164,7 +2174,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Bench Type Filter:"
 
-[node name="CategorySelect2" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
+[node name="BenchTypeSelect" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
 margin_top = 98.0
 margin_right = 388.0
 margin_bottom = 118.0
@@ -2185,7 +2195,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Bench Used Skill Filter:"
 
-[node name="SkillSelect" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
+[node name="UsageSkillSelect" type="OptionButton" parent="FurnitureTraitsPanel/VBoxContainer"]
 margin_top = 148.0
 margin_right = 388.0
 margin_bottom = 168.0
@@ -2316,5 +2326,6 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="IngredientTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/F_CheckBox" to="IngredientTraitsPanel" method="_on_F_CheckBox_pressed"]
 [connection signal="pressed" from="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/S_CheckBox" to="BookTraitsPanel" method="_on_S_CheckBox_pressed"]
 [connection signal="pressed" from="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/T_CheckBox" to="BookTraitsPanel" method="_on_T_CheckBox_pressed"]
+[connection signal="pressed" from="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/B_CheckBox" to="SoulGemTraitsPanel" method="_on_B_CheckBox_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
 [connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

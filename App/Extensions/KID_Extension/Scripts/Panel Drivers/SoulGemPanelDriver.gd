@@ -23,42 +23,27 @@ func set_data(edit):
 			b_check_box.pressed = true
 			b_exclude_check_box.pressed = true
 		elif "soul(" in lt:
-			## soul_size_select.selected = int(lt.replace("soul(", "").replace(")", ""))
+			soul_size_select.selected = int(lt.replace("soul(", "").replace(")", "")) + 1
 		elif "gem(" in lt:
-			##
+			gem_size_select.selected = int(lt.replace("gem(", "").replace(")", "")) + 1
 	init()
 	pass
 
 #--- Used to compile the data into an edit.
-#--- [edit] is an instance reference so changes will apply for all viewers.
+#--- [edit] is an instance reference so changes will apply for all ref holders.
 func apply_data(edit):
 	if b_check_box.pressed:
 		var bfilt = ""
 		if b_exclude_check_box.pressed:
 			bfilt += "-"
-		bfilt += "B"
+		bfilt += "BLACK"
 		edit.traitFilters.append(bfilt)
 	
-	if damage_check_button.pressed:
-		var dfilt = "D(" + str(damage_min_spin_box.value)
-		if damage_range_button.pressed:
-			dfilt += "/"+ str(damage_max_spin_box.value)
-		dfilt += ")"
-		edit.traitFilters.append(dfilt)
-	pass
-
-#--- CUSTOM: Toggles rating sub-panel.
-func _on_DamageCheckButton_toggled(state):
-	damage_sub_panel.visible = state
-	pass
-
-#--- CUSTOM: Toggles rating range editable state.
-func _on_DamageRangeButton_toggled(state):
-	damage_max_spin_box.editable = state
-	if state:
-		damage_range_button.icon = Functions.load_image(unlocked)
-	else:
-		damage_range_button.icon = Functions.load_image(locked)
+	if soul_size_select.selected > 0:
+		edit.traitFilters.append("SOUL(" + str(soul_size_select.selected - 1) + ")")
+	
+	if gem_size_select.selected > 0:
+		edit.traitFilters.append("GEM(" + str(gem_size_select.selected - 1) + ")")
 	pass
 
 #--- CUSTOM: Toggles enchanted exclude button editable state.
