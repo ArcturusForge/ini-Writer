@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SoulGemPanelDriver.gd" type="Script" id=13]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SpellPanelDriver.gd" type="Script" id=14]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/FurniturePanelDriver.gd" type="Script" id=15]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/HintToConsole.gd" type="Script" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -70,6 +71,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
 margin_top = 26.0
@@ -136,6 +138,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="TextEdit" type="TextEdit" parent="NamePanel/VBoxContainer"]
 margin_top = 82.0
@@ -202,6 +205,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 2 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="SourceSelect" type="OptionButton" parent="SourcePanel/VBoxContainer"]
 margin_top = 26.0
@@ -267,6 +271,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 2 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
 margin_top = 80.0
@@ -316,6 +321,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 2 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -381,6 +387,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="WeaponTraitsPanel" type="PanelContainer" parent="."]
 margin_top = 488.0
@@ -419,6 +426,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="WeaponTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -726,6 +734,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -1033,6 +1042,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="AmmoTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -1212,6 +1222,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -1297,6 +1308,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="DeliveryTypeSelect" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_top = 84.0
@@ -1342,6 +1354,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="CastingTypeSelect" type="OptionButton" parent="MagicEffectTraitsPanel/VBoxContainer"]
 margin_top = 138.0
@@ -1493,6 +1506,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PotionTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -1597,6 +1611,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="IngredientTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -1685,6 +1700,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="BookTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -1818,6 +1834,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SoulGemTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -1954,6 +1971,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="Label2" type="Label" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -2005,6 +2023,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="DeliveryTypeSelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 102.0
@@ -2050,6 +2069,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="CastingTypeSelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 156.0
@@ -2093,6 +2113,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="SchoolSelect" type="OptionButton" parent="SpellTraitsPanel/VBoxContainer"]
 margin_top = 210.0
@@ -2144,6 +2165,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="Label2" type="Label" parent="FurnitureTraitsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -2242,6 +2264,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 3 )
 text = "?"
 align = 1
+script = ExtResource( 16 )
 
 [node name="ChanceSpinBox" type="SpinBox" parent="ChancePanel/VBoxContainer"]
 margin_top = 26.0

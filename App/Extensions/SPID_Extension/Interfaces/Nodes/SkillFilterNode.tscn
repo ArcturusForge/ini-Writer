@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=1]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=2]
 [ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/SkillFilterNode.gd" type="Script" id=3]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/HintToConsole.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -72,6 +73,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="WeightCheckBox" type="CheckBox" parent="VBoxContainer"]
 margin_top = 76.0

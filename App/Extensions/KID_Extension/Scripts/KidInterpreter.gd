@@ -2,6 +2,13 @@ extends Node
 
 const my_id = "KID"
 const kidOption = "KID Mod Page"
+const kidLink = "https://www.nexusmods.com/skyrimspecialedition/mods/55728"
+const av1Option = "Actor Value Wiki 1"
+const av1Link = "https://www.creationkit.com/index.php?title=Actor_Values"
+const av2Option = "Actor Value Wiki 2"
+const av2Link = "https://en.uesp.net/wiki/Skyrim_Mod:Actor_Value_Indices#:~:text=Actor%20Value%20Indices%20are%20the,part%20of%20various%20console%20commands."
+const esOption = "Equip Slot Wiki"
+const esLink = "https://www.creationkit.com/index.php?title=Equip_Slot"
 
 var pop_manager
 var console_manager
@@ -21,6 +28,11 @@ func enable():
 	var viewPop = pop_manager.get_popup_data("view")
 	viewPop.register_entity(my_id, self, "handle_view")
 	viewPop.add_option(my_id, kidOption)
+	viewPop.add_separator(my_id)
+	viewPop.add_option(my_id, av1Option)
+	viewPop.add_option(my_id, av2Option)
+	viewPop.add_separator(my_id)
+	viewPop.add_option(my_id, esOption)
 	pass
 
 #--- Called by system when the extension is disabled.
@@ -386,6 +398,15 @@ func get_type_name(itemType:int):
 func handle_view(selected):
 	match selected:
 		kidOption:
-			Functions.open_link("https://www.nexusmods.com/skyrimspecialedition/mods/55728")
+			Functions.open_link(kidLink)
 			console_manager.generate("Opening link to KID's mod page...", Globals.green)
+		av1Option:
+			Functions.open_link(av1Link)
+			console_manager.generate("Opening link to Actor Values (1) wiki page...", Globals.green)
+		av2Option:
+			Functions.open_link(av2Link)
+			console_manager.generate("Opening link to Actor Values (2) wiki page...", Globals.green)
+		esOption:
+			Functions.open_link(esLink)
+			console_manager.generate("Opening link to Equip Slots wiki page...", Globals.green)
 	pass

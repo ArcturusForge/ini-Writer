@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://App/Extensions/SPID_Extension/Scripts/SpidEditDriver.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=4]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/HintToConsole.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=5]
 use_filter = true
@@ -83,6 +84,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
 margin_top = 26.0
@@ -195,6 +197,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="SourceSelect" type="OptionButton" parent="SourcePanel/VBoxContainer"]
 margin_top = 26.0
@@ -260,6 +263,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
 margin_top = 80.0
@@ -309,6 +313,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -361,6 +366,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="StringFilterContainer" type="VBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
 margin_top = 26.0
@@ -456,6 +462,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="FormFilterContainer" type="VBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
 margin_top = 26.0
@@ -527,6 +534,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="LevelFilterContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
 margin_top = 26.0
@@ -641,6 +649,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="SkillFilterContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer"]
 margin_top = 124.0
@@ -716,6 +725,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="OptionsContainer" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
 margin_top = 26.0
@@ -852,6 +862,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="AmountSpinBox" type="SpinBox" parent="AmountPanel/VBoxContainer"]
 margin_top = 26.0
@@ -907,6 +918,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="IndexSpinBox" type="SpinBox" parent="IndexPanel/VBoxContainer"]
 margin_top = 26.0
@@ -949,6 +961,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="ChanceSpinBox" type="SpinBox" parent="ChancePanel/VBoxContainer"]
 margin_top = 26.0

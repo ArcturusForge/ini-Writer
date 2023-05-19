@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/StringFilter.gd" type="Script" id=2]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Sub Panels/StringFilter.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/HintToConsole.gd" type="Script" id=4]
+[ext_resource path="res://App/Extensions/KID_Extension/Scripts/HintToConsole.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -31,17 +31,17 @@ margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
 margin_top = 2.0
-margin_right = 370.0
+margin_right = 352.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
 text = "Filter Modifier:"
 
 [node name="StringHelp" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
-margin_left = 374.0
+margin_left = 356.0
 margin_right = 392.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "String Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
 Important:
 - Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.
@@ -50,24 +50,24 @@ There are 4 different modifiers:
 1. Standard:
 - Actors MUST match with at least one applied filter to qualify.
 - Identified by the lack of any unique symbol.
-- Raw Window Appearance: Keyword = NecroDancer|Novice Necromancer, Apprentice Necromancer|NONE|NONE|etc... 
+- Raw Window Appearance: Keyword = NecroDancer|Armor|Novice Necromancer, Apprentice Necromancer|NONE|etc... 
 
 2. Exclusions: 
 - Exclude actors that have the Keyword EditorID / Actorbase Name / Actorbase EditorID.
 - Identified by the minus symbol '-'
-- Raw Window Appearance: Keyword = NotSerana|ActorTypeNPC,-Serana|NONE|NONE|etc...
+- Raw Window Appearance: Keyword = NotSeranaArmor|Armor|ActorTypeNPC,-Serana|NONE|etc...
 - Will apply to all npcs that are not Serana.
 
 3. Wildcards:
 - Find all actors that have name, editorID or keyword containing the wildcard.
 - Identified by the asterisk symbol '*'
-- Raw Window Appearance: Keyword = SmellsBad|*Draugr|NONE|NONE|etc...
+- Raw Window Appearance: Keyword = SmellsBad|Armor|*Draugr|NONE|NONE|etc...
 - Will apply to Draugr Death Lord / Draugr Mage / etc...
 
 4. Linked (Requirements):
 - Require actor to have all linked keywords or filter forms to qualify for the filter.
 - Identified by the plus symbol '+'
-- Raw Window Appearance: e.g. Keyword = SpookyPet|ActorTypeGhost+ActorTypeAnimal|NONE|NONE|etc... 
+- Raw Window Appearance: e.g. Keyword = SpookyPet|Race|ActorTypeGhost+ActorTypeAnimal|NONE|etc... 
 - Will qualify only ghost animals. It will not include pure animals or ghosts.
 - Note: Linked modifiers merge multiple names/keywords/forms into one filter. A unique edit field will unlock when using this modifier."
 mouse_filter = 1
