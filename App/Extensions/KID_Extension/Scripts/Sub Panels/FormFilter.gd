@@ -6,7 +6,7 @@ onready var node_container:VBoxContainer = $HBoxContainer/NodeContainer
 onready var modifier_selector:OptionButton = $HBoxContainer/VBoxContainer2/ModifierSelector
 
 #-- Prefabs
-var filter_node_prefab = "res://App/Extensions/KID_Extension/Interfaces/Sub Panels/StringFilterNode.tscn"
+var filter_node_prefab = "res://App/Extensions/KID_Extension/Interfaces/Sub Panels/FormFilterNode.tscn"
 
 #-- Dynamic Vars
 var nodes = []
@@ -19,14 +19,14 @@ func _ready():
 
 func handle_modifier(index):
 	match index:
-		0,1,2:#- (0)Standard, (1)Exclude, (2)Wildcard
+		0,1:#- (0)Standard, (1)Exclude
 			add_req_button.visible = false
 			#- Remove additional entries.
 			for i in range(nodes.size()-1, -1, -1):
 				if i == 0:
 					continue
 				nodes[i]._on_DeleteButton_pressed()
-		3:#- Linked
+		2:#- Linked
 			add_req_button.visible = true
 			add_node()
 	pass
@@ -44,19 +44,13 @@ func add_existing(filter:String):
 	add_node()
 	var node = nodes[nodes.size()-1]
 	
-	if "*" in filter: #- Wildcard
-		modifier_selector.select(2)
-		handle_modifier(2)
-		node.set_value(filter.replace("*", ""))
-	elif "-" in filter: #- Exclude
+	if "-" in filter: #- Exclude
 		modifier_selector.select(1)
 		handle_modifier(1)
-		#- Some npcs have '-' in their names and thus String.replace is not an option.
-		filter.erase(0, 1)
-		node.set_value(filter)
+		node.set_value(filter.replace("-", ""))
 	elif "+" in filter: #- Linked
-		modifier_selector.select(3)
-		handle_modifier(3)
+		modifier_selector.select(2)
+		handle_modifier(2)
 		var ids = filter.split("+", false)
 		node.set_value(ids[0])
 		for i in ids.size():
@@ -104,11 +98,54 @@ func compile_data():
 			filter = nodes[0].get_value()
 		1:#- (1)Exclude
 			filter = "-" + nodes[0].get_value()
-		2:#- (2)Wildcard
-			filter = "*" + nodes[0].get_value()
-		3:#- (3)Linked
+		2:#- (2)Linked
 			for i in range(nodes.size()):
 				filter += nodes[i].get_value()
 				if i < nodes.size() - 1:
 					filter += "+"
+	
+	#- Automatic shortening feature.
+	if "{" in filter:
+		var start = filter.find("{")
+		var end = filter.find("}")
+		var length = end - start + 1
+		var uncleanID = filter.substr(start, length)
+		var pluginType = -1
+		if "~" in uncleanID:
+			if "esm" in uncleanID || "esp" in uncleanID:
+				pluginType = 0
+			else:
+				pluginType = 1
+		match pluginType:
+			-1:#- Skyrim or original dlc
+				uncleanID = uncleanID.replace("{", "").replace("}", "")
+				var cleanID = shorten_id(uncleanID, 6)
+				filter = filter.replace("{" + uncleanID + "}", cleanID)
+				pass
+			0:#- esm or esp
+				uncleanID = uncleanID.replace("{", "").replace("}", "")
+				var idAndSource = uncleanID.split("~")
+				var cleanID = shorten_id(idAndSource[0], 6)
+				filter = filter.replace("{" + uncleanID + "}", cleanID + "~" + idAndSource[1])
+				pass
+			1:#- esl
+				uncleanID = uncleanID.replace("{", "").replace("}", "")
+				var idAndSource = uncleanID.split("~")
+				var cleanID = shorten_id(idAndSource[0], 3)
+				filter = filter.replace("{" + uncleanID + "}", cleanID + "~" + idAndSource[1])
+				pass
 	return filter
+
+func shorten_id(uncleanID:String, charCap:int):
+	var cleanID = uncleanID
+	if "0x" in cleanID:
+		cleanID = cleanID.replace("0x", "")
+	
+	while cleanID.length() > charCap:
+		cleanID.erase(0, 1)
+	
+	while not cleanID == "" && cleanID[0] == "0":
+		cleanID.erase(0, 1)
+	
+	cleanID = "0x" + cleanID
+	return cleanID

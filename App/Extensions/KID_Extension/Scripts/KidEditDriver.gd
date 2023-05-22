@@ -73,6 +73,7 @@ func apply_edit(interp):
 	
 	#- Assign data to edit
 	source_panel.apply_data(edit)
+	filters_panel.apply_data(edit)
 	
 	#- Generate line number and assign to interp database.
 	if not isNew:
@@ -146,6 +147,7 @@ func draw_ui(edit):
 	
 	chance_spin_box.value = edit.chance
 	source_panel.set_data(edit)
+	filters_panel.set_data(edit)
 	init_panels()
 	set_trait_data(edit)
 	pass
