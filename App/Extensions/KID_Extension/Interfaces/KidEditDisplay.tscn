@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
@@ -23,6 +23,10 @@ use_filter = true
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
 use_filter = true
 font_data = ExtResource( 2 )
 
@@ -166,14 +170,14 @@ bookmark_gutter = true
 [node name="SourcePanel" type="PanelContainer" parent="."]
 margin_top = 264.0
 margin_right = 402.0
-margin_bottom = 444.0
+margin_bottom = 472.0
 script = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 173.0
+margin_bottom = 201.0
 
 [node name="SourceLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
 margin_right = 388.0
@@ -198,24 +202,20 @@ EditorID's e.g. ActorTypeNPC
 FormID's e.g. 0x12345
 
 There are three options to choose from:
-1. Editor ID: (Recommended)
-- Select this when you are using EditorIDs to locate the record you wish to distribute.
-- EditorIDs come from the editorID of the record displayed in the Creation Kit or xEdit.
-- SPID will automatically locate the record you are referring to.
+1. Editor ID:
+- EditorID is the name of the keyword. 
+- If the keyword name cannot be found, the mod will dynamically generate the keyword for you.
+--> Can be checked in game using SKSE's 'GetKeywordString' function.
 
 2. Esm / Esp:
 - Select this when you are using FormIDs that originate from esm's or esp's.
-- Ini Writer can automatically apply the shortening rules required by SPID.
+- Ini Writer can automatically apply the shortening rules required by KID.
 - You do NOT need to write the tilde symbol '~'
 - Rule: Remove first 2 digits, followed by removing any leading zeroes '0'
 --> 'FE051801' becomes '051801', then finally ends as '51801' because the leading digit was a zero.
 
 3. Esl:
-- Select this when you are using FormIDs that originate from esl's.
-- Ini Writer can automatically apply the shortening rules required by SPID.
-- You do NOT need to write the tilde symbol '~'
-- Rule: Remove first 5 digits, followed by removing any leading zeroes '0'
---> 'FE051801' becomes '801', because the leading digit is not a zero it stays as '801'"
+- Read Esm / Esp for explanation."
 mouse_filter = 1
 custom_fonts/font = SubResource( 2 )
 text = "?"
@@ -254,33 +254,18 @@ margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
-Two approaches are supported by SPID:
+Two approaches are supported by KID:
 
-1. EditorID: (Recommended)
+1. EditorID:
 - EditorID is the form editorID of the record displayed in CK or xEdit. 
 - This is recommended as formIDs can change when the mod is merged or converted into esl.
 - No source esp is required as SPID can automatically locate the appropriate record.
-- Raw Window Appearance: Outfit = Crimson Armor Outfit|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
 
 2. FormID and the source plugin:
 - FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
 ﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
 - Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required.
-
-Notes regarding distributable types:
-Items:
-- All carryable items (that can be added to NPC inventory) or leveled items are accepted.
-
-Skin:
-- Record should be of Armor formtype.
-
-Keywords:
-- Keywords can either be distributed as normal, using formids from other mods, or you can assign your own custom keyword to NPCs
-- Keyword = ActorTypeRich|Nazeem,Maven Black Briar
-- These keywords should be checked in-game using SKSE's HasKeywordString function.
-- Keywords will be applied first, so you could distribute a keyword to NPCs, and then check if it exists when distributing other things
-- Keyword = ActorTypeGhost|*Ghost
-- Spell = 0x123~SpookyGhostSpell.esp|ActorTypeGhost
 "
 mouse_filter = 1
 custom_fonts/font = SubResource( 2 )
@@ -288,22 +273,52 @@ text = "?"
 align = 1
 script = ExtResource( 16 )
 
-[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
 margin_top = 80.0
 margin_right = 388.0
-margin_bottom = 106.0
+margin_bottom = 104.0
+
+[node name="CheckBox" type="CheckBox" parent="SourcePanel/VBoxContainer/HBoxContainer"]
+margin_right = 348.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Use Automatic ID Cleaning"
+
+[node name="StringHelp" type="Label" parent="SourcePanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_top = 1.0
+margin_right = 388.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "Automatic cleaning is a utility to quickly and easily apply KID's FormID requirements to the IDs you wish to filter.
+Rules:
+- Use '0x' format.
+- Remove all leading zeroes.
+
+Note:
+- Won't have any effect on already compliant IDs."
+mouse_filter = 1
+custom_fonts/font = SubResource( 8 )
+text = "?"
+align = 1
+script = ExtResource( 16 )
+
+[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
+margin_top = 108.0
+margin_right = 388.0
+margin_bottom = 134.0
 clear_button_enabled = true
 placeholder_text = "e.g. FE051801"
 
 [node name="Spacer2" type="Control" parent="SourcePanel/VBoxContainer"]
-margin_top = 110.0
+margin_top = 138.0
 margin_right = 388.0
-margin_bottom = 110.0
+margin_bottom = 138.0
 
 [node name="SourceContainer" type="VBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_top = 114.0
+margin_top = 142.0
 margin_right = 388.0
-margin_bottom = 166.0
+margin_bottom = 194.0
 
 [node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer/SourceContainer"]
 margin_right = 388.0
@@ -349,9 +364,9 @@ clear_button_enabled = true
 placeholder_text = "e.g. MyMod.esp"
 
 [node name="FiltersPanel" type="PanelContainer" parent="."]
-margin_top = 448.0
+margin_top = 476.0
 margin_right = 402.0
-margin_bottom = 608.0
+margin_bottom = 636.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 17 )
 
@@ -428,7 +443,8 @@ margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Important:
-EditorIDs can NOT use string modifiers in any capacity so please do not attempt it or KID will not properly distribute your data."
+Currently it is unknown whether EditorIDs can use pattern-matching or not so please make note of this when attempting to do so.
+If you have tested this and can confirm one way or the other please leave a comment on this extension's mod page so I can make an update!"
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -518,9 +534,9 @@ align = 1
 valign = 1
 
 [node name="WeaponTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 612.0
+margin_top = 640.0
 margin_right = 402.0
-margin_bottom = 990.0
+margin_bottom = 1018.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 6 )
 
@@ -826,9 +842,9 @@ value = 1.0
 allow_greater = true
 
 [node name="ArmorTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 994.0
+margin_top = 1022.0
 margin_right = 402.0
-margin_bottom = 1372.0
+margin_bottom = 1400.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 7 )
 
@@ -1134,9 +1150,9 @@ value = 1.0
 allow_greater = true
 
 [node name="AmmoTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1376.0
+margin_top = 1404.0
 margin_right = 402.0
-margin_bottom = 1558.0
+margin_bottom = 1586.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 8 )
 
@@ -1314,9 +1330,9 @@ value = 1.0
 allow_greater = true
 
 [node name="MagicEffectTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1562.0
+margin_top = 1590.0
 margin_right = 402.0
-margin_bottom = 1898.0
+margin_bottom = 1926.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 9 )
 
@@ -1598,9 +1614,9 @@ rounded = true
 allow_greater = true
 
 [node name="PotionTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1902.0
+margin_top = 1930.0
 margin_right = 402.0
-margin_bottom = 1994.0
+margin_bottom = 2022.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 10 )
 
@@ -1703,9 +1719,9 @@ margin_bottom = 52.0
 size_flags_horizontal = 3
 
 [node name="IngredientTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1998.0
+margin_top = 2026.0
 margin_right = 402.0
-margin_bottom = 2062.0
+margin_bottom = 2090.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 11 )
 
@@ -1792,9 +1808,9 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="BookTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2066.0
+margin_top = 2094.0
 margin_right = 402.0
-margin_bottom = 2212.0
+margin_bottom = 2240.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 12 )
 
@@ -1923,9 +1939,9 @@ margin_right = 388.0
 margin_bottom = 132.0
 
 [node name="SoulGemTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2216.0
+margin_top = 2244.0
 margin_right = 402.0
-margin_bottom = 2384.0
+margin_bottom = 2412.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 13 )
 
@@ -2062,9 +2078,9 @@ margin_right = 388.0
 margin_bottom = 154.0
 
 [node name="SpellTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2388.0
+margin_top = 2416.0
 margin_right = 402.0
-margin_bottom = 2636.0
+margin_bottom = 2664.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 14 )
 
@@ -2257,9 +2273,9 @@ margin_right = 388.0
 margin_bottom = 234.0
 
 [node name="FurnitureTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2640.0
+margin_top = 2668.0
 margin_right = 402.0
-margin_bottom = 2826.0
+margin_bottom = 2854.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 15 )
 
@@ -2359,9 +2375,9 @@ margin_right = 388.0
 margin_bottom = 172.0
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 2830.0
+margin_top = 2858.0
 margin_right = 402.0
-margin_bottom = 2894.0
+margin_bottom = 2922.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -2403,9 +2419,9 @@ value = 100.0
 rounded = true
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 2898.0
+margin_top = 2926.0
 margin_right = 402.0
-margin_bottom = 2954.0
+margin_bottom = 2982.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0

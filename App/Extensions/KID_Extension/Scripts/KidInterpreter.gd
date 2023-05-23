@@ -3,6 +3,8 @@ extends Node
 const my_id = "KID"
 const kidOption = "KID Mod Page"
 const kidLink = "https://www.nexusmods.com/skyrimspecialedition/mods/55728"
+const extOption = "Extension Mod Page"
+const extLink = "https://www.nexusmods.com/skyrimspecialedition/mods/90427"
 const av1Option = "Actor Value Wiki 1"
 const av1Link = "https://www.creationkit.com/index.php?title=Actor_Values"
 const av2Option = "Actor Value Wiki 2"
@@ -28,6 +30,7 @@ func enable():
 	var viewPop = pop_manager.get_popup_data("view")
 	viewPop.register_entity(my_id, self, "handle_view")
 	viewPop.add_option(my_id, kidOption)
+	viewPop.add_option(my_id, extOption)
 	viewPop.add_separator(my_id)
 	viewPop.add_option(my_id, av1Option)
 	viewPop.add_option(my_id, av2Option)
@@ -247,7 +250,8 @@ func interp_to_raw(interp): # interp = {}
 				raw += edit.objectId.value
 				match edit.objectId.type:
 					1,2: #- All types that include a variation of '~MyMod.esp'
-						raw += "~" + edit.objectId.source
+						if edit.objectId.source != "":
+							raw += "~" + edit.objectId.source
 				
 				#- Handle assign type
 				raw += "|" + get_type_name(edit.itemType)
@@ -400,6 +404,9 @@ func handle_view(selected):
 		kidOption:
 			Functions.open_link(kidLink)
 			console_manager.generate("Opening link to KID's mod page...", Globals.green)
+		extOption:
+			Functions.open_link(extLink)
+			console_manager.generate("Opening link to Extension's mod page...", Globals.green)
 		av1Option:
 			Functions.open_link(av1Link)
 			console_manager.generate("Opening link to Actor Values (1) wiki page...", Globals.green)

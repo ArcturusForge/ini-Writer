@@ -31,17 +31,17 @@ margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
 margin_top = 2.0
-margin_right = 340.0
+margin_right = 322.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
 text = "Filter Modifier:"
 
 [node name="StringHelp" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
-margin_left = 344.0
+margin_left = 326.0
 margin_right = 362.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Form Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
 Important:
 - Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.
