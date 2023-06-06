@@ -42,7 +42,7 @@ margin_left = 356.0
 margin_right = 392.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "String Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
+hint_tooltip = "String Filters can have unique modifiers applied that alter how KID will apply the filtering to distribution.
 Important:
 - Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.
 

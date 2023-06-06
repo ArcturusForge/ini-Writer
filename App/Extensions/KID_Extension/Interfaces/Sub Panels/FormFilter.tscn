@@ -42,7 +42,7 @@ margin_left = 326.0
 margin_right = 362.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "Form Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
+hint_tooltip = "Form Filters can have unique modifiers applied that alter how KID will apply the filtering to distribution.
 Important:
 - Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.
 
@@ -50,18 +50,18 @@ There are 3 different modifiers:
 1. Standard:
 - Actors MUST match with at least one applied filter to qualify.
 - Identified by the lack of any unique symbol.
-- Raw Window Appearance: Keyword = ArmorWearer|NONE|ArmorStuddedSimpleOutfit, ThalmorOutfit01|NONE|etc...
+- Raw Window Appearance: Keyword = ArmorWearer|Armor|ArmorStuddedSimpleOutfit, ThalmorOutfit01|NONE|etc...
 
 2. Exclusions: 
 - Exclude actors that have the formID.
 - Identified by the minus symbol '-'
-- Raw Window Appearance: Keyword = NoArgonianWearer|NONE|ArmorHideAllOutfit,-ArgonianRace|NONE|etc...
+- Raw Window Appearance: Keyword = NoArgonianWearer|Armor|ArmorHideAllOutfit,-ArgonianRace|NONE|etc...
 - Will apply to all npcs wearing hide armor that are not Argonian.
 
 3. Linked (Requirements):
 - Require actor to have all linked form/editor IDs to qualify for the filter.
 - Identified by the plus symbol '+'
-- Raw Window Appearance: Keyword = RedguardWearer|NONE|ArmorStuddedSimpleOutfit+RedguardRace|NONE|etc...
+- Raw Window Appearance: Keyword = RedguardWearer|Armor|ArmorStuddedSimpleOutfit+RedguardRace|NONE|etc...
 - Will qualify only Redguards wearing studded armor.
 - Note: Linked modifiers merge multiple form/editor IDs into one filter. A unique edit field will unlock when using this modifier."
 mouse_filter = 1

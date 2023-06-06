@@ -11,19 +11,33 @@ margin_bottom = 120.0
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 49.0
+margin_bottom = 62.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 388.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
-text = "Apply Changes:"
+text = "Apply Changes"
+align = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Divider" type="ColorRect" parent="VBoxContainer"]
 margin_top = 22.0
 margin_right = 388.0
-margin_bottom = 42.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+margin_top = 27.0
+margin_right = 388.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 51.0
 
 [node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer"]
 margin_right = 85.0
@@ -52,4 +66,10 @@ text = "Cancel"
 margin_left = 302.0
 margin_right = 388.0
 margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+margin_top = 55.0
+margin_right = 388.0
+margin_bottom = 55.0
 size_flags_horizontal = 3

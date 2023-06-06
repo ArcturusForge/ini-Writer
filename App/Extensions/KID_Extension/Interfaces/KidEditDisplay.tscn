@@ -86,6 +86,9 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "Is the item type that keywords will be distributed to.
+Most item types have unique filtering properties tied to them.
+You can find these in the relevant tooltips."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -258,7 +261,7 @@ Two approaches are supported by KID:
 
 1. EditorID:
 - EditorID is the form editorID of the record displayed in CK or xEdit. 
-- This is recommended as formIDs can change when the mod is merged or converted into esl.
+- FormIDs can change when the mod is merged or converted into esl.
 - No source esp is required as SPID can automatically locate the appropriate record.
 - Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
 

@@ -1,0 +1,1016 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 34
+use_filter = true
+extra_spacing_top = -10
+extra_spacing_bottom = -6
+font_data = ExtResource( 2 )
+
+[node name="SwapEditDisplay" type="VBoxContainer"]
+margin_right = 402.0
+margin_bottom = 402.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TypePanel" type="PanelContainer" parent="."]
+margin_right = 402.0
+margin_bottom = 64.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TypePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 57.0
+
+[node name="TypeLabels" type="HBoxContainer" parent="TypePanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "BOS Edit Type:"
+
+[node name="Help" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 46.0
+text = "Comment"
+items = [ "Comment", null, false, 0, null, "Form", null, false, 2, null, "Reference", null, false, 3, null, "Transform", null, false, 3, null ]
+selected = 0
+
+[node name="Spacer2" type="Control" parent="TypePanel/VBoxContainer"]
+margin_top = 50.0
+margin_right = 388.0
+margin_bottom = 50.0
+
+[node name="FormsPanel" type="PanelContainer" parent="."]
+margin_top = 68.0
+margin_right = 402.0
+margin_bottom = 151.0
+rect_pivot_offset = Vector2( 0, -122 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FormsPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 76.0
+rect_pivot_offset = Vector2( -489, -48 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FormsPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="FormsPanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "      Edit Restriction Data:"
+align = 1
+
+[node name="Help" type="Label" parent="FormsPanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="FormsPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer2" type="Control" parent="FormsPanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 31.0
+
+[node name="AddElement" type="HBoxContainer" parent="FormsPanel/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 35.0
+margin_right = 388.0
+margin_bottom = 65.0
+alignment = 1
+
+[node name="AddButton" type="Button" parent="FormsPanel/VBoxContainer/AddElement"]
+margin_left = 179.0
+margin_right = 209.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Add New"
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+icon_align = 1
+
+[node name="Label" type="Label" parent="FormsPanel/VBoxContainer/AddElement/AddButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 5 )
+text = "+"
+align = 1
+valign = 1
+
+[node name="Spacer3" type="Control" parent="FormsPanel/VBoxContainer"]
+margin_top = 69.0
+margin_right = 388.0
+margin_bottom = 69.0
+
+[node name="CommentPanel" type="PanelContainer" parent="."]
+margin_top = 155.0
+margin_right = 402.0
+margin_bottom = 277.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CommentPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 115.0
+
+[node name="NameContainer" type="VBoxContainer" parent="CommentPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="CommentPanel/VBoxContainer/NameContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+theme = ExtResource( 1 )
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="CommentPanel/VBoxContainer/NameContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 48.0
+clear_button_enabled = true
+placeholder_text = "Optional"
+
+[node name="Spacer" type="Control" parent="CommentPanel/VBoxContainer/NameContainer"]
+margin_top = 52.0
+margin_right = 388.0
+margin_bottom = 52.0
+
+[node name="Label2" type="Label" parent="CommentPanel/VBoxContainer"]
+margin_top = 56.0
+margin_right = 388.0
+margin_bottom = 74.0
+theme = ExtResource( 1 )
+text = "Comment:"
+
+[node name="CommentEdit" type="LineEdit" parent="CommentPanel/VBoxContainer"]
+margin_top = 78.0
+margin_right = 388.0
+margin_bottom = 104.0
+clear_button_enabled = true
+placeholder_text = "Optional"
+
+[node name="Spacer2" type="Control" parent="CommentPanel/VBoxContainer"]
+margin_top = 108.0
+margin_right = 388.0
+margin_bottom = 108.0
+
+[node name="SourcePanel" type="PanelContainer" parent="."]
+margin_top = 281.0
+margin_right = 402.0
+margin_bottom = 496.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 208.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Swap Target"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="SourcePanel/VBoxContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer3" type="Control" parent="SourcePanel/VBoxContainer"]
+margin_top = 27.0
+margin_right = 388.0
+margin_bottom = 27.0
+
+[node name="SourceLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 53.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "ID Source:"
+
+[node name="Help" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="SourceSelect" type="OptionButton" parent="SourcePanel/VBoxContainer"]
+margin_top = 57.0
+margin_right = 388.0
+margin_bottom = 77.0
+text = "Editor ID"
+items = [ "Editor ID", null, false, 0, null, "esp / esm", null, false, 1, null, "esl", null, false, 2, null ]
+selected = 0
+
+[node name="Spacer" type="Control" parent="SourcePanel/VBoxContainer"]
+margin_top = 81.0
+margin_right = 388.0
+margin_bottom = 81.0
+
+[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
+margin_top = 85.0
+margin_right = 388.0
+margin_bottom = 107.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Form / Editor ID:"
+
+[node name="Help" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
+margin_top = 111.0
+margin_right = 388.0
+margin_bottom = 137.0
+clear_button_enabled = true
+placeholder_text = "e.g. FE051801"
+
+[node name="Spacer2" type="Control" parent="SourcePanel/VBoxContainer"]
+margin_top = 141.0
+margin_right = 388.0
+margin_bottom = 141.0
+
+[node name="SourceContainer" type="VBoxContainer" parent="SourcePanel/VBoxContainer"]
+margin_top = 145.0
+margin_right = 388.0
+margin_bottom = 197.0
+
+[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer/SourceContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Source Plugin:"
+
+[node name="Help" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="SourceEdit" type="LineEdit" parent="SourcePanel/VBoxContainer/SourceContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 52.0
+clear_button_enabled = true
+placeholder_text = "e.g. MyMod.esp"
+
+[node name="Spacer4" type="Control" parent="SourcePanel/VBoxContainer"]
+margin_top = 201.0
+margin_right = 388.0
+margin_bottom = 201.0
+
+[node name="TargetsPanel" type="PanelContainer" parent="."]
+margin_top = 500.0
+margin_right = 402.0
+margin_bottom = 583.0
+rect_pivot_offset = Vector2( 0, -122 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TargetsPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 76.0
+rect_pivot_offset = Vector2( -489, -48 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TargetsPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="TargetsPanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "      Target Replacements"
+align = 1
+
+[node name="Help" type="Label" parent="TargetsPanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="TargetsPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer2" type="Control" parent="TargetsPanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 31.0
+
+[node name="AddElement" type="HBoxContainer" parent="TargetsPanel/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 35.0
+margin_right = 388.0
+margin_bottom = 65.0
+alignment = 1
+
+[node name="AddButton" type="Button" parent="TargetsPanel/VBoxContainer/AddElement"]
+margin_left = 179.0
+margin_right = 209.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Add New"
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+icon_align = 1
+
+[node name="Label" type="Label" parent="TargetsPanel/VBoxContainer/AddElement/AddButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 5 )
+text = "+"
+align = 1
+valign = 1
+
+[node name="Spacer3" type="Control" parent="TargetsPanel/VBoxContainer"]
+margin_top = 69.0
+margin_right = 388.0
+margin_bottom = 69.0
+
+[node name="TransformPanel" type="PanelContainer" parent="."]
+margin_top = 587.0
+margin_right = 402.0
+margin_bottom = 1121.0
+rect_pivot_offset = Vector2( 0, -122 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 527.0
+rect_pivot_offset = Vector2( -489, -48 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "      Replacement Transform Settings"
+align = 1
+
+[node name="Help" type="Label" parent="TransformPanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="TransformPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer2" type="Control" parent="TransformPanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 31.0
+
+[node name="SubPanel" type="PanelContainer" parent="TransformPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 35.0
+margin_right = 388.0
+margin_bottom = 214.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 172.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer4"]
+margin_top = 11.0
+margin_right = 294.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "          Position"
+align = 1
+
+[node name="CheckButton" type="CheckButton" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/HBoxContainer4"]
+margin_left = 298.0
+margin_right = 374.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer"]
+margin_top = 44.0
+margin_right = 374.0
+margin_bottom = 161.0
+
+[node name="Divider" type="ColorRect" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_right = 374.0
+margin_bottom = 1.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.227451, 0.219608, 0.258824, 1 )
+
+[node name="Spacer" type="Control" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_top = 5.0
+margin_right = 374.0
+margin_bottom = 5.0
+
+[node name="OptionButton" type="OptionButton" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 374.0
+margin_bottom = 29.0
+text = "Relative"
+items = [ "Relative", null, false, 0, null, "Absolute", null, false, 1, null ]
+selected = 0
+
+[node name="Spacer2" type="Control" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_top = 33.0
+margin_right = 374.0
+margin_bottom = 33.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_top = 37.0
+margin_right = 374.0
+margin_bottom = 61.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 32.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 32, 0 )
+theme = ExtResource( 1 )
+text = "X:"
+align = 1
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer"]
+margin_left = 36.0
+margin_right = 374.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_top = 65.0
+margin_right = 374.0
+margin_bottom = 89.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 3.0
+margin_right = 32.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 32, 0 )
+theme = ExtResource( 1 )
+text = "Y:"
+align = 1
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 36.0
+margin_right = 374.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_top = 93.0
+margin_right = 374.0
+margin_bottom = 117.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3"]
+margin_top = 3.0
+margin_right = 32.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 32, 0 )
+theme = ExtResource( 1 )
+text = "Z:"
+align = 1
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 36.0
+margin_right = 374.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="Spacer3" type="Control" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer"]
+margin_top = 165.0
+margin_right = 374.0
+margin_bottom = 165.0
+
+[node name="SubPanel2" type="PanelContainer" parent="TransformPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 218.0
+margin_right = 388.0
+margin_bottom = 397.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 172.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/HBoxContainer4"]
+margin_top = 11.0
+margin_right = 294.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "          Rotation"
+align = 1
+
+[node name="CheckButton" type="CheckButton" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/HBoxContainer4"]
+margin_left = 298.0
+margin_right = 374.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer"]
+margin_top = 44.0
+margin_right = 374.0
+margin_bottom = 161.0
+
+[node name="Divider" type="ColorRect" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_right = 374.0
+margin_bottom = 1.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.227451, 0.219608, 0.258824, 1 )
+
+[node name="Spacer" type="Control" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_top = 5.0
+margin_right = 374.0
+margin_bottom = 5.0
+
+[node name="OptionButton" type="OptionButton" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 374.0
+margin_bottom = 29.0
+text = "Relative"
+items = [ "Relative", null, false, 0, null, "Absolute", null, false, 1, null ]
+selected = 0
+
+[node name="Spacer2" type="Control" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_top = 33.0
+margin_right = 374.0
+margin_bottom = 33.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_top = 37.0
+margin_right = 374.0
+margin_bottom = 61.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 32.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 32, 0 )
+theme = ExtResource( 1 )
+text = "X:"
+align = 1
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer"]
+margin_left = 36.0
+margin_right = 374.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_top = 65.0
+margin_right = 374.0
+margin_bottom = 89.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 3.0
+margin_right = 32.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 32, 0 )
+theme = ExtResource( 1 )
+text = "Y:"
+align = 1
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 36.0
+margin_right = 374.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_top = 93.0
+margin_right = 374.0
+margin_bottom = 117.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3"]
+margin_top = 3.0
+margin_right = 32.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 32, 0 )
+theme = ExtResource( 1 )
+text = "Z:"
+align = 1
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 36.0
+margin_right = 374.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="Spacer3" type="Control" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer"]
+margin_top = 165.0
+margin_right = 374.0
+margin_bottom = 165.0
+
+[node name="SubPanel3" type="PanelContainer" parent="TransformPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 401.0
+margin_right = 388.0
+margin_bottom = 520.0
+
+[node name="NodeContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 381.0
+margin_bottom = 112.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer"]
+margin_right = 374.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/HBoxContainer4"]
+margin_top = 11.0
+margin_right = 294.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "          Scale"
+align = 1
+
+[node name="CheckButton" type="CheckButton" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/HBoxContainer4"]
+margin_left = 298.0
+margin_right = 374.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer"]
+margin_top = 44.0
+margin_right = 374.0
+margin_bottom = 105.0
+
+[node name="Divider" type="ColorRect" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer"]
+margin_right = 374.0
+margin_bottom = 1.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.227451, 0.219608, 0.258824, 1 )
+
+[node name="Spacer" type="Control" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer"]
+margin_top = 5.0
+margin_right = 374.0
+margin_bottom = 5.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 374.0
+margin_bottom = 27.0
+
+[node name="Label2" type="Label" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min:"
+
+[node name="Control" type="Control" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Label3" type="Label" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer"]
+margin_top = 31.0
+margin_right = 374.0
+margin_bottom = 61.0
+
+[node name="MinSpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+allow_lesser = true
+
+[node name="DamageRangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 202.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+focus_mode = 0
+toggle_mode = true
+enabled_focus_mode = 0
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="MaxSpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 374.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+value = 1.0
+allow_greater = true
+allow_lesser = true
+
+[node name="ChancePanel" type="PanelContainer" parent="."]
+margin_top = 1125.0
+margin_right = 402.0
+margin_bottom = 1252.0
+rect_pivot_offset = Vector2( 0, -122 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 120.0
+rect_pivot_offset = Vector2( -489, -48 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ChancePanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="ChancePanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "      Raplacement Chance"
+align = 1
+
+[node name="Help" type="Label" parent="ChancePanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "..."
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="ChancePanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer" type="Control" parent="ChancePanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 31.0
+
+[node name="OptionButton" type="OptionButton" parent="ChancePanel/VBoxContainer"]
+margin_top = 35.0
+margin_right = 388.0
+margin_bottom = 55.0
+text = "100%"
+align = 1
+items = [ "100%", null, false, 0, null, "Persistent", null, false, 1, null, "Re-rolled", null, false, 2, null ]
+selected = 0
+
+[node name="Spacer2" type="Control" parent="ChancePanel/VBoxContainer"]
+margin_top = 59.0
+margin_right = 388.0
+margin_bottom = 59.0
+
+[node name="ChanceContainer" type="VBoxContainer" parent="ChancePanel/VBoxContainer"]
+margin_top = 63.0
+margin_right = 388.0
+margin_bottom = 109.0
+
+[node name="Label" type="Label" parent="ChancePanel/VBoxContainer/ChanceContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Chance Value:"
+
+[node name="SpinBox" type="SpinBox" parent="ChancePanel/VBoxContainer/ChanceContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 46.0
+min_value = 1.0
+value = 1.0
+
+[node name="Spacer3" type="Control" parent="ChancePanel/VBoxContainer"]
+margin_top = 113.0
+margin_right = 388.0
+margin_bottom = 113.0
+
+[node name="ApplyPanel" type="PanelContainer" parent="."]
+margin_top = 1256.0
+margin_right = 402.0
+margin_bottom = 1325.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 62.0
+
+[node name="Label" type="Label" parent="ApplyPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Apply Changes"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="ApplyPanel/VBoxContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer" type="Control" parent="ApplyPanel/VBoxContainer"]
+margin_top = 27.0
+margin_right = 388.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ApplyPanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 51.0
+
+[node name="Spacer" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_right = 85.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="ApplyButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 89.0
+margin_right = 151.0
+margin_bottom = 20.0
+text = "Confirm"
+
+[node name="Spacer2" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 155.0
+margin_right = 240.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="CancelButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 244.0
+margin_right = 298.0
+margin_bottom = 20.0
+text = "Cancel"
+
+[node name="Spacer3" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 302.0
+margin_right = 388.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Control" parent="ApplyPanel/VBoxContainer"]
+margin_top = 55.0
+margin_right = 388.0
+margin_bottom = 55.0
+size_flags_horizontal = 3
