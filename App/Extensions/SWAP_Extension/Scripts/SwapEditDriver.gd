@@ -1,5 +1,14 @@
 extends VBoxContainer
 
+#-- Scene Refs
+onready var type_select = $TypePanel/VBoxContainer/TypeSelect
+onready var forms_panel = $FormsPanel
+onready var comment_panel = $CommentPanel
+onready var source_panel = $SourcePanel
+onready var targets_panel = $TargetsPanel
+onready var transform_panel = $TransformPanel
+onready var chance_panel = $ChancePanel
+
 #-- Dynamic Vars
 var workingIndex:int = -1 #- Points towards the index for this ini edit.
 var system #- Points towards the editor window manager.
@@ -27,4 +36,8 @@ func notify_system():
 
 #--- Called by system to apply changes to the ini edit.
 func apply_edit(interp):
+	pass
+
+#--- CUSTOM: Handles drawing the ui.
+func draw_panels(edit):
 	pass

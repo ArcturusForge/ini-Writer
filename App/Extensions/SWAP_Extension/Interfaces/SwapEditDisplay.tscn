@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=3]
+[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/SwapEditDriver.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -20,6 +21,7 @@ margin_right = 402.0
 margin_bottom = 402.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 4 )
 
 [node name="TypePanel" type="PanelContainer" parent="."]
 margin_right = 402.0
@@ -70,14 +72,14 @@ margin_bottom = 50.0
 [node name="FormsPanel" type="PanelContainer" parent="."]
 margin_top = 68.0
 margin_right = 402.0
-margin_bottom = 151.0
+margin_bottom = 155.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FormsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 76.0
+margin_bottom = 80.0
 rect_pivot_offset = Vector2( -489, -48 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FormsPanel/VBoxContainer"]
@@ -116,11 +118,16 @@ margin_top = 31.0
 margin_right = 388.0
 margin_bottom = 31.0
 
-[node name="AddElement" type="HBoxContainer" parent="FormsPanel/VBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0 )
+[node name="VBoxContainer" type="VBoxContainer" parent="FormsPanel/VBoxContainer"]
 margin_top = 35.0
 margin_right = 388.0
-margin_bottom = 65.0
+margin_bottom = 35.0
+
+[node name="AddElement" type="HBoxContainer" parent="FormsPanel/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 39.0
+margin_right = 388.0
+margin_bottom = 69.0
 alignment = 1
 
 [node name="AddButton" type="Button" parent="FormsPanel/VBoxContainer/AddElement"]
@@ -145,14 +152,14 @@ align = 1
 valign = 1
 
 [node name="Spacer3" type="Control" parent="FormsPanel/VBoxContainer"]
-margin_top = 69.0
+margin_top = 73.0
 margin_right = 388.0
-margin_bottom = 69.0
+margin_bottom = 73.0
 
 [node name="CommentPanel" type="PanelContainer" parent="."]
-margin_top = 155.0
+margin_top = 159.0
 margin_right = 402.0
-margin_bottom = 277.0
+margin_bottom = 281.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CommentPanel"]
 margin_left = 7.0
@@ -202,9 +209,9 @@ margin_right = 388.0
 margin_bottom = 108.0
 
 [node name="SourcePanel" type="PanelContainer" parent="."]
-margin_top = 281.0
+margin_top = 285.0
 margin_right = 402.0
-margin_bottom = 496.0
+margin_bottom = 500.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
 margin_left = 7.0
@@ -346,16 +353,16 @@ margin_right = 388.0
 margin_bottom = 201.0
 
 [node name="TargetsPanel" type="PanelContainer" parent="."]
-margin_top = 500.0
+margin_top = 504.0
 margin_right = 402.0
-margin_bottom = 583.0
+margin_bottom = 591.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TargetsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 76.0
+margin_bottom = 80.0
 rect_pivot_offset = Vector2( -489, -48 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TargetsPanel/VBoxContainer"]
@@ -394,11 +401,16 @@ margin_top = 31.0
 margin_right = 388.0
 margin_bottom = 31.0
 
-[node name="AddElement" type="HBoxContainer" parent="TargetsPanel/VBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0 )
+[node name="VBoxContainer" type="VBoxContainer" parent="TargetsPanel/VBoxContainer"]
 margin_top = 35.0
 margin_right = 388.0
-margin_bottom = 65.0
+margin_bottom = 35.0
+
+[node name="AddElement" type="HBoxContainer" parent="TargetsPanel/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 39.0
+margin_right = 388.0
+margin_bottom = 69.0
 alignment = 1
 
 [node name="AddButton" type="Button" parent="TargetsPanel/VBoxContainer/AddElement"]
@@ -423,14 +435,14 @@ align = 1
 valign = 1
 
 [node name="Spacer3" type="Control" parent="TargetsPanel/VBoxContainer"]
-margin_top = 69.0
+margin_top = 73.0
 margin_right = 388.0
-margin_bottom = 69.0
+margin_bottom = 73.0
 
 [node name="TransformPanel" type="PanelContainer" parent="."]
-margin_top = 587.0
+margin_top = 595.0
 margin_right = 402.0
-margin_bottom = 1121.0
+margin_bottom = 1129.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel"]
@@ -857,9 +869,9 @@ allow_greater = true
 allow_lesser = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 1125.0
+margin_top = 1133.0
 margin_right = 402.0
-margin_bottom = 1252.0
+margin_bottom = 1260.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
@@ -944,9 +956,9 @@ margin_right = 388.0
 margin_bottom = 113.0
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 1256.0
+margin_top = 1264.0
 margin_right = 402.0
-margin_bottom = 1325.0
+margin_bottom = 1333.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
