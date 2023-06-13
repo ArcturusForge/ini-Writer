@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=3]
 [ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/SwapEditDriver.gd" type="Script" id=4]
+[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/HintToConsole.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -55,6 +56,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
 margin_top = 26.0
@@ -105,6 +107,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="Divider" type="ColorRect" parent="FormsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -211,13 +214,13 @@ margin_bottom = 108.0
 [node name="SourcePanel" type="PanelContainer" parent="."]
 margin_top = 285.0
 margin_right = 402.0
-margin_bottom = 500.0
+margin_bottom = 528.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 208.0
+margin_bottom = 236.0
 
 [node name="Label" type="Label" parent="SourcePanel/VBoxContainer"]
 margin_right = 388.0
@@ -262,6 +265,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="SourceSelect" type="OptionButton" parent="SourcePanel/VBoxContainer"]
 margin_top = 57.0
@@ -299,23 +303,30 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
-[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
+[node name="CheckBox" type="CheckBox" parent="SourcePanel/VBoxContainer"]
 margin_top = 111.0
 margin_right = 388.0
-margin_bottom = 137.0
+margin_bottom = 135.0
+text = "Auto Clean"
+
+[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
+margin_top = 139.0
+margin_right = 388.0
+margin_bottom = 165.0
 clear_button_enabled = true
 placeholder_text = "e.g. FE051801"
 
 [node name="Spacer2" type="Control" parent="SourcePanel/VBoxContainer"]
-margin_top = 141.0
+margin_top = 169.0
 margin_right = 388.0
-margin_bottom = 141.0
+margin_bottom = 169.0
 
 [node name="SourceContainer" type="VBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_top = 145.0
+margin_top = 173.0
 margin_right = 388.0
-margin_bottom = 197.0
+margin_bottom = 225.0
 
 [node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer/SourceContainer"]
 margin_right = 388.0
@@ -339,6 +350,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="SourceEdit" type="LineEdit" parent="SourcePanel/VBoxContainer/SourceContainer"]
 margin_top = 26.0
@@ -348,14 +360,14 @@ clear_button_enabled = true
 placeholder_text = "e.g. MyMod.esp"
 
 [node name="Spacer4" type="Control" parent="SourcePanel/VBoxContainer"]
-margin_top = 201.0
+margin_top = 229.0
 margin_right = 388.0
-margin_bottom = 201.0
+margin_bottom = 229.0
 
 [node name="TargetsPanel" type="PanelContainer" parent="."]
-margin_top = 504.0
+margin_top = 532.0
 margin_right = 402.0
-margin_bottom = 591.0
+margin_bottom = 619.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TargetsPanel"]
@@ -388,6 +400,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="Divider" type="ColorRect" parent="TargetsPanel/VBoxContainer"]
 margin_top = 26.0
@@ -440,9 +453,9 @@ margin_right = 388.0
 margin_bottom = 73.0
 
 [node name="TransformPanel" type="PanelContainer" parent="."]
-margin_top = 595.0
+margin_top = 623.0
 margin_right = 402.0
-margin_bottom = 1129.0
+margin_bottom = 1157.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel"]
@@ -475,6 +488,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="Divider" type="ColorRect" parent="TransformPanel/VBoxContainer"]
 margin_top = 26.0
@@ -869,9 +883,9 @@ allow_greater = true
 allow_lesser = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 1133.0
+margin_top = 1161.0
 margin_right = 402.0
-margin_bottom = 1260.0
+margin_bottom = 1288.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
@@ -904,6 +918,7 @@ mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
+script = ExtResource( 5 )
 
 [node name="Divider" type="ColorRect" parent="ChancePanel/VBoxContainer"]
 margin_top = 26.0
@@ -956,9 +971,9 @@ margin_right = 388.0
 margin_bottom = 113.0
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 1264.0
+margin_top = 1292.0
 margin_right = 402.0
-margin_bottom = 1333.0
+margin_bottom = 1361.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
