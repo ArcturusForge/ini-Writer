@@ -1,7 +1,7 @@
 extends Control
 
 #- Splits text content by line and tries to match each line to a type.
-#- type_dict structure ==> [{symbol:String=>Value:int}]
+#- type_dict structure ==> [{symbol:String=>{id:int, excludes:StringArray}}]
 #- return structure ==> [{type:int, line:String, line_number:int}]
 #- Automatic types: [-2=>Empty line], [-9=>Untyped line]
 func split_and_define_lines(text:String, type_dict:Dictionary, line_number_offset:int = 1):
@@ -15,10 +15,18 @@ func split_and_define_lines(text:String, type_dict:Dictionary, line_number_offse
 		var line = lines[i]
 		var foundSymbol = false
 		for symbol in type_dict.keys():
+			var skip = false
+			for exclude in type_dict[symbol].excludes:
+				if exclude in line:
+					skip = true
+					break
+			if skip == true:
+				continue
+			
 			if symbol in line:
 				foundSymbol = true
 				defined.append({
-					"type": type_dict[symbol],
+					"type": type_dict[symbol].id,
 					"line": line,
 					"line_number": i + line_number_offset
 				})
@@ -36,3 +44,36 @@ func split_and_define_lines(text:String, type_dict:Dictionary, line_number_offse
 	
 	#- Return the typed lines.
 	return defined
+
+#--- Datastructure Examples
+#
+#type_dict = {
+#		";":{
+#			"id":-1,
+#			"excludes":[":<"]
+#		},
+#		"[Forms":{
+#			"id":0,
+#			"excludes":[]
+#		},
+#		"[References":{
+#			"id":1,
+#			"excludes":[]
+#		},
+#		"[Transforms":{
+#			"id":2,
+#			"excludes":[]
+#		},
+#		"|":{
+#			"id":3,
+#			"excludes":[
+#				"[Forms", 
+#				"[References", 
+#				"[Transforms"
+#			]
+#		},
+#		":<":{
+#			"id":4,
+#			"excludes":[]
+#		}
+#	}

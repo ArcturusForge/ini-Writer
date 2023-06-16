@@ -457,14 +457,14 @@ margin_bottom = 73.0
 [node name="TransformPanel" type="PanelContainer" parent="."]
 margin_top = 623.0
 margin_right = 402.0
-margin_bottom = 1157.0
+margin_bottom = 1237.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 527.0
+margin_bottom = 607.0
 rect_pivot_offset = Vector2( -489, -48 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer"]
@@ -508,13 +508,13 @@ margin_bottom = 31.0
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
 margin_top = 35.0
 margin_right = 388.0
-margin_bottom = 214.0
+margin_bottom = 254.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 381.0
-margin_bottom = 172.0
+margin_bottom = 212.0
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer"]
 margin_right = 374.0
@@ -537,7 +537,7 @@ margin_bottom = 40.0
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer"]
 margin_top = 44.0
 margin_right = 374.0
-margin_bottom = 161.0
+margin_bottom = 201.0
 
 [node name="Divider" type="ColorRect" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
 margin_right = 374.0
@@ -563,91 +563,205 @@ margin_top = 33.0
 margin_right = 374.0
 margin_bottom = 33.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
 margin_top = 37.0
 margin_right = 374.0
-margin_bottom = 61.0
+margin_bottom = 55.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 185.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 32, 0 )
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min:"
+align = 1
+
+[node name="Label2" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 189.0
+margin_right = 374.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 32, 0 )
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max:"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
+margin_top = 59.0
+margin_right = 374.0
+margin_bottom = 89.0
 
 [node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer"]
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 32.0
-margin_bottom = 21.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 32, 0 )
 theme = ExtResource( 1 )
 text = "X:"
 align = 1
 
-[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer"]
 margin_left = 36.0
 margin_right = 374.0
-margin_bottom = 24.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="RangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="SpinBox2" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
-margin_top = 65.0
+margin_top = 93.0
 margin_right = 374.0
-margin_bottom = 89.0
+margin_bottom = 123.0
 
 [node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2"]
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 32.0
-margin_bottom = 21.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 32, 0 )
 theme = ExtResource( 1 )
 text = "Y:"
 align = 1
 
-[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 36.0
 margin_right = 374.0
-margin_bottom = 24.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="RangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="SpinBox2" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer"]
-margin_top = 93.0
+margin_top = 127.0
 margin_right = 374.0
-margin_bottom = 117.0
+margin_bottom = 157.0
 
 [node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3"]
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 32.0
-margin_bottom = 21.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 32, 0 )
 theme = ExtResource( 1 )
 text = "Z:"
 align = 1
 
-[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3"]
 margin_left = 36.0
 margin_right = 374.0
-margin_bottom = 24.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="RangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="SpinBox2" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
 [node name="Spacer3" type="Control" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer"]
-margin_top = 165.0
+margin_top = 205.0
 margin_right = 374.0
-margin_bottom = 165.0
+margin_bottom = 205.0
 
 [node name="SubPanel2" type="PanelContainer" parent="TransformPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 218.0
+margin_top = 258.0
 margin_right = 388.0
-margin_bottom = 397.0
+margin_bottom = 477.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 381.0
-margin_bottom = 172.0
+margin_bottom = 212.0
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer"]
 margin_right = 374.0
@@ -670,7 +784,7 @@ margin_bottom = 40.0
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer"]
 margin_top = 44.0
 margin_right = 374.0
-margin_bottom = 161.0
+margin_bottom = 201.0
 
 [node name="Divider" type="ColorRect" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
 margin_right = 374.0
@@ -696,85 +810,199 @@ margin_top = 33.0
 margin_right = 374.0
 margin_bottom = 33.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
 margin_top = 37.0
 margin_right = 374.0
-margin_bottom = 61.0
+margin_bottom = 55.0
+
+[node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 185.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 32, 0 )
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Min:"
+align = 1
+
+[node name="Label2" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 189.0
+margin_right = 374.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 32, 0 )
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Max:"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
+margin_top = 59.0
+margin_right = 374.0
+margin_bottom = 89.0
 
 [node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer"]
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 32.0
-margin_bottom = 21.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 32, 0 )
 theme = ExtResource( 1 )
 text = "X:"
 align = 1
 
-[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer"]
 margin_left = 36.0
 margin_right = 374.0
-margin_bottom = 24.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="RangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="SpinBox2" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
-margin_top = 65.0
+margin_top = 93.0
 margin_right = 374.0
-margin_bottom = 89.0
+margin_bottom = 123.0
 
 [node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2"]
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 32.0
-margin_bottom = 21.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 32, 0 )
 theme = ExtResource( 1 )
 text = "Y:"
 align = 1
 
-[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 36.0
 margin_right = 374.0
-margin_bottom = 24.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="RangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="SpinBox2" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer"]
-margin_top = 93.0
+margin_top = 127.0
 margin_right = 374.0
-margin_bottom = 117.0
+margin_bottom = 157.0
 
 [node name="Label" type="Label" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3"]
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 32.0
-margin_bottom = 21.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 32, 0 )
 theme = ExtResource( 1 )
 text = "Z:"
 align = 1
 
-[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3"]
 margin_left = 36.0
 margin_right = 374.0
-margin_bottom = 24.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="RangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 154.0
+margin_right = 184.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+hint_tooltip = "Locked:
+- Allows only a single value.
+- e.g. Only the value of 12 is acceptable.
+
+Unlocked:
+- Allows for a value range. (Includes all values in between)
+- e.g. All values between 12 and 34 are acceptable."
+toggle_mode = true
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="SpinBox2" type="SpinBox" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 188.0
+margin_right = 338.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
 [node name="Spacer3" type="Control" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer"]
-margin_top = 165.0
+margin_top = 205.0
 margin_right = 374.0
-margin_bottom = 165.0
+margin_bottom = 205.0
 
 [node name="SubPanel3" type="PanelContainer" parent="TransformPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 401.0
+margin_top = 481.0
 margin_right = 388.0
-margin_bottom = 520.0
+margin_bottom = 600.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3"]
 margin_left = 7.0
@@ -827,6 +1055,7 @@ margin_bottom = 18.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Min:"
+align = 1
 
 [node name="Control" type="Control" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 172.0
@@ -841,6 +1070,7 @@ margin_bottom = 18.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Max:"
+align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer"]
 margin_top = 31.0
@@ -885,9 +1115,9 @@ allow_greater = true
 allow_lesser = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 1161.0
+margin_top = 1241.0
 margin_right = 402.0
-margin_bottom = 1288.0
+margin_bottom = 1368.0
 rect_pivot_offset = Vector2( 0, -122 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
@@ -973,9 +1203,9 @@ margin_right = 388.0
 margin_bottom = 113.0
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 1292.0
+margin_top = 1372.0
 margin_right = 402.0
-margin_bottom = 1361.0
+margin_bottom = 1441.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0
