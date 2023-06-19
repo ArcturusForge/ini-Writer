@@ -2,8 +2,9 @@ extends VBoxContainer
 
 #-- Scene Refs
 onready var type_select = $TypePanel/VBoxContainer/TypeSelect
-onready var forms_panel = $FormsPanel
 onready var comment_panel = $CommentPanel
+onready var name_container = $CommentPanel/VBoxContainer/NameContainer
+onready var forms_panel = $FormsPanel
 onready var source_panel = $SourcePanel
 onready var targets_panel = $TargetsPanel
 onready var transform_panel = $TransformPanel
@@ -23,10 +24,12 @@ func init_driver(workingIndex, system, interpreter):
 
 #--- Called by system to modify an existing ini edit.
 func modify_existing(interp):
+	draw_panels(interp.edits[workingIndex])
 	pass
 
 #--- Called by system to write a new ini edit.
 func create_new():
+	draw_panels(interpreter.new_edit())
 	pass
 
 #--- Call this to notify the system of changes made.
@@ -36,8 +39,25 @@ func notify_system():
 
 #--- Called by system to apply changes to the ini edit.
 func apply_edit(interp):
+	var edit = interpreter.new_edit()
+	
 	pass
 
 #--- CUSTOM: Handles drawing the ui.
 func draw_panels(edit):
+	forms_panel.set_data(edit)
+#	source_panel.set_data(edit)
+#	targets_panel.set_data(edit)
+#	transform_panel.set_data(edit)
+#	chance_panel.set_data(edit)
+	pass
+
+#--- CUSTOM: Toggles ui panels.
+func toggle_panels(a:bool, b:bool, c:bool, d:bool, e:bool, f:bool):
+	name_container.visible = a
+	forms_panel.visible = b
+	source_panel.visible = c
+	targets_panel.visible = d
+	transform_panel.visible = e
+	chance_panel.visible = f
 	pass

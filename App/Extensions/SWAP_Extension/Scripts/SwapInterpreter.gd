@@ -52,7 +52,7 @@ func raw_to_interp(raw:String):
 	var symbols = {
 		";":{
 			"id":-1,
-			"excludes":[":<"]
+			"excludes":[";<"]
 		},
 		"[Forms":{
 			"id":0,
@@ -74,7 +74,7 @@ func raw_to_interp(raw:String):
 				"[Transforms"
 			]
 		},
-		":<":{
+		";<":{
 			"id":4,
 			"excludes":[]
 		}
@@ -94,8 +94,8 @@ func raw_to_interp(raw:String):
 #		}
 		match lineData.type:
 			-1:#- Comment
-				edit.notation.comment = lineData.line
-				interp.edits.append(edit)
+					edit.notation.comment = lineData.line
+					interp.edits.append(edit)
 			0:#- Form Header
 				currentHeader.type = 0
 				if "|" in lineData.line:
@@ -117,14 +117,15 @@ func raw_to_interp(raw:String):
 			3:#- Edit
 				edit.editType = currentHeader.type
 				edit.restrictions = currentHeader.data.split(",", false)
+				edit.notation.lineEnd = lineData.line_number
 				
 				if attachedComment != null:
 					edit.notation.name = attachedComment.name
 					edit.notation.comment = attachedComment.content
 					edit.notation.lineStart = attachedComment.lineNumber
+					attachedComment = null
 				else:
 					edit.notation.lineStart = lineData.line_number
-					edit.notation.lineEnd = lineData.line_number
 				
 				var segments = lineData.line.split("|")
 				for i in range(segments.size):
@@ -140,38 +141,161 @@ func raw_to_interp(raw:String):
 						1:#- SwapIDs
 							edit.replacements = segment.split(",", false)
 						2:#- TransformOverrides
+							if "NONE" in segment:
+								continue
 							var transforms = segment.split("),", false)
 							for tran in transforms:
-								if "pos" in 
-							edit.transform.position
+								if "pos" in tran:
+									edit.transform.position = tran
+								elif "rot" in tran:
+									edit.transform.rotation = tran
+								elif "scale" in tran:
+									edit.transform.scale = tran
 						3:#- Chance
-				
+							if "NONE" in segment:
+								continue
+							edit.chance = segment
 				interp.edits.append(edit)
 			4:#- Comment line attached to edit.
-				
+				attachedComment = {
+					"name":lineData.line.get_slice(">", 0).replace(";<", ""),
+					"content":lineData.line.get_slice(">", 1),
+					"lineNumber":lineData.line_number
+				}
 		
-	return {}
+	return interp
 
 #--- SYSTEM: Compiles the interp data into raw string format for ini-extension syntax.
 func interp_to_raw(interp): # interp = {}
-	return ""
+	var final = ""
+	var prevEdit = null
+	
+	for edit in interp.edits:
+		#- (-1)Comment, (0)Forms, (1)Refs, (2)Transforms
+		match edit.editType:
+			-1:
+				final += ";" + edit.notation.comment
+			0,1,2:
+				if prevEdit == null || edit.editType != prevEdit.editType || !array_match(edit.restrictions, prevEdit.restrictions):
+					match edit.editType:
+						0:
+							final += "[Forms"
+						1:
+							final += "[References"
+						2:
+							final += "[Transforms"
+					if edit.restrictions.size() > 0:
+						for i in range(edit.restrictions.size()):
+							final += edit.restrictions[i]
+							if i < edit.restrictions.size() - 1:
+								final += ","
+					final += "]/n"
+				prevEdit = edit
+				
+				#- Handle the edit's comment data
+				if edit.notation.comment != "" || edit.notation.name != "" :
+					final += ";<" + edit.notation.name + ">" + " " + edit.notation.comment + "/n"
+				
+				#- Handle the target data
+				final += edit.target + "|"
+				
+				#- Handle the replacement data
+				if edit.replacements.size() > 0:
+					for i in range(edit.replacements.size):
+						final += edit.replacements[i]
+						if i < edit.replacements.size() - 1:
+								final += ","
+					final += "|"
+				
+				#- Handle the Transform data
+				if edit.transform.position == "" && edit.transform.rotation == "" && edit.transform.scale == "":
+					final += "NONE|"
+				else:
+					var transforms = ""
+					if edit.transform.position != "":
+						transforms += edit.transform.position
+					if edit.transform.rotation != "":
+						if transforms != "":
+							transforms += ","
+						transforms += edit.transform.rotation
+					if edit.transform.scale != "":
+						if transforms != "":
+							transforms += ","
+						transforms += edit.transform.scale
+					final += transforms + "|"
+				
+				#- Handle the chance data.
+				if edit.chance != "":
+					final += edit.chance
+				else:
+					final += "NONE"
+				
+				#- Handle newline adding here.
+				final += "/n"
+				
+	return final
 
 #--- SYSTEM: Intercepts the filesave process to alter the file name before it is saved.
 func alter_save_name(originalName:String):
+	if not "_SWAP" in originalName:
+		originalName += "_SWAP"
 	return originalName
 
 #--- SYSTEM: Moves an edit from the origIndex to the targetIndex.
 func move_index_to(interp, origIndex, targetIndex):
+	var data = interp.edits[origIndex]
+	interp.edits.remove(origIndex)
+	interp.edits.insert(targetIndex, data)
 	pass
 
 #--- SYSTEM: Returns the total amount of edits in the interp data.
 func get_edit_count(interp):
-	return 0
+	return interp.edits.size()
 
 #--- SYSTEM: Returns the name of an edit inside the interp data.
 func get_edit_name(interp, index):
-	return ""
+	var edit = interp.edits[index]
+	var eName = ""
+	match edit.type:
+		-1: #- (-1)Comment
+			eName += str(edit.notation.lineStart)
+			eName += "Comment: " + edit.notation.comment
+			return eName
+		0: #- (0)Keyword
+			eName += str(edit.notation.lineStart) + "~" if (edit.notation.lineStart != edit.notation.lineEnd) else ""
+			eName += str(edit.notation.lineEnd) + " "
+			eName += get_type_name(edit.editType) + ": "
+	if edit.notation.name == "":
+		eName += edit.target
+	else:
+		eName += edit.notation.name
+	return eName
 
 #--- SYSTEM: Called by the system to remove an edit from circulation.
 func delete_edit(index, interp):
+	interp.edits.remove(index)
 	pass
+
+#--- CUSTOM: Used to get the name from each edit type.
+func get_type_name(type):
+	#(-1)Comment, (0)Forms, (1)Refs, (2)Transforms
+	match type:
+		-1:
+			return "Comment"
+		0:
+			return "Form"
+		1:
+			return "Reference"
+		2:
+			return "Transform"
+	return "Un-typed"
+
+#--- CUSTOM: Returns bool based on two arrays' elements matching.
+func array_match(a:Array, b:Array):
+	if a.size() != b.size():
+		return false
+	
+	for i in range(a.size()):
+		if a[i] != b[i]:
+			return false
+	return true
