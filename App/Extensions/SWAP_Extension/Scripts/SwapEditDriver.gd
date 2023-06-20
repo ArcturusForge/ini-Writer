@@ -20,6 +20,7 @@ func init_driver(workingIndex, system, interpreter):
 	self.workingIndex = workingIndex
 	self.system = system
 	self.interpreter = interpreter
+	type_select.connect("item_selected", self, "handle_toggle")
 	pass
 
 #--- Called by system to modify an existing ini edit.
@@ -45,12 +46,25 @@ func apply_edit(interp):
 
 #--- CUSTOM: Handles drawing the ui.
 func draw_panels(edit):
+	comment_panel.set_data(edit)
 	forms_panel.set_data(edit)
-#	source_panel.set_data(edit)
+	source_panel.set_data(edit)
 #	targets_panel.set_data(edit)
 #	transform_panel.set_data(edit)
 #	chance_panel.set_data(edit)
+	
+	handle_toggle(edit.editType + 1) #- Plus 1 because function is designed for MenuOption indexing.
 	pass
+
+#--- CUSTOM: automates panel toggling.
+func handle_toggle(index:int):
+	match index:
+		0:
+			toggle_panels(false, false, false, false, false, false)
+		1,2:
+			toggle_panels(true, true, true, true, true, true)
+		3:
+			toggle_panels(true, true, true, false, true, true)
 
 #--- CUSTOM: Toggles ui panels.
 func toggle_panels(a:bool, b:bool, c:bool, d:bool, e:bool, f:bool):

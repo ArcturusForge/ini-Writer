@@ -7,8 +7,14 @@ onready var v_box_container = $VBoxContainer/VBoxContainer
 var restriction_node = "res://App/Extensions/SWAP_Extension/Interfaces/Nodes/RestrictionNode.tscn"
 
 func set_data(edit):
+	for restr in edit.restrictions:
+		var node = Functions.get_from_prefab(restriction_node)
+		v_box_container.add_child(node)
+		node.set_value(restr)
 	pass
 
 func get_data():
 	var results = []
+	for node in self.get_children():
+		results.append(node.get_value())
 	return results
