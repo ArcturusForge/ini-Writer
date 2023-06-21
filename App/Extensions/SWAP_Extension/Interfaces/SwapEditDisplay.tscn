@@ -1,14 +1,17 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=3]
 [ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/SwapEditDriver.gd" type="Script" id=4]
 [ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/HintToConsole.gd" type="Script" id=5]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/FormsPanel.gd" type="Script" id=6]
+[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/RestrictionsPanel.gd" type="Script" id=6]
 [ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Nodes/ReplacementNode.gd" type="Script" id=7]
 [ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/CommentPanel.gd" type="Script" id=8]
 [ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/SourcePanel.gd" type="Script" id=9]
+[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/TargetsPanel.gd" type="Script" id=10]
+[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/TransformPanel.gd" type="Script" id=11]
+[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/ChancePanel.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -132,25 +135,25 @@ margin_top = 108.0
 margin_right = 388.0
 margin_bottom = 108.0
 
-[node name="FormsPanel" type="PanelContainer" parent="."]
+[node name="RestrictionsPanel" type="PanelContainer" parent="."]
 margin_top = 194.0
 margin_right = 402.0
 margin_bottom = 281.0
 rect_pivot_offset = Vector2( 0, -122 )
 script = ExtResource( 6 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FormsPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RestrictionsPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
 margin_bottom = 80.0
 rect_pivot_offset = Vector2( -489, -48 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FormsPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RestrictionsPanel/VBoxContainer"]
 margin_right = 388.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="FormsPanel/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="RestrictionsPanel/VBoxContainer/HBoxContainer"]
 margin_top = 2.0
 margin_right = 348.0
 margin_bottom = 20.0
@@ -159,7 +162,7 @@ theme = ExtResource( 1 )
 text = "      Edit Restriction Data:"
 align = 1
 
-[node name="Help" type="Label" parent="FormsPanel/VBoxContainer/HBoxContainer"]
+[node name="Help" type="Label" parent="RestrictionsPanel/VBoxContainer/HBoxContainer"]
 margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
@@ -171,31 +174,31 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="Divider" type="ColorRect" parent="FormsPanel/VBoxContainer"]
+[node name="Divider" type="ColorRect" parent="RestrictionsPanel/VBoxContainer"]
 margin_top = 26.0
 margin_right = 388.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 0, 1 )
 color = Color( 0.133333, 0.12549, 0.14902, 1 )
 
-[node name="Spacer2" type="Control" parent="FormsPanel/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="RestrictionsPanel/VBoxContainer"]
 margin_top = 31.0
 margin_right = 388.0
 margin_bottom = 31.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FormsPanel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RestrictionsPanel/VBoxContainer"]
 margin_top = 35.0
 margin_right = 388.0
 margin_bottom = 35.0
 
-[node name="AddElement" type="HBoxContainer" parent="FormsPanel/VBoxContainer"]
+[node name="AddElement" type="HBoxContainer" parent="RestrictionsPanel/VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0 )
 margin_top = 39.0
 margin_right = 388.0
 margin_bottom = 69.0
 alignment = 1
 
-[node name="AddButton" type="Button" parent="FormsPanel/VBoxContainer/AddElement"]
+[node name="AddButton" type="Button" parent="RestrictionsPanel/VBoxContainer/AddElement"]
 margin_left = 179.0
 margin_right = 209.0
 margin_bottom = 30.0
@@ -206,7 +209,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 2
 icon_align = 1
 
-[node name="Label" type="Label" parent="FormsPanel/VBoxContainer/AddElement/AddButton"]
+[node name="Label" type="Label" parent="RestrictionsPanel/VBoxContainer/AddElement/AddButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -216,7 +219,7 @@ text = "+"
 align = 1
 valign = 1
 
-[node name="Spacer3" type="Control" parent="FormsPanel/VBoxContainer"]
+[node name="Spacer3" type="Control" parent="RestrictionsPanel/VBoxContainer"]
 margin_top = 73.0
 margin_right = 388.0
 margin_bottom = 73.0
@@ -380,6 +383,7 @@ margin_top = 532.0
 margin_right = 402.0
 margin_bottom = 831.0
 rect_pivot_offset = Vector2( 0, -122 )
+script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TargetsPanel"]
 margin_left = 7.0
@@ -611,6 +615,7 @@ margin_top = 835.0
 margin_right = 402.0
 margin_bottom = 1449.0
 rect_pivot_offset = Vector2( 0, -122 )
+script = ExtResource( 11 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel"]
 margin_left = 7.0
@@ -685,6 +690,7 @@ align = 1
 margin_left = 298.0
 margin_right = 374.0
 margin_bottom = 40.0
+focus_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel/NodeContainer"]
 margin_top = 44.0
@@ -932,6 +938,7 @@ align = 1
 margin_left = 298.0
 margin_right = 374.0
 margin_bottom = 40.0
+focus_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel2/NodeContainer"]
 margin_top = 44.0
@@ -1179,6 +1186,7 @@ align = 1
 margin_left = 298.0
 margin_right = 374.0
 margin_bottom = 40.0
+focus_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer"]
 margin_top = 44.0
@@ -1238,7 +1246,7 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="DamageRangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer"]
+[node name="RangeButton" type="Button" parent="TransformPanel/VBoxContainer/SubPanel3/NodeContainer/VBoxContainer/HBoxContainer"]
 margin_left = 172.0
 margin_right = 202.0
 margin_bottom = 30.0
@@ -1271,6 +1279,7 @@ margin_top = 1453.0
 margin_right = 402.0
 margin_bottom = 1580.0
 rect_pivot_offset = Vector2( 0, -122 )
+script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -1425,3 +1434,6 @@ margin_top = 55.0
 margin_right = 388.0
 margin_bottom = 55.0
 size_flags_horizontal = 3
+
+[connection signal="pressed" from="RestrictionsPanel/VBoxContainer/AddElement/AddButton" to="RestrictionsPanel" method="_on_AddButton_pressed"]
+[connection signal="pressed" from="TargetsPanel/VBoxContainer/AddElement/AddButton" to="TargetsPanel" method="_on_AddButton_pressed"]

@@ -8,6 +8,7 @@ onready var clean_check_box = $VBoxContainer/HBoxContainer/VBoxContainer/CleanCh
 onready var source_container = $VBoxContainer/HBoxContainer/VBoxContainer/SourceContainer
 
 func _ready():
+	handle_selected(0)
 	source_select.connect("item_selected", self, "handle_selected")
 	pass
 

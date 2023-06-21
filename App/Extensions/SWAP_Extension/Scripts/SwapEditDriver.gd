@@ -4,7 +4,7 @@ extends VBoxContainer
 onready var type_select = $TypePanel/VBoxContainer/TypeSelect
 onready var comment_panel = $CommentPanel
 onready var name_container = $CommentPanel/VBoxContainer/NameContainer
-onready var forms_panel = $FormsPanel
+onready var restrictions_panel = $RestrictionsPanel
 onready var source_panel = $SourcePanel
 onready var targets_panel = $TargetsPanel
 onready var transform_panel = $TransformPanel
@@ -47,9 +47,9 @@ func apply_edit(interp):
 #--- CUSTOM: Handles drawing the ui.
 func draw_panels(edit):
 	comment_panel.set_data(edit)
-	forms_panel.set_data(edit)
+	restrictions_panel.set_data(edit)
 	source_panel.set_data(edit)
-#	targets_panel.set_data(edit)
+	targets_panel.set_data(edit)
 #	transform_panel.set_data(edit)
 #	chance_panel.set_data(edit)
 	
@@ -69,7 +69,7 @@ func handle_toggle(index:int):
 #--- CUSTOM: Toggles ui panels.
 func toggle_panels(a:bool, b:bool, c:bool, d:bool, e:bool, f:bool):
 	name_container.visible = a
-	forms_panel.visible = b
+	restrictions_panel.visible = b
 	source_panel.visible = c
 	targets_panel.visible = d
 	transform_panel.visible = e

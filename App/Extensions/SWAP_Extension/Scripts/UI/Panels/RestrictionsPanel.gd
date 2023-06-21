@@ -15,6 +15,11 @@ func set_data(edit):
 
 func get_data():
 	var results = []
-	for node in self.get_children():
+	for node in v_box_container.get_children():
 		results.append(node.get_value())
 	return results
+
+func _on_AddButton_pressed():
+	var node = Functions.get_from_prefab(restriction_node)
+	v_box_container.add_child(node)
+	pass

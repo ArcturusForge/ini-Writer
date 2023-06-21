@@ -4,9 +4,15 @@ extends PanelContainer
 onready var source_select = $VBoxContainer/SourceSelect
 onready var check_box = $VBoxContainer/CheckBox
 onready var id_edit = $VBoxContainer/IdEdit
+onready var source_container = $VBoxContainer/SourceContainer
 onready var source_edit = $VBoxContainer/SourceContainer/SourceEdit
 
 #-- Prefabs
+
+func _ready():
+	handle_selected(0)
+	source_select.connect("item_selected", self, "handle_selected")
+	pass
 
 func set_data(edit):
 	var target = edit.target
@@ -25,7 +31,15 @@ func get_data():
 	var results = []
 	if check_box.pressed:
 		#- Clean id
-		Globals.get_manager("console").postwrn("Write cleaning function")
+		var id = id_edit.text
+		id.erase(0, 2)
+		while id[0] == "0":
+			id.erase(0, 1)
+		id = "0x" + id
+		var line = id
+		if not source_edit.text == "" && not source_select.selected == 0:
+			line += "~" + source_edit.text
+		results.append(line)
 		pass
 	else:
 		var line = id_edit.text
@@ -33,3 +47,13 @@ func get_data():
 			line += "~" + source_edit.text
 		results.append(line)
 	return results
+
+func handle_selected(index:int):
+	match index:
+		0:
+			check_box.visible = false
+			source_container.visible = false
+		1,2:
+			check_box.visible = true
+			source_container.visible = true
+	pass

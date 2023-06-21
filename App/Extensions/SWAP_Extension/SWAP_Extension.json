@@ -1,6 +1,6 @@
 {
     "version"               : "1.0.0",
-    "extension"             : "Base Object Swapper Writer",
+    "extension"             : "Base Object Swap Writer",
     "interpreterScript"     : "Scripts/SwapInterpreter.gd",
     "editorInterface"       : "Interfaces/SwapEditDisplay.tscn"
 }
