@@ -40,7 +40,6 @@ func get_data():
 		if not source_edit.text == "" && not source_select.selected == 0:
 			line += "~" + source_edit.text
 		results.append(line)
-		pass
 	else:
 		var line = id_edit.text
 		if not source_edit.text == "" && not source_select.selected == 0:

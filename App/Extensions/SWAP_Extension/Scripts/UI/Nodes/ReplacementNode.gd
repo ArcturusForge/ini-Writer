@@ -45,7 +45,7 @@ func get_value():
 			if clean_check_box.pressed:
 				var t = id_edit.text
 				t.erase(0, 2)
-				while t[0] == 0:
+				while t[0] == "0":
 					t.erase(0, 1)
 				value = "0x" + t
 			else:

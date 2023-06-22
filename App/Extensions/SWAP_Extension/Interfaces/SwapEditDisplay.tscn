@@ -1437,3 +1437,5 @@ size_flags_horizontal = 3
 
 [connection signal="pressed" from="RestrictionsPanel/VBoxContainer/AddElement/AddButton" to="RestrictionsPanel" method="_on_AddButton_pressed"]
 [connection signal="pressed" from="TargetsPanel/VBoxContainer/AddElement/AddButton" to="TargetsPanel" method="_on_AddButton_pressed"]
+[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
+[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

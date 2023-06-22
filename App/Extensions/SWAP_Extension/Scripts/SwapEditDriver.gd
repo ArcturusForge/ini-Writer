@@ -14,6 +14,7 @@ onready var chance_panel = $ChancePanel
 var workingIndex:int = -1 #- Points towards the index for this ini edit.
 var system #- Points towards the editor window manager.
 var interpreter #- The interpreter script from this particular extension.
+var isNew = false
 
 #--- Called by system to initialize the driver.
 func init_driver(workingIndex, system, interpreter):
@@ -25,12 +26,19 @@ func init_driver(workingIndex, system, interpreter):
 
 #--- Called by system to modify an existing ini edit.
 func modify_existing(interp):
+	isNew = false
 	draw_panels(interp.edits[workingIndex])
 	pass
 
 #--- Called by system to write a new ini edit.
 func create_new():
+	isNew = true
 	draw_panels(interpreter.new_edit())
+	pass
+
+#--- Call this to cancel editing.
+func cancel_edit():
+	system.cancel_create()
 	pass
 
 #--- Call this to notify the system of changes made.
@@ -42,16 +50,65 @@ func notify_system():
 func apply_edit(interp):
 	var edit = interpreter.new_edit()
 	
+	edit.editType = type_select.selected - 1
+	
+	var comDat = comment_panel.get_data()
+	edit.notation.name = comDat[0]
+	edit.notation.comment = comDat[1]
+	
+	var resDat = restrictions_panel.get_data()
+	edit.restrictions = resDat
+	
+	var souDat = source_panel.get_data()
+	edit.target = souDat[0]
+	
+	var tarDat = targets_panel.get_data()
+	edit.replacements = tarDat
+	
+	var traDat = transform_panel.get_data()
+	for tran in traDat:
+		if "pos" in tran:
+			edit.transform.position = tran
+		elif "rot" in tran:
+			edit.transform.rotation = tran
+		elif "scale" in tran:
+			edit.transform.scale = tran
+	
+	var chaDat = chance_panel.get_data()
+	edit.chance = chaDat[0] if chaDat.size() > 0 else ""
+	
+	#- Apply to interp
+	if not isNew:
+		var ogEdit = interp.edits[workingIndex]
+		edit.notation.newlines = ogEdit.notation.newlines
+		if ogEdit.notation.comment == "" && not edit.notation.comment == "" && not edit.editType == -1:
+			edit.notation.lineEnd = ogEdit.notation.lineEnd + 1
+		elif not ogEdit.notation.comment == "" && edit.notation.comment == "" && not edit.editType == -1:
+			edit.notation.lineEnd = ogEdit.notation.lineEnd - 1
+		else:
+			edit.notation.lineEnd = ogEdit.notation.lineEnd
+		interp.edits[workingIndex] = edit
+		Globals.get_manager("console").post("Modified (" + interpreter.get_edit_name(interp, workingIndex) + ")")
+	else:
+		var lNum = 1
+		if interp.edits.size() > 0:
+			var prevEdit = interp.edits[interp.edits.size()-1] 
+			lNum = prevEdit.notation.lineEnd + prevEdit.notation.newlines
+		edit.notation.lineEnd = lNum
+		interp.edits.append(edit)
+		Globals.get_manager("console").post("Created (" + interpreter.get_edit_name(interp, interp.edits.size()-1) + ")")
 	pass
 
 #--- CUSTOM: Handles drawing the ui.
 func draw_panels(edit):
+	type_select.select(edit.editType + 1)
+	
 	comment_panel.set_data(edit)
 	restrictions_panel.set_data(edit)
 	source_panel.set_data(edit)
 	targets_panel.set_data(edit)
-#	transform_panel.set_data(edit)
-#	chance_panel.set_data(edit)
+	transform_panel.set_data(edit)
+	chance_panel.set_data(edit)
 	
 	handle_toggle(edit.editType + 1) #- Plus 1 because function is designed for MenuOption indexing.
 	pass
@@ -74,4 +131,12 @@ func toggle_panels(a:bool, b:bool, c:bool, d:bool, e:bool, f:bool):
 	targets_panel.visible = d
 	transform_panel.visible = e
 	chance_panel.visible = f
+	pass
+
+func _on_ApplyButton_pressed():
+	notify_system()
+	pass
+
+func _on_CancelButton_pressed():
+	cancel_edit()
 	pass

@@ -31,6 +31,7 @@ func new_edit():
 		"notation":{
 			"name":"",
 			"comment":"",
+			"newlines":1,
 			"lineStart":0,
 			"lineEnd":0
 		},
@@ -128,7 +129,7 @@ func raw_to_interp(raw:String):
 					edit.notation.lineStart = lineData.line_number
 				
 				var segments = lineData.line.split("|")
-				for i in range(segments.size):
+				for i in range(segments.size()):
 					#- Cache segment string
 					var segment:String = segments[i]
 					#- Transform edits skip SwapIDs so we need to bump index up one.
@@ -185,23 +186,24 @@ func interp_to_raw(interp): # interp = {}
 						2:
 							final += "[Transforms"
 					if edit.restrictions.size() > 0:
+						final += "|"
 						for i in range(edit.restrictions.size()):
 							final += edit.restrictions[i]
 							if i < edit.restrictions.size() - 1:
 								final += ","
-					final += "]/n"
+					final += "]\n"
 				prevEdit = edit
 				
 				#- Handle the edit's comment data
 				if edit.notation.comment != "" || edit.notation.name != "" :
-					final += ";<" + edit.notation.name + ">" + " " + edit.notation.comment + "/n"
+					final += ";<" + edit.notation.name + ">" + " " + edit.notation.comment + "\n"
 				
 				#- Handle the target data
 				final += edit.target + "|"
 				
 				#- Handle the replacement data
 				if edit.replacements.size() > 0:
-					for i in range(edit.replacements.size):
+					for i in range(edit.replacements.size()):
 						final += edit.replacements[i]
 						if i < edit.replacements.size() - 1:
 								final += ","
@@ -231,7 +233,7 @@ func interp_to_raw(interp): # interp = {}
 					final += "NONE"
 				
 				#- Handle newline adding here.
-				final += "/n"
+				final += "\n"
 				
 	return final
 
@@ -256,12 +258,12 @@ func get_edit_count(interp):
 func get_edit_name(interp, index):
 	var edit = interp.edits[index]
 	var eName = ""
-	match edit.type:
+	match edit.editType:
 		-1: #- (-1)Comment
 			eName += str(edit.notation.lineStart)
-			eName += "Comment: " + edit.notation.comment
+			eName += " Comment: " + edit.notation.comment
 			return eName
-		0: #- (0)Keyword
+		0,1,2: #- (0)Forms, (1)Refs, (2)Transforms
 			eName += str(edit.notation.lineStart) + "~" if (edit.notation.lineStart != edit.notation.lineEnd) else ""
 			eName += str(edit.notation.lineEnd) + " "
 			eName += get_type_name(edit.editType) + ": "

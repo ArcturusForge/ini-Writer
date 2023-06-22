@@ -25,6 +25,11 @@ func notify_system():
 	system.alert_to_edits()
 	pass
 
+#--- Call this to cancel editing.
+func cancel_edit():
+	system.cancel_create()
+	pass
+
 #--- Called by system to apply changes to the ini edit.
 func apply_edit(interp):
 	pass
