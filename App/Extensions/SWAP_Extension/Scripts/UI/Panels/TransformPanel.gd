@@ -71,6 +71,7 @@ func _ready():
 func set_data(edit):
 	#- Position
 	if not edit.transform.position == "":
+		pos_check_button.pressed = true
 		pos_toggled(true)
 		var vals = edit.transform.position.replace("pos", "").replace("(", "").replace(")", "")
 		p_option_button.select(1) if "A" in vals else p_option_button.select(0)
@@ -78,6 +79,7 @@ func set_data(edit):
 		var nums = vals.split(",", false)
 		#- x
 		if "/" in nums[0]:
+			px_range_button.pressed = true
 			px_toggled(true)
 			px_spin_box.value = float(nums[0].get_slice("/", 0))
 			px_spin_box_2.value = float(nums[0].get_slice("/", 1))
@@ -85,6 +87,7 @@ func set_data(edit):
 			px_spin_box.value = float(nums[0])
 		#- y
 		if "/" in nums[1]:
+			py_range_button.pressed = true
 			py_toggled(true)
 			py_spin_box.value = float(nums[1].get_slice("/", 0))
 			py_spin_box_2.value = float(nums[1].get_slice("/", 1))
@@ -92,6 +95,7 @@ func set_data(edit):
 			py_spin_box.value = float(nums[1])
 		#- z
 		if "/" in nums[2]:
+			pz_range_button.pressed = true
 			pz_toggled(true)
 			pz_spin_box.value = float(nums[2].get_slice("/", 0))
 			pz_spin_box_2.value = float(nums[2].get_slice("/", 1))
@@ -100,6 +104,7 @@ func set_data(edit):
 	
 	#- Rotation
 	if not edit.transform.rotation == "":
+		rot_check_button.pressed = true
 		rot_toggled(true)
 		var vals = edit.transform.rotation.replace("rot", "").replace("(", "").replace(")", "")
 		r_option_button.select(1) if "A" in vals else r_option_button.select(0)
@@ -107,6 +112,7 @@ func set_data(edit):
 		var nums = vals.split(",", false)
 		#- x
 		if "/" in nums[0]:
+			rx_range_button.pressed = true
 			rx_toggled(true)
 			rx_spin_box.value = float(nums[0].get_slice("/", 0))
 			rx_spin_box_2.value = float(nums[0].get_slice("/", 1))
@@ -114,6 +120,7 @@ func set_data(edit):
 			rx_spin_box.value = float(nums[0])
 		#- y
 		if "/" in nums[1]:
+			ry_range_button.pressed = true
 			ry_toggled(true)
 			ry_spin_box.value = float(nums[1].get_slice("/", 0))
 			ry_spin_box_2.value = float(nums[1].get_slice("/", 1))
@@ -121,6 +128,7 @@ func set_data(edit):
 			ry_spin_box.value = float(nums[1])
 		#- z
 		if "/" in nums[2]:
+			rz_range_button.pressed = true
 			rz_toggled(true)
 			rz_spin_box.value = float(nums[2].get_slice("/", 0))
 			rz_spin_box_2.value = float(nums[2].get_slice("/", 1))
@@ -129,11 +137,13 @@ func set_data(edit):
 	
 	#- Scale
 	if not edit.transform.scale == "":
+		sca_check_button.pressed = true
 		sca_toggled(true)
-		var vals = edit.transform.scale.replace("scale", "").replace("(", "").replace(")", "").split(",", false)
+		var vals = edit.transform.scale.replace("scale", "").replace("(", "").replace(")", "")
 		#- x
 		if "/" in vals:
-			rx_toggled(true)
+			s_range_button.pressed = true
+			s_toggled(true)
 			s_min_spin_box.value = float(vals.get_slice("/", 0))
 			s_max_spin_box.value = float(vals.get_slice("/", 1))
 		else:

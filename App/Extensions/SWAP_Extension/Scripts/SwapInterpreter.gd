@@ -81,18 +81,20 @@ func raw_to_interp(raw:String):
 		}
 	}
 	var parsed_lines = parser.split_and_define_lines(raw, symbols)
-	for lineData in parsed_lines:
-		var edit = new_edit()
-		var currentHeader = {
+	var currentHeader = {
 			"type":-1,
 			"data":""
 		}
-		var attachedComment = null
+	var attachedComment = null
 #		{
 #			"name":"",
 #			"content":"",
 #			"lineNumber":0
 #		}
+	
+	for lineData in parsed_lines:
+		var edit = new_edit()
+		
 		match lineData.type:
 			-1:#- Comment
 					edit.notation.comment = lineData.line
@@ -202,7 +204,7 @@ func interp_to_raw(interp): # interp = {}
 				final += edit.target + "|"
 				
 				#- Handle the replacement data
-				if edit.replacements.size() > 0:
+				if edit.replacements.size() > 0 && not edit.editType == 2:
 					for i in range(edit.replacements.size()):
 						final += edit.replacements[i]
 						if i < edit.replacements.size() - 1:

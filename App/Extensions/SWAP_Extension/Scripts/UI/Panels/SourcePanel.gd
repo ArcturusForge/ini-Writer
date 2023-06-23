@@ -16,15 +16,16 @@ func _ready():
 
 func set_data(edit):
 	var target = edit.target
-	if "0x" in target && not ".esl" in target:
+	if ("0x" in target && not ".esl" in target) || ".esm" in target || ".esp" in target:
 		source_select.select(1)
-	elif "0x" in target && ".esl" in target:
+	elif ("0x" in target && ".esl" in target) || ".esl" in target:
 		source_select.select(2)
 	else:
 		source_select.select(0)
 	
 	id_edit.text = target.get_slice("~", 0) if "~" in target else target
 	source_edit.text = target.get_slice("~", 1) if "~" in target else ""
+	handle_selected(source_select.selected)	
 	pass
 
 func get_data():
