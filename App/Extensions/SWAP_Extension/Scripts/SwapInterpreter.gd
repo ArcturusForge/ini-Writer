@@ -83,7 +83,9 @@ func raw_to_interp(raw:String):
 	var parsed_lines = parser.split_and_define_lines(raw, symbols)
 	var currentHeader = {
 			"type":-1,
-			"data":""
+			"data":"",
+			"lineNum":0,
+			"used":0
 		}
 	var attachedComment = null
 #		{
@@ -101,18 +103,24 @@ func raw_to_interp(raw:String):
 					interp.edits.append(edit)
 			0:#- Form Header
 				currentHeader.type = 0
+				currentHeader.used = 0
+				currentHeader.lineNum = lineData.line_number
 				if "|" in lineData.line:
 					currentHeader.data = lineData.line.replace("[Forms|", "").replace("]", "")
 				else:
 					currentHeader.data = ""
 			1:#- Reference Header
 				currentHeader.type = 1
+				currentHeader.used = 0
+				currentHeader.lineNum = lineData.line_number
 				if "|" in lineData.line:
 					currentHeader.data = lineData.line.replace("[References|", "").replace("]", "")
 				else:
 					currentHeader.data = ""
 			2:#- Transform Header
 				currentHeader.type = 2
+				currentHeader.used = 0
+				currentHeader.lineNum = lineData.line_number
 				if "|" in lineData.line:
 					currentHeader.data = lineData.line.replace("[Transforms|", "").replace("]", "")
 				else:
@@ -129,6 +137,10 @@ func raw_to_interp(raw:String):
 					attachedComment = null
 				else:
 					edit.notation.lineStart = lineData.line_number
+				
+				if currentHeader.used == 0:
+					edit.notation.lineStart = currentHeader.lineNum
+					currentHeader.used += 1
 				
 				var segments = lineData.line.split("|")
 				for i in range(segments.size()):
@@ -198,7 +210,7 @@ func interp_to_raw(interp): # interp = {}
 				
 				#- Handle the edit's comment data
 				if edit.notation.comment != "" || edit.notation.name != "" :
-					final += ";<" + edit.notation.name + ">" + " " + edit.notation.comment + "\n"
+					final += ";<" + edit.notation.name + ">" + edit.notation.comment + "\n"
 				
 				#- Handle the target data
 				final += edit.target + "|"
@@ -232,11 +244,14 @@ func interp_to_raw(interp): # interp = {}
 				if edit.chance != "":
 					final += edit.chance
 				else:
-					final += "NONE"
+					final += "chanceS(100)"
 				
 				#- Handle newline adding here.
 				final += "\n"
 				
+	#- Text Cleaning pass.
+	final = final.replace("|NONE|chanceS(100)", "")
+	final = final.replace("|chanceS(100)", "")
 	return final
 
 #--- SYSTEM: Intercepts the filesave process to alter the file name before it is saved.

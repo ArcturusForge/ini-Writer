@@ -81,20 +81,35 @@ func apply_edit(interp):
 	if not isNew:
 		var ogEdit = interp.edits[workingIndex]
 		edit.notation.newlines = ogEdit.notation.newlines
+		edit.notation.lineStart = ogEdit.notation.lineStart
+		edit.notation.lineEnd = ogEdit.notation.lineEnd
+		
 		if ogEdit.notation.comment == "" && not edit.notation.comment == "" && not edit.editType == -1:
-			edit.notation.lineEnd = ogEdit.notation.lineEnd + 1
+			edit.notation.lineStart += 1
+			edit.notation.lineEnd -= 1
 		elif not ogEdit.notation.comment == "" && edit.notation.comment == "" && not edit.editType == -1:
-			edit.notation.lineEnd = ogEdit.notation.lineEnd - 1
-		else:
-			edit.notation.lineEnd = ogEdit.notation.lineEnd
+			edit.notation.lineStart -= 1
+			edit.notation.lineEnd += 1
+		
 		interp.edits[workingIndex] = edit
 		Globals.get_manager("console").post("Modified (" + interpreter.get_edit_name(interp, workingIndex) + ")")
 	else:
-		var lNum = 1
+		var startNum = 1
+		var endNum = 1
 		if interp.edits.size() > 0:
 			var prevEdit = interp.edits[interp.edits.size()-1] 
-			lNum = prevEdit.notation.lineEnd + prevEdit.notation.newlines
-		edit.notation.lineEnd = lNum
+			startNum = prevEdit.notation.lineEnd + prevEdit.notation.newlines
+			endNum = startNum
+			if prevEdit.editType != edit.editType || !interpreter.array_match(prevEdit.restrictions, edit.restrictions):
+				endNum += 1
+		else:
+			endNum += 1
+		
+		if edit.notation.comment != "":
+			endNum += 1
+		
+		edit.notation.lineStart = startNum
+		edit.notation.lineEnd = endNum
 		interp.edits.append(edit)
 		Globals.get_manager("console").post("Created (" + interpreter.get_edit_name(interp, interp.edits.size()-1) + ")")
 	pass

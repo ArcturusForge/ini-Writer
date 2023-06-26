@@ -18,7 +18,7 @@ func set_data(edit):
 	if "R" in chance:
 		option_button.select(2)
 		spin_box.value = float(chance.get_slice("(", 1).replace(")", ""))
-	elif not chance == "":
+	elif chance != "chanceS(100)" && chance != "": #- "chanceS(100)" is default and not included in this option.
 		option_button.select(1)
 		spin_box.value = float(chance.get_slice("(", 1).replace(")", ""))
 	
@@ -28,6 +28,8 @@ func set_data(edit):
 func get_data():
 	var results = []
 	match option_button.selected:
+		0:
+			results.append("chanceS(100)")
 		1:
 			results.append("chanceS(" + str(spin_box.value) + ")")
 		2:

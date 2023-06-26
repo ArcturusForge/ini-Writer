@@ -1298,7 +1298,7 @@ margin_right = 348.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
-text = "      Raplacement Chance"
+text = "      Replacement Chance"
 align = 1
 
 [node name="Help" type="Label" parent="ChancePanel/VBoxContainer/HBoxContainer"]
@@ -1329,9 +1329,9 @@ margin_bottom = 31.0
 margin_top = 35.0
 margin_right = 388.0
 margin_bottom = 55.0
-text = "100%"
+text = "Default"
 align = 1
-items = [ "100%", null, false, 0, null, "Persistent", null, false, 1, null, "Re-rolled", null, false, 2, null ]
+items = [ "Default", null, false, 0, null, "Persistent", null, false, 1, null, "Re-rolled", null, false, 2, null ]
 selected = 0
 
 [node name="Spacer2" type="Control" parent="ChancePanel/VBoxContainer"]
