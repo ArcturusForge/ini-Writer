@@ -91,6 +91,22 @@ func apply_edit(interp):
 			edit.notation.lineStart -= 1
 			edit.notation.lineEnd += 1
 		
+		#- ADjust line numbers based on changes to the edit type header.
+		if ogEdit.editType != edit.editType || !interpreter.array_match(ogEdit.restrictions, edit.restrictions):
+			if workingIndex > 0:
+				var prevEdit = interp.edits[workingIndex - 1]
+				if prevEdit.editType != edit.editType || !interpreter.array_match(prevEdit.restrictions, edit.restrictions):
+					if prevEdit.editType == ogEdit.editType && interpreter.array_match(prevEdit.restrictions, ogEdit.restrictions):
+						edit.notation.lineEnd += 1
+						for i in range(workingIndex + 1, interp.edits.size()):
+							interp.edits[i].notation.lineStart += 1
+							interp.edits[i].notation.lineEnd += 1
+				else:
+					edit.notation.lineEnd -= 1
+					for i in range(workingIndex + 1, interp.edits.size()):
+						interp.edits[i].notation.lineStart -= 1
+						interp.edits[i].notation.lineEnd -= 1
+		
 		interp.edits[workingIndex] = edit
 		Globals.get_manager("console").post("Modified (" + interpreter.get_edit_name(interp, workingIndex) + ")")
 	else:
@@ -105,7 +121,7 @@ func apply_edit(interp):
 		else:
 			endNum += 1
 		
-		if edit.notation.comment != "":
+		if edit.notation.comment != "" || edit.notation.name != "":
 			endNum += 1
 		
 		edit.notation.lineStart = startNum
