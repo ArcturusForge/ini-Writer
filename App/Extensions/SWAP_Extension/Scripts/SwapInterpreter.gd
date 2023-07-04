@@ -94,12 +94,25 @@ func raw_to_interp(raw:String):
 #			"lineNumber":0
 #		}
 	
+	var currentIndex = -1 #- Only modified when SWAP edits are detected.
 	for lineData in parsed_lines:
 		var edit = new_edit()
 		
 		match lineData.type:
+			-2:#- Empty line
+				if interp.edits.size() > 0 && currentIndex > 0:
+					var prevEdit = interp.edits[currentIndex - 1]
+					prevEdit.notation.newlines += 1
 			-1:#- Comment
-					edit.notation.comment = lineData.line
+					currentIndex += 1
+					var line:String = lineData.line
+					var e = 0
+					while line[e] != ";":
+						e += 1
+					line[e] = ""
+					edit.notation.comment = line
+					edit.notation.lineEnd = lineData.line_number
+					edit.notation.lineStart = lineData.line_number
 					interp.edits.append(edit)
 			0:#- Form Header
 				currentHeader.type = 0
@@ -126,6 +139,7 @@ func raw_to_interp(raw:String):
 				else:
 					currentHeader.data = ""
 			3:#- Edit
+				currentIndex += 1
 				edit.editType = currentHeader.type
 				edit.restrictions = currentHeader.data.split(",", false)
 				edit.notation.lineEnd = lineData.line_number
@@ -185,7 +199,8 @@ func interp_to_raw(interp): # interp = {}
 	var final = ""
 	var prevEdit = null
 	
-	for edit in interp.edits:
+	for x in range(interp.edits.size()):
+		var edit = interp.edits[x]
 		#- (-1)Comment, (0)Forms, (1)Refs, (2)Transforms
 		match edit.editType:
 			-1:
@@ -246,9 +261,14 @@ func interp_to_raw(interp): # interp = {}
 				else:
 					final += "chanceS(100)"
 				
-				#- Handle newline adding here.
+		
+		#- Handle newline adding here.
+		var i = 0
+		if x < interp.edits.size() - 1:
+			while i < edit.notation.newlines:
 				final += "\n"
-				
+				i += 1
+		
 	#- Text Cleaning pass.
 	final = final.replace("|NONE|chanceS(100)", "")
 	final = final.replace("|chanceS(100)", "")
