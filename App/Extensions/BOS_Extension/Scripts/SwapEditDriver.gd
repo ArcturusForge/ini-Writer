@@ -91,7 +91,7 @@ func apply_edit(interp):
 			edit.notation.lineStart -= 1
 			edit.notation.lineEnd += 1
 		
-		#- ADjust line numbers based on changes to the edit type header.
+		#- Adjust line numbers based on changes to the edit type header.
 		if ogEdit.editType != edit.editType || !interpreter.array_match(ogEdit.restrictions, edit.restrictions):
 			if workingIndex > 0:
 				var prevEdit = interp.edits[workingIndex - 1]
@@ -147,10 +147,12 @@ func draw_panels(edit):
 #--- CUSTOM: automates panel toggling.
 func handle_toggle(index:int):
 	match index:
-		0:
+		0: #- Comment
 			toggle_panels(false, false, false, false, false, false)
-		1,2:
+		1: #- Forms
 			toggle_panels(true, true, true, true, true, true)
+		2: #- References
+			toggle_panels(true, false, true, true, true, true)
 		3:
 			toggle_panels(true, true, true, false, true, true)
 

@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/HintToConsole.gd" type="Script" id=3]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Nodes/ReplacementNode.gd" type="Script" id=4]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/HintToConsole.gd" type="Script" id=3]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Nodes/ReplacementNode.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -48,7 +48,30 @@ margin_left = 314.0
 margin_right = 350.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "ID Source is used by ini Writer to help you write RecordIDs correctly.
+
+EditorID's e.g. ActorTypeNPC
+FormID's e.g. 0x12345
+
+There are three options to choose from:
+1. Editor ID:
+- Select this when you are using EditorIDs to locate the record you wish to modify.
+- EditorIDs come from the editorID of the record displayed in the Creation Kit or xEdit.
+- BOS will attempt to automatically locate the record you are referring to.
+
+2. Esm / Esp:
+- Select this when you are using FormIDs that originate from esm's or esp's.
+- Ini Writer can automatically apply the shortening rules required by BOS.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 2 digits, followed by removing any leading zeroes '0' then lastly adding '0x' to the front of the value.
+--> 'FE051801' becomes '051801', then as '51801' because the leading digit was a zero and then finally '0x51801'.
+
+3. Esl:
+- Select this when you are using FormIDs that originate from esl's.
+- Ini Writer can automatically apply the shortening rules required by BOS.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 5 digits, followed by removing any leading zeroes '0' then lastly adding '0x' to the front of the value.
+--> 'FE051801' becomes '801', because the leading digit is not a zero it stays as '801' and then finally '0x801'."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -86,7 +109,19 @@ margin_left = 314.0
 margin_right = 350.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
+Two approaches are supported:
+
+1. EditorID:
+- EditorID is the form editorID of the record displayed in CK or xEdit. 
+- FormIDs can change when the mod is merged or converted into esl.
+- No source esp is required as the extension can automatically locate the appropriate record.
+- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+
+2. FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -133,7 +168,15 @@ margin_left = 314.0
 margin_right = 350.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "What to write:
+- Leave out the tilde symbol '~'
+- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
+- You can leave this field blank if the ID originates from Skyrim.esm or any of the original dlc. 
+
+Skyrim's original dlc:
+- Hearthfire
+- Dawnguard
+- Dragonborn"
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"

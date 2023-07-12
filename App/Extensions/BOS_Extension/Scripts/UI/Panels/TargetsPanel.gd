@@ -6,7 +6,7 @@ onready var replacement_node = $VBoxContainer/VBoxContainer/ReplacementNode
 
 
 #-- Prefabs
-var replacement_prefab = "res://App/Extensions/SWAP_Extension/Interfaces/Nodes/ReplacementNode.tscn"
+var replacement_prefab = "res://App/Extensions/BOS_Extension/Interfaces/Nodes/ReplacementNode.tscn"
 
 func set_data(edit):
 	for i in range(edit.replacements.size()):

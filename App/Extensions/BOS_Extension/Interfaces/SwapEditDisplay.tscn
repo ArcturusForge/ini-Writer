@@ -3,15 +3,15 @@
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=3]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/SwapEditDriver.gd" type="Script" id=4]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/HintToConsole.gd" type="Script" id=5]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/RestrictionsPanel.gd" type="Script" id=6]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Nodes/ReplacementNode.gd" type="Script" id=7]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/CommentPanel.gd" type="Script" id=8]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/SourcePanel.gd" type="Script" id=9]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/TargetsPanel.gd" type="Script" id=10]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/TransformPanel.gd" type="Script" id=11]
-[ext_resource path="res://App/Extensions/SWAP_Extension/Scripts/UI/Panels/ChancePanel.gd" type="Script" id=12]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/SwapEditDriver.gd" type="Script" id=4]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/HintToConsole.gd" type="Script" id=5]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Panels/RestrictionsPanel.gd" type="Script" id=6]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Nodes/ReplacementNode.gd" type="Script" id=7]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Panels/CommentPanel.gd" type="Script" id=8]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Panels/SourcePanel.gd" type="Script" id=9]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Panels/TargetsPanel.gd" type="Script" id=10]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Panels/TransformPanel.gd" type="Script" id=11]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Panels/ChancePanel.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -62,7 +62,17 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "Base Object Swapper allows modders to swap base objects with others, using config files.
+
+With it, you could... 
+- Assign different models to farmhouses in each region, without worrying about compatibility or patches.
+- Make statics harvestable/lootable, like Dynamic Things Alternative, but without scripts.
+- And more!
+
+The edit type determines the format in-which distributions are being defined.
+- Form : Replace the base object. (eg. all farmhouse statics)
+- Reference : Replace a specific reference of an object. (ie. a specific farmhouse in Riverwood)
+- Transform : Alters the positioning of an existing object"
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -167,7 +177,22 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "Restricts swaps to specific locations.
+- Requires location/cell editorID or keyword editorID (for location) 
+
+This swaps all WalkwayBend02 statics in Riverwood and Falkreath for snow variants
+Example:
+{
+	﻿[Forms|RiverwoodLocation,FalkreathLocation]
+	WalkwayBend02|WalkwayBend02Snow
+}
+
+This swaps all caskets in locations with LocTypeInn keyword
+Example:
+{
+﻿	[Forms|LocTypeInn]
+	Casket|CasketInn
+}"
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -274,7 +299,30 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "ID Source is used by ini Writer to help you write RecordIDs correctly.
+
+EditorID's e.g. ActorTypeNPC
+FormID's e.g. 0x12345
+
+There are three options to choose from:
+1. Editor ID:
+- Select this when you are using EditorIDs to locate the record you wish to modify.
+- EditorIDs come from the editorID of the record displayed in the Creation Kit or xEdit.
+- BOS will attempt to automatically locate the record you are referring to.
+
+2. Esm / Esp:
+- Select this when you are using FormIDs that originate from esm's or esp's.
+- Ini Writer can automatically apply the shortening rules required by BOS.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 2 digits, followed by removing any leading zeroes '0' then lastly adding '0x' to the front of the value.
+--> 'FE051801' becomes '051801', then as '51801' because the leading digit was a zero and then finally '0x51801'.
+
+3. Esl:
+- Select this when you are using FormIDs that originate from esl's.
+- Ini Writer can automatically apply the shortening rules required by BOS.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 5 digits, followed by removing any leading zeroes '0' then lastly adding '0x' to the front of the value.
+--> 'FE051801' becomes '801', because the leading digit is not a zero it stays as '801' and then finally '0x801'."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -312,12 +360,39 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
+Two approaches are supported:
+
+1. EditorID:
+- EditorID is the form editorID of the record displayed in CK or xEdit. 
+- FormIDs can change when the mod is merged or converted into esl.
+- No source esp is required as the extension can automatically locate the appropriate record.
+- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+
+2. FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
 align = 1
 script = ExtResource( 5 )
+__meta__ = {
+"_editor_description_": "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
+Two approaches are supported:
+
+1. EditorID:
+- EditorID is the form editorID of the record displayed in CK or xEdit. 
+- FormIDs can change when the mod is merged or converted into esl.
+- No source esp is required as the extension can automatically locate the appropriate record.
+- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+
+2. FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
+}
 
 [node name="CheckBox" type="CheckBox" parent="SourcePanel/VBoxContainer"]
 margin_top = 111.0
@@ -359,7 +434,15 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "What to write:
+- Leave out the tilde symbol '~'
+- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
+- You can leave this field blank if the ID originates from Skyrim.esm or any of the original dlc. 
+
+Skyrim's original dlc:
+- Hearthfire
+- Dawnguard
+- Dragonborn"
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -410,7 +493,8 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "These are the objects that will replace the original.
+If there is more than one replacement BOS will randomly select which replacement to use."
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -473,7 +557,30 @@ margin_left = 338.0
 margin_right = 374.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "ID Source is used by ini Writer to help you write RecordIDs correctly.
+
+EditorID's e.g. ActorTypeNPC
+FormID's e.g. 0x12345
+
+There are three options to choose from:
+1. Editor ID:
+- Select this when you are using EditorIDs to locate the record you wish to modify.
+- EditorIDs come from the editorID of the record displayed in the Creation Kit or xEdit.
+- BOS will attempt to automatically locate the record you are referring to.
+
+2. Esm / Esp:
+- Select this when you are using FormIDs that originate from esm's or esp's.
+- Ini Writer can automatically apply the shortening rules required by BOS.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 2 digits, followed by removing any leading zeroes '0' then lastly adding '0x' to the front of the value.
+--> 'FE051801' becomes '051801', then as '51801' because the leading digit was a zero and then finally '0x51801'.
+
+3. Esl:
+- Select this when you are using FormIDs that originate from esl's.
+- Ini Writer can automatically apply the shortening rules required by BOS.
+- You do NOT need to write the tilde symbol '~'
+- Rule: Remove first 5 digits, followed by removing any leading zeroes '0' then lastly adding '0x' to the front of the value.
+--> 'FE051801' becomes '801', because the leading digit is not a zero it stays as '801' and then finally '0x801'."
 mouse_filter = 1
 custom_fonts/font = SubResource( 6 )
 text = "?"
@@ -511,7 +618,19 @@ margin_left = 338.0
 margin_right = 374.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
+Two approaches are supported:
+
+1. EditorID:
+- EditorID is the form editorID of the record displayed in CK or xEdit. 
+- FormIDs can change when the mod is merged or converted into esl.
+- No source esp is required as the extension can automatically locate the appropriate record.
+- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+
+2. FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
 mouse_filter = 1
 custom_fonts/font = SubResource( 6 )
 text = "?"
@@ -558,7 +677,15 @@ margin_left = 338.0
 margin_right = 374.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "What to write:
+- Leave out the tilde symbol '~'
+- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
+- You can leave this field blank if the ID originates from Skyrim.esm or any of the original dlc. 
+
+Skyrim's original dlc:
+- Hearthfire
+- Dawnguard
+- Dragonborn"
 mouse_filter = 1
 custom_fonts/font = SubResource( 6 )
 text = "?"
@@ -642,7 +769,45 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "Change the position, rotation and scale of swapped objects (units must express decimal place e.g. 12.0).
+-> pos - position
+-> rot - rotation
+-> scale - scale
+Leave as NONE if you don't want transform overrides
+
+A/R suffixes for setting relative vs absolute transform. For position/rotation
+- posR(1.0,5.0,100.0) will set new position relative to reference base position
+- posA(300.0,100.0,200.0) will override reference base position
+
+scale is multiplicative. 
+-scale randomization is possible
+eg. scale(1.0/2.0) will scale references between 1.0 and 2.0 units
+
+Examples:
+{
+	;swaps WalkwayBend02 statics to snow variants with relative position + random Z position of 50 to 100, and random scale between 1.0 and 1.50.
+	[Forms]
+	WalkwayBend02|WalkwayBend02Snow|posR(10.0,5.0,50.0/100.0),scale(1.0/1.50)
+  
+	;It is also possible to directly set a transform override without swapping objects. Requires [Transforms] section
+﻿	[Transforms]
+	origBaseID|transformOverrides|chance
+	origRefID|transformOverrides|chance
+
+	[Transforms|LocationEDID,CellEDID,KeywordEDID,RegionEDID]
+	origBaseID|transformOverrides|chance
+
+	;Affects swapped objects
+﻿	[Forms]
+	FarmBench|DestructibleFarmBench
+	Barrel|DestructibleBarrel|scale(2.0)
+
+	[Transforms]
+	;Works even though the farm bench was swapped for destructible bench because no transform was applied.
+	FarmBench|rotR(-90,0,0),scale(2.0)
+	;Does not work because the swapped object transform takes priority.
+	Barrel|rotR(-90,0,0)
+}"
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"
@@ -1306,7 +1471,13 @@ margin_left = 352.0
 margin_right = 388.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "..."
+hint_tooltip = "Randomly swap between multiple swap objects/percentage chance to not swap at all
+chance (0 - 100)
+Default is 100
+
+S/R suffixes (Default is S): 
+-> chanceS(50) - fixed random chance (persists across game sessions; object refs will be always swapped or not)
+-> chanceR(50) - chance is rerolled on each new game session (object ref may or may not be swapped each time you load the game)"
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "?"

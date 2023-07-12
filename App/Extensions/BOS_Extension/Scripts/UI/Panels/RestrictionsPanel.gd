@@ -4,7 +4,7 @@ extends PanelContainer
 onready var v_box_container = $VBoxContainer/VBoxContainer
 
 #-- Prefabs
-var restriction_node = "res://App/Extensions/SWAP_Extension/Interfaces/Nodes/RestrictionNode.tscn"
+var restriction_node = "res://App/Extensions/BOS_Extension/Interfaces/Nodes/RestrictionNode.tscn"
 
 func set_data(edit):
 	for restr in edit.restrictions:

@@ -1,6 +1,6 @@
 extends Node
 
-var parserPath = "res://App/Extensions/SWAP_Extension/Scripts/Utils/Inline_Parser.gd"
+var parserPath = "res://App/Extensions/BOS_Extension/Scripts/Utils/Inline_Parser.gd"
 var parser
 
 #--- SYSTEM: Determines if ini file matches extension use-case.
@@ -214,7 +214,7 @@ func interp_to_raw(interp): # interp = {}
 							final += "[References"
 						2:
 							final += "[Transforms"
-					if edit.restrictions.size() > 0:
+					if edit.restrictions.size() > 0 && edit.editType != 1:
 						final += "|"
 						for i in range(edit.restrictions.size()):
 							final += edit.restrictions[i]
