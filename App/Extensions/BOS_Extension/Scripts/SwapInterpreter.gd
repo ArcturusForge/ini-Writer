@@ -5,7 +5,9 @@ var parser
 
 #--- SYSTEM: Determines if ini file matches extension use-case.
 func data_matched(raw:String, fileName:String):
-	return false
+	if not "_SWAP" in fileName:
+		return false
+	return true
 
 #--- SYSTEM: Called by system when the extension is enabled.
 func enable():
@@ -67,6 +69,10 @@ func raw_to_interp(raw:String):
 			"id":2,
 			"excludes":[]
 		},
+		";<":{
+			"id":4,
+			"excludes":[]
+		},
 		"|":{
 			"id":3,
 			"excludes":[
@@ -74,10 +80,6 @@ func raw_to_interp(raw:String):
 				"[References", 
 				"[Transforms"
 			]
-		},
-		";<":{
-			"id":4,
-			"excludes":[]
 		}
 	}
 	var parsed_lines = parser.split_and_define_lines(raw, symbols)
