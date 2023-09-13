@@ -1,0 +1,6 @@
+{
+    "version"               : "1.0.0",
+    "extension"             : "CID Writer",
+    "interpreterScript"     : "Scripts/CidInterpreter.gd",
+    "editorInterface"       : "Interfaces/CidEditDisplay.tscn"
+}

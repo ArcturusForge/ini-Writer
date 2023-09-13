@@ -1,0 +1,130 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
+[ext_resource path="res://App/Extensions/CID_Extension/Scripts/HintToConsole.gd" type="Script" id=2]
+[ext_resource path="res://App/Extensions/CID_Extension/Interfaces/Nodes/IdPanel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://App/Extensions/CID_Extension/Scripts/UI/ItemPanel.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=6]
+use_filter = true
+font_data = ExtResource( 4 )
+
+[node name="ItemPanel" type="PanelContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_right = 376.0
+margin_bottom = 266.0
+script = ExtResource( 5 )
+
+[node name="NodeContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 369.0
+margin_bottom = 547.0
+
+[node name="IdPanel" parent="NodeContainer" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 362.0
+margin_bottom = 198.0
+
+[node name="QuantityPanel" type="VBoxContainer" parent="NodeContainer"]
+margin_top = 202.0
+margin_right = 362.0
+margin_bottom = 252.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NodeContainer/QuantityPanel"]
+margin_right = 362.0
+margin_bottom = 22.0
+rect_pivot_offset = Vector2( -194, -65 )
+
+[node name="Label" type="Label" parent="NodeContainer/QuantityPanel/HBoxContainer"]
+margin_top = 2.0
+margin_right = 322.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Distribution Quantity:"
+
+[node name="Help" type="Label" parent="NodeContainer/QuantityPanel/HBoxContainer"]
+margin_left = 326.0
+margin_right = 362.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 6 )
+text = "?"
+align = 1
+script = ExtResource( 2 )
+
+[node name="SpinBox" type="SpinBox" parent="NodeContainer/QuantityPanel"]
+margin_top = 26.0
+margin_right = 362.0
+margin_bottom = 50.0
+allow_greater = true
+
+[node name="ReplacementPanel" type="VBoxContainer" parent="NodeContainer"]
+margin_top = 256.0
+margin_right = 362.0
+margin_bottom = 540.0
+
+[node name="Divider" type="ColorRect" parent="NodeContainer/ReplacementPanel"]
+margin_right = 362.0
+margin_bottom = 1.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.25098, 0.243137, 0.282353, 1 )
+
+[node name="Label" type="Label" parent="NodeContainer/ReplacementPanel"]
+margin_top = 5.0
+margin_right = 362.0
+margin_bottom = 23.0
+theme = ExtResource( 1 )
+text = "Replacement Item:"
+
+[node name="Divider2" type="ColorRect" parent="NodeContainer/ReplacementPanel"]
+margin_top = 27.0
+margin_right = 362.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.25098, 0.243137, 0.282353, 1 )
+
+[node name="IdPanel2" parent="NodeContainer/ReplacementPanel" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 32.0
+margin_right = 362.0
+margin_bottom = 230.0
+
+[node name="QuantityPanel2" type="VBoxContainer" parent="NodeContainer/ReplacementPanel"]
+margin_top = 234.0
+margin_right = 362.0
+margin_bottom = 284.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NodeContainer/ReplacementPanel/QuantityPanel2"]
+margin_right = 362.0
+margin_bottom = 22.0
+rect_pivot_offset = Vector2( -194, -65 )
+
+[node name="Label" type="Label" parent="NodeContainer/ReplacementPanel/QuantityPanel2/HBoxContainer"]
+margin_top = 2.0
+margin_right = 322.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Distribution Quantity:"
+
+[node name="Help" type="Label" parent="NodeContainer/ReplacementPanel/QuantityPanel2/HBoxContainer"]
+margin_left = 326.0
+margin_right = 362.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 6 )
+text = "?"
+align = 1
+script = ExtResource( 2 )
+
+[node name="SpinBox" type="SpinBox" parent="NodeContainer/ReplacementPanel/QuantityPanel2"]
+margin_top = 26.0
+margin_right = 362.0
+margin_bottom = 50.0
+allow_greater = true
