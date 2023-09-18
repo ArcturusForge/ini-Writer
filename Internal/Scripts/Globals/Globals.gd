@@ -1,7 +1,7 @@
 extends Node
 
 var config = {
-	"versionId"             : "1.0.3",
+	"versionId"             : "1.0.4",
 	"appName"               : "ini Writer",
 	"sessionNameDefault"    : "Untitled_Session",
 	"saveExtension"         : "ini"

@@ -62,6 +62,7 @@ func alter_records():
 	var raw = oMan.activeInterpreter.interp_to_raw(Session.data.interp)
 	Session.data.raw = raw
 	oMan.repaint_editors()
+	Globals.get_manager("raw").alter_records()
 	pass
 
 #--- Called when the add new edit button is pressed.
