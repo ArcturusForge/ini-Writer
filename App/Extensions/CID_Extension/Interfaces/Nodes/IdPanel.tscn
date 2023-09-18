@@ -90,31 +90,24 @@ Two approaches are supported:
 1. EditorID:
 - EditorID is the form editorID of the record displayed in CK or xEdit. 
 - EditorIDs can change when the mod is merged or converted into esl.
-- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+- Raw Window Appearance: MyContainer = Crimson Armor Outfit|2 <-- \"Crimson Armor Outfit\" is the EditorID
 
 2. FormID and the source plugin:
 - FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
 ﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
-- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id shortening rules have been applied as required."
+- Raw Window Appearance: e.g. MyContainer = 0xD65~CrimsonTwilightArmor.esp|1 <-- The id shortening rules have been applied as required.
+
+Auto Shorten:
+- Is a built-in tool to apply shortening rules to ids.
+- Compatible with esm/esp/esl rules.
+- Do NOT use on already shortened ids because they will be shortened even further."
 mouse_filter = 1
 custom_fonts/font = SubResource( 7 )
 text = "?"
 align = 1
 script = ExtResource( 2 )
 __meta__ = {
-"_editor_description_": "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
-Two approaches are supported:
-
-1. EditorID:
-- EditorID is the form editorID of the record displayed in CK or xEdit. 
-- FormIDs can change when the mod is merged or converted into esl.
-- No source esp is required as the extension can automatically locate the appropriate record.
-- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
-
-2. FormID and the source plugin:
-- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
-﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
-- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
+"_editor_description_": ""
 }
 
 [node name="CheckBox" type="CheckBox" parent="."]

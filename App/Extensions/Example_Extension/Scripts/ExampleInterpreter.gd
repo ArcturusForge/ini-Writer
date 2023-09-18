@@ -25,7 +25,8 @@ func raw_to_interp(raw:String):
 
 #--- SYSTEM: Compiles the interp data into raw string format for ini-extension syntax.
 func interp_to_raw(interp): # interp = {}
-	return ""
+	var final = ""
+	return final
 
 #--- SYSTEM: Intercepts the filesave process to alter the file name before it is saved.
 func alter_save_name(originalName:String):
