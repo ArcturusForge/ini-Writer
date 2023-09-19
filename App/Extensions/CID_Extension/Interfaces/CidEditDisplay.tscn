@@ -194,6 +194,7 @@ margin_right = 376.0
 
 [node name="SourceSelect" parent="ContainerPanel/VBoxContainer/IdPanel" index="1"]
 margin_right = 376.0
+items = [ "Editor ID", null, false, 0, null, "esp / esm / esl", null, false, 1, null ]
 
 [node name="Spacer" parent="ContainerPanel/VBoxContainer/IdPanel" index="2"]
 margin_right = 376.0

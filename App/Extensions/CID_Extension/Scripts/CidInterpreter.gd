@@ -13,7 +13,9 @@ func data_matched(raw:String, fileName:String):
 #--- SYSTEM: Called by system when the extension is enabled.
 func enable():
 	parser = ResourceLoader.load(parserPath).new()
-	
+	var ver = Globals.config.versionId.split(".")
+	if int(ver[0]) < 1 || int(ver[1]) < 0 || int(ver[2]) < 4:
+		Globals.get_manager("console").postwrn("Older version of ini Writer detected! Download the new update!")  
 
 #--- SYSTEM: Called by system when the extension is disabled.
 func disable():
@@ -101,7 +103,9 @@ func raw_to_interp(raw:String):
 					edit.notes.lineStart = lineData.line_number
 				
 				edit.container = lineData.line.get_slice(" = ", 0)
-				edit.target = lineData.line.get_slice(" = ", 1)
+				var target :String = lineData.line.get_slice(" = ", 1)
+				target.erase(0, 1)
+				edit.target = target
 				if "|" in edit.target:#- Remove
 					edit.type = 2
 				else:#- RemoveAll
@@ -149,7 +153,8 @@ func raw_to_interp(raw:String):
 #--- SYSTEM: Compiles the interp data into raw string format for ini-extension syntax.
 func interp_to_raw(interp): # interp = {}
 	var final = ""
-	for edit in interp.edits:
+	for i in range(interp.edits.size()):
+		var edit = interp.edits[i]
 		match edit.type:
 			0:#- Comment
 				final += ";" + edit.notes.comment
@@ -158,8 +163,9 @@ func interp_to_raw(interp): # interp = {}
 					final += ";[" + edit.notes.name + "]" + edit.notes.comment + "\n"
 				final += edit.container + " = " + edit.target
 		
-		final += "\n"
-		for i in range(edit.notes.newlines):
+		if i < interp.edits.size()-1: #- Skip this because the textbox auto adds a \n to the end of the text anyway.
+			final += "\n"
+		for x in range(edit.notes.newlines):
 			final += "\n"
 #		final = final.replace("  ", " ")
 	return final

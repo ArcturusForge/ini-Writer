@@ -9,6 +9,7 @@ onready var sourceInput:LineEdit = $SourceContainer/SourceEdit
 
 func put(line:String)->void:
 	if "esm" in line || "esp" in line || "esl" in line:
+		selector.select(1)
 		_on_SourceSelect_item_selected(1)
 		var data = line.split("~")
 		idInput.text = data[0]

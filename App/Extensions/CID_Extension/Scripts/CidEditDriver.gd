@@ -62,30 +62,8 @@ func apply_edit(interp):
 	edit.target = itemPanel.grab()
 	
 	if workingIndex != -1:
-		var ogEdit = interp.edits[workingIndex]
-		edit.notes.lineStart = ogEdit.notes.lineStart
-		edit.notes.lineEnd = ogEdit.notes.lineEnd
-		
-		if ogEdit.notes.comment == "" && not edit.notes.comment == "" && not edit.editType == -1:
-			edit.notes.lineStart += 1
-			edit.notes.lineEnd -= 1
-		elif not ogEdit.notes.comment == "" && edit.notes.comment == "" && not edit.editType == -1:
-			edit.notes.lineStart -= 1
-			edit.notes.lineEnd += 1
 		interp.edits[workingIndex] = edit
 	else:
-		var startNum = 1
-		var endNum = 1
-		if interp.edits.size() > 0:
-			var prevEdit = interp.edits[interp.edits.size()-1] 
-			startNum = prevEdit.notes.lineEnd + prevEdit.notes.newlines
-			endNum = startNum
-		
-		if edit.notes.comment != "" || edit.notes.name != "":
-			endNum += 1
-		
-		edit.notes.lineStart = startNum
-		edit.notes.lineEnd = endNum
 		interp.edits.append(edit)
 	
 

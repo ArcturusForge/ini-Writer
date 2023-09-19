@@ -59,24 +59,16 @@ func put(line:="")->void:
 				"type":0, #- (0)DISTR, (1)Identifier
 				"dp":rep[1]
 			})
-	elif "-" in line: #- Is Remove Variant
-		if "|" in line: #- Is Remove
-			dps.append({
-				"type":0, #- (0)DISTR, (1)Identifier
-				"dp":line
-			})
-		else: #- Is RemoveAll
-			dps.append({
-				"type":1, #- (0)DISTR, (1)Identifier
-				"dp":line
-			})
-	elif "|" in line: #- Is Add
+	elif "|" in line: #- Is Add/Remove
 		dps.append({
 				"type":0, #- (0)DISTR, (1)Identifier
 				"dp":line
 			})
-	else: #- Is Unknown
-		Globals.get_manager("console").post_wrn("Unknown text warning!")
+	else: #- Is RemoveAll
+		dps.append({
+				"type":1, #- (0)DISTR, (1)Identifier
+				"dp":line
+			})
 	
 	#- Assign text to ui
 	if dps.size() > 0:
