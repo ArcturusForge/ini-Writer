@@ -60,11 +60,15 @@ func put(line:="")->void:
 				"dp":rep[1]
 			})
 	elif "|" in line: #- Is Add/Remove
+		if line[0] == "-":
+			line.erase(0, 1)
 		dps.append({
 				"type":0, #- (0)DISTR, (1)Identifier
 				"dp":line
 			})
 	else: #- Is RemoveAll
+		if line[0] == "-":
+			line.erase(0, 1)
 		dps.append({
 				"type":1, #- (0)DISTR, (1)Identifier
 				"dp":line

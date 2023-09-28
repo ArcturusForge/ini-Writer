@@ -24,6 +24,10 @@ func data_matched(_raw:String, fileName:String):
 
 #--- Called by system when the extension is enabled.
 func enable():
+	var ver = Globals.config.versionId.split(".")
+	if int(ver[0]) < 1 || int(ver[1]) < 0 || int(ver[2]) < 4:
+		Globals.get_manager("console").postwrn("Older version of ini Writer detected! Download the new update!") 
+	
 	pop_manager = Globals.get_manager("popup")
 	console_manager = Globals.get_manager("console")
 	

@@ -77,48 +77,15 @@ func apply_edit(interp):
 	
 	#- Generate line number and assign to interp database.
 	if not isNew:
-		var ogEdit = interp.edits[workingIndex]
-		var ogLines = 0
-		if ogEdit.comments.size() > 0:
-			ogLines += ogEdit.comments.size()
-		elif ogEdit.name != "":
-			ogLines += 1
-			
-		var lNum = 1 if edit.type != -1 else 0
-		if edit.comments.size() < ogEdit.comments.size():
-			var dif = abs(edit.comments.size() - ogEdit.comments.size())
-			lNum += ogLines - dif
-			#- Propagate the difference in line number to proceeding edits.
-			for i in range(workingIndex + 1, interp.edits.size()):
-				var procEdit = interp.edits[i]
-				procEdit.lineNumber -= dif
-		elif edit.comments.size() > ogEdit.comments.size():
-			var dif = abs(edit.comments.size() - ogEdit.comments.size())
-			lNum += ogLines + dif
-			#- Propagate the difference in line number to proceeding edits.
-			for i in range(workingIndex + 1, interp.edits.size()):
-				var procEdit = interp.edits[i]
-				procEdit.lineNumber += dif
-		else:
-			lNum = ogEdit.lineNumber
-
-		edit.lineNumber = lNum
 		interp.edits[workingIndex] = edit
-		Globals.get_manager("console").post("Modified (" + interpreter.get_edit_name(interp, workingIndex) + ")")
+		var t :String = interpreter.get_edit_name(interp, workingIndex)
+		t.erase(0, 3)
+		Globals.get_manager("console").post("Modified (" + t + ")")
 	else:
-		var lNum = 1 if edit.type != -1 else 0
-		if interp.edits.size() > 0:
-			var prevEdit = interp.edits[interp.edits.size()-1] 
-			lNum += prevEdit.lineNumber + prevEdit.newlines - 1
-		
-		if edit.comments.size() > 0:
-			lNum += edit.comments.size()
-		elif edit.name != "":
-			lNum += 1
-		
-		edit.lineNumber = lNum
 		interp.edits.append(edit)
-		Globals.get_manager("console").post("Created (" + interpreter.get_edit_name(interp, interp.edits.size()-1) + ")")
+		var t :String = interpreter.get_edit_name(interp, interp.edits.size()-1)
+		t.erase(0, 3)
+		Globals.get_manager("console").post("Created (" + t + ")")
 	pass
 
 #--- CUSTOM: Called by the apply edit button.

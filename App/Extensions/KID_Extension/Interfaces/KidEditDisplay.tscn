@@ -847,7 +847,7 @@ allow_greater = true
 [node name="ArmorTraitsPanel" type="PanelContainer" parent="."]
 margin_top = 1022.0
 margin_right = 402.0
-margin_bottom = 1400.0
+margin_bottom = 1454.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 7 )
 
@@ -855,7 +855,7 @@ script = ExtResource( 7 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 395.0
-margin_bottom = 371.0
+margin_bottom = 425.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 margin_right = 388.0
@@ -975,10 +975,88 @@ margin_top = 132.0
 margin_right = 388.0
 margin_bottom = 132.0
 
-[node name="RatingCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 margin_top = 136.0
 margin_right = 388.0
-margin_bottom = 176.0
+margin_bottom = 158.0
+
+[node name="Label2" type="Label" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer3"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Body Slot Filter:"
+
+[node name="Help" type="Label" parent="ArmorTraitsPanel/VBoxContainer/HBoxContainer3"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "Body slots used by Bethesda
+This is the list of the body parts used by Bethesda and named in the Creation Kit:
+30 - head
+31 - hair
+32 - body (full)
+33 - hands
+34 - forearms
+35 - amulet
+36 - ring
+37 - feet
+38 - calves
+39 - shield
+40 - tail
+41 - long hair
+42 - circlet
+43 - ears
+50 - decapitated head
+51 - decapitate
+61 - FX01
+
+Other body parts that exist in vanilla nif models:
+44 - Used in bloodied dragon heads, so it is free for NPCs
+45 - Used in bloodied dragon wings, so it is free for NPCs
+47 - Used in bloodied dragon tails, so it is free for NPCs
+
+Free body slots and reference usage:
+44 - face/mouth
+45 - neck (like a cape, scarf, or shawl, neck-tie etc)
+46 - chest primary or outergarment
+47 - back (like a backpack/wings etc)
+48 - misc/FX (use for anything that doesnt fit in the list)
+49 - pelvis primary or outergarment
+52 - pelvis secondary or undergarment
+53 - leg primary or outergarment or right leg
+54 - leg secondary or undergarment or leftt leg
+55 - face alternate or jewelry
+56 - chest secondary or undergarment
+57 - shoulder
+58 - arm secondary or undergarment or left arm
+59 - arm primary or outergarment or right arm
+60 - misc/FX (use for anything that doesnt fit in the list)"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "?"
+align = 1
+script = ExtResource( 16 )
+
+[node name="CategorySelect2" type="OptionButton" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 162.0
+margin_right = 388.0
+margin_bottom = 182.0
+text = "None"
+items = [ "None", null, false, 0, null, "Head", null, false, 1, null, "Hair", null, false, 2, null, "Full Body", null, false, 3, null, "Hands", null, false, 4, null, "Forearms", null, false, 5, null, "Amulet", null, false, 6, null, "Ring", null, false, 7, null, "Feet", null, false, 8, null, "Calves", null, false, 9, null, "Shield", null, false, 10, null, "Tail", null, false, 11, null, "Long Hair", null, false, 12, null, "Circlet", null, false, 13, null, "Ears", null, false, 14, null, "Decapitated Head", null, false, 15, null, "Decapitate (???)", null, false, 16, null, "FX01", null, false, 17, null, "-- Additional Slots --", null, true, 18, null, "Face / Mouth", null, false, 19, null, "Neck", null, false, 20, null, "Chest Primary or Outergarment", null, false, 21, null, "Chest Secondary or Undergarment", null, false, 22, null, "Back", null, false, 23, null, "Misc / FX (48)", null, false, 24, null, "Pelvis Primary or Outergarment", null, false, 25, null, "Pelvis Secondary or Undergarment", null, false, 26, null, "Leg Primary or Outergarment or Right Leg", null, false, 27, null, "Leg Secondary or Undergarment or Left Leg", null, false, 28, null, "Face Alternate or Jewelry", null, false, 29, null, "Shoulder", null, false, 30, null, "Arm Primary or Outergarment or Right Arm", null, false, 31, null, "Arm Secondary or Undergarment or Left Arm", null, false, 32, null, "Misc / FX (60)", null, false, 33, null ]
+selected = 0
+
+[node name="Spacer3" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 186.0
+margin_right = 388.0
+margin_bottom = 186.0
+
+[node name="RatingCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
+margin_top = 190.0
+margin_right = 388.0
+margin_bottom = 230.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Armor Rating Filtering:"
@@ -986,9 +1064,9 @@ align = 1
 
 [node name="RatingSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 180.0
+margin_top = 234.0
 margin_right = 388.0
-margin_bottom = 246.0
+margin_bottom = 300.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/RatingSubPanel"]
 margin_left = 7.0
@@ -1062,14 +1140,14 @@ value = 1.0
 allow_greater = true
 
 [node name="Spacer2" type="Control" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 250.0
+margin_top = 304.0
 margin_right = 388.0
-margin_bottom = 250.0
+margin_bottom = 304.0
 
 [node name="WeightCheckButton" type="CheckButton" parent="ArmorTraitsPanel/VBoxContainer"]
-margin_top = 254.0
+margin_top = 308.0
 margin_right = 388.0
-margin_bottom = 294.0
+margin_bottom = 348.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Use Armor Weight Filtering:"
@@ -1077,9 +1155,9 @@ align = 1
 
 [node name="WeightSubPanel" type="PanelContainer" parent="ArmorTraitsPanel/VBoxContainer"]
 self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
-margin_top = 298.0
+margin_top = 352.0
 margin_right = 388.0
-margin_bottom = 364.0
+margin_bottom = 418.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="ArmorTraitsPanel/VBoxContainer/WeightSubPanel"]
 margin_left = 7.0
@@ -1153,9 +1231,9 @@ value = 1.0
 allow_greater = true
 
 [node name="AmmoTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1404.0
+margin_top = 1458.0
 margin_right = 402.0
-margin_bottom = 1586.0
+margin_bottom = 1640.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 8 )
 
@@ -1333,9 +1411,9 @@ value = 1.0
 allow_greater = true
 
 [node name="MagicEffectTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1590.0
+margin_top = 1644.0
 margin_right = 402.0
-margin_bottom = 1926.0
+margin_bottom = 1980.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 9 )
 
@@ -1617,9 +1695,9 @@ rounded = true
 allow_greater = true
 
 [node name="PotionTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1930.0
+margin_top = 1984.0
 margin_right = 402.0
-margin_bottom = 2022.0
+margin_bottom = 2076.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 10 )
 
@@ -1722,9 +1800,9 @@ margin_bottom = 52.0
 size_flags_horizontal = 3
 
 [node name="IngredientTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2026.0
+margin_top = 2080.0
 margin_right = 402.0
-margin_bottom = 2090.0
+margin_bottom = 2144.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 11 )
 
@@ -1811,9 +1889,9 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="BookTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2094.0
+margin_top = 2148.0
 margin_right = 402.0
-margin_bottom = 2240.0
+margin_bottom = 2294.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 12 )
 
@@ -1942,9 +2020,9 @@ margin_right = 388.0
 margin_bottom = 132.0
 
 [node name="SoulGemTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2244.0
+margin_top = 2298.0
 margin_right = 402.0
-margin_bottom = 2412.0
+margin_bottom = 2466.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 13 )
 
@@ -2081,9 +2159,9 @@ margin_right = 388.0
 margin_bottom = 154.0
 
 [node name="SpellTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2416.0
+margin_top = 2470.0
 margin_right = 402.0
-margin_bottom = 2664.0
+margin_bottom = 2718.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 14 )
 
@@ -2276,9 +2354,9 @@ margin_right = 388.0
 margin_bottom = 234.0
 
 [node name="FurnitureTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2668.0
+margin_top = 2722.0
 margin_right = 402.0
-margin_bottom = 2854.0
+margin_bottom = 2908.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 15 )
 
@@ -2378,9 +2456,9 @@ margin_right = 388.0
 margin_bottom = 172.0
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 2858.0
+margin_top = 2912.0
 margin_right = 402.0
-margin_bottom = 2922.0
+margin_bottom = 2976.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -2422,9 +2500,9 @@ value = 100.0
 rounded = true
 
 [node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 2926.0
+margin_top = 2980.0
 margin_right = 402.0
-margin_bottom = 2982.0
+margin_bottom = 3036.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
 margin_left = 7.0

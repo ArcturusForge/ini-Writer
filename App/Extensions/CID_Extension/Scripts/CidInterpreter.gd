@@ -104,7 +104,6 @@ func raw_to_interp(raw:String):
 				
 				edit.container = lineData.line.get_slice(" = ", 0)
 				var target :String = lineData.line.get_slice(" = ", 1)
-				target.erase(0, 1)
 				edit.target = target
 				if "|" in edit.target:#- Remove
 					edit.type = 2
@@ -153,6 +152,7 @@ func raw_to_interp(raw:String):
 #--- SYSTEM: Compiles the interp data into raw string format for ini-extension syntax.
 func interp_to_raw(interp): # interp = {}
 	var final = ""
+	final += "[General]\n"
 	for i in range(interp.edits.size()):
 		var edit = interp.edits[i]
 		match edit.type:
