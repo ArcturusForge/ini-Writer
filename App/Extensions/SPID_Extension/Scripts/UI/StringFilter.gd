@@ -12,7 +12,6 @@ var filter_node_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Nodes/S
 var nodes = []
 
 func _ready():
-	#add_node()
 	modifier_selector.connect("item_selected", self, "handle_modifier")
 	handle_modifier(0)
 	pass
@@ -24,10 +23,12 @@ func handle_modifier(index):
 			#- Remove additional entries.
 			for i in range(nodes.size()-1, -1, -1):
 				if i == 0:
+					nodes[i].toggle_linked_field(false)
 					continue
 				nodes[i]._on_DeleteButton_pressed()
 		3:#- Linked
 			add_req_button.visible = true
+			nodes[0].toggle_linked_field(true)
 			add_node()
 	pass
 
@@ -44,11 +45,8 @@ func add_existing(filter:String):
 	add_node()
 	var node = nodes[nodes.size()-1]
 	
-	if "*" in filter: #- Wildcard
-		modifier_selector.select(2)
-		handle_modifier(2)
-		node.set_value(filter.replace("*", ""))
-	elif "-" in filter: #- Exclude
+	
+	if "-" in filter: #- Exclude
 		modifier_selector.select(1)
 		handle_modifier(1)
 		#- Some npcs have '-' in their names and thus String.replace is not an option.
@@ -58,14 +56,18 @@ func add_existing(filter:String):
 		modifier_selector.select(3)
 		handle_modifier(3)
 		var ids = filter.split("+", false)
-		node.set_value(ids[0])
+		node.set_value(ids[0], true)
 		for i in ids.size():
 			if i == 0:
 				continue
 			if i > 1: #- HandleModifier() creates the second node.
 				add_node()
 			node = nodes[nodes.size()-1]
-			node.set_value(ids[i])
+			node.set_value(ids[i], true)
+	elif "*" in filter: #- Wildcard
+		modifier_selector.select(2)
+		handle_modifier(2)
+		node.set_value(filter.replace("*", ""))
 	else: #- Standard
 		modifier_selector.select(0)
 		handle_modifier(0)

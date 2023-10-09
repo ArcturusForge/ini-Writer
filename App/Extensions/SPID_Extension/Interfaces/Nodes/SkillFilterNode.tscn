@@ -56,14 +56,14 @@ margin_right = 316.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 2 )
-text = "Skill Weight (Potential):"
+text = "Skill Weight:"
 
 [node name="TraitHelp" type="Label" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 320.0
 margin_right = 338.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "The \"Skill Potential\" tag changes filtering to look at a hidden stat inside NPCs.
+hint_tooltip = "The \"Skill Weight\" tag changes filtering to look at a hidden stat inside NPCs.
 This stat determines how the related skill level increases when an NPC levels up.
 
 Raw Appearance:
@@ -79,7 +79,7 @@ script = ExtResource( 5 )
 margin_top = 76.0
 margin_right = 338.0
 margin_bottom = 100.0
-text = "Use as 'skill potential' filter"
+text = "Use as 'Skill Weight' filter"
 
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
 margin_top = 104.0

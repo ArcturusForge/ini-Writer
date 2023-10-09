@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/StringFilterNode.gd" type="Script" id=1]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/FormFilterNode.gd" type="Script" id=1]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=2]
 
-[node name="StringFilterNode" type="HBoxContainer"]
+[node name="FormFilterNode" type="HBoxContainer"]
 margin_right = 392.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
