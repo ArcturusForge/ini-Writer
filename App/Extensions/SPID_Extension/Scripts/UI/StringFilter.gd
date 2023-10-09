@@ -29,15 +29,17 @@ func handle_modifier(index):
 		3:#- Linked
 			add_req_button.visible = true
 			nodes[0].toggle_linked_field(true)
-			add_node()
+			add_node(true)
 	pass
 
-func add_node():
+func add_node(isLinked:=false):
 	var node = load(filter_node_prefab).instance()
 	var index = nodes.size()
 	node_container.add_child(node)
 	nodes.append(node)
 	node.assign(self, index)
+	if isLinked:
+		node.toggle_linked_field(true)
 	pass
 
 func add_existing(filter:String):
@@ -96,7 +98,7 @@ func remove_node(index):
 	pass
 
 func _on_AddReqButton_pressed():
-	add_node()
+	add_node(true)
 	pass
 
 func compile_data():

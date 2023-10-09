@@ -16,12 +16,12 @@ func assign(filter, index):
 	pass
 
 func toggle_linked_field(visible:bool)->void:
-	linked_modifer_parent.visible = visible
-	
+	#linked_modifer_parent.visible = visible
+	pass
 
 func set_value(value:String, isLinked:=false):
 	if isLinked:
-		linked_modifer_parent.visible = true
+		#linked_modifer_parent.visible = true
 		if value[0] == "*":
 			option_button.select(1)
 			value.erase(0, 1)
