@@ -86,7 +86,7 @@ func raw_to_interp(raw:String):
 		var edit = create_new_edit()
 		edit.lineNumber = i + 1
 		var line:String = lines[i]
-		var t = line.replace(" ", "")
+		
 		if line == "":
 			#- Line is empty
 			if interp.edits.size() > 0:
@@ -95,81 +95,86 @@ func raw_to_interp(raw:String):
 					lastEdit.newlines += 1
 				elif lastEdit.newlines > 1:
 					lastEdit.newlines = 2
-		elif t[0] == ";":
-			#- Line is comment.
-			if "]" in line:
-				#- line is part of the next line: Next should be a SPID edit line.
-				prevLine = line
-			else:
-				#- Line is just a user comment.
-				edit.comment = line.replace(";", "")
-				interp.edits.append(edit)
 		else:
-			#- Line is a SPID edit.
-			if not " = " in line:
-				continue #- Somethings wrong here.
+			while line[0] == " ":
+				line.erase(0, 1)
 			
-			var data = t.split("=")
-			var type:String = data[0].to_lower()
-			match type:
-				"spell":
-					# Spell = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 0
-					write_to_edit(edit, data, line)
-				"perk":
-					# Perk = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 1
-					write_to_edit(edit, data, line)
-				"item":
-					# Item = RecordID|StringFilters|FormFilters|LevelFilters|Traits|ItemCount|Chance
-					edit.type = 2
-					write_to_edit(edit, data, line)
-				"shout":
-					# Shout = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 3
-					write_to_edit(edit, data, line)
-				"levspell":
-					# LevSpell = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 4
-					write_to_edit(edit, data, line)
-				"package":
-					# Package = RecordID|StringFilters|FormFilters|LevelFilters|Traits|PackageIdx|Chance
-					edit.type = 5
-					write_to_edit(edit, data, line)
-				"outfit":
-					# Outfit = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 6
-					write_to_edit(edit, data, line)
-				"keyword":
-					# Keyword = RecordID or CustomString|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 7
-					write_to_edit(edit, data, line)
-				"deathitem":
-					# DeathItem = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 8
-					write_to_edit(edit, data, line)
-				"faction":
-					# Faction = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 9
-					write_to_edit(edit, data, line)
-				"sleepoutfit":
-					# SleepOutfit = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 10
-					write_to_edit(edit, data, line)
-				"skin":
-					# Skin = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
-					edit.type = 11
-					write_to_edit(edit, data, line)
-				#"":
+			if line[0] == ";":
+				#- Line is comment.
+				if "]" in line:
+					#- line is part of the next line: Next should be a SPID edit line.
+					prevLine = line
+				else:
+					#- Line is just a user comment.
+					edit.comment = line.replace(";", "")
+					interp.edits.append(edit)
+			else:
+				#- Line is a SPID edit.
+				if not " = " in line:
+					continue #- Somethings wrong here.
 			
-			#- Read through the previous line to parse the comment info.
-			#_TODO: Support multi-line comments.
-			if not prevLine == "":
-				var ldata = prevLine.split("]")
-				edit.name = ldata[0].replace(";[", "")
-				edit.comment = ldata[1]
-				prevLine = ""
-			interp.edits.append(edit)
+				line = line.replace(" = ", "=")
+				var data = line.split("=")
+				var type:String = data[0].to_lower()
+				match type:
+					"spell":
+						# Spell = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 0
+						write_to_edit(edit, data, line)
+					"perk":
+						# Perk = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 1
+						write_to_edit(edit, data, line)
+					"item":
+						# Item = RecordID|StringFilters|FormFilters|LevelFilters|Traits|ItemCount|Chance
+						edit.type = 2
+						write_to_edit(edit, data, line)
+					"shout":
+						# Shout = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 3
+						write_to_edit(edit, data, line)
+					"levspell":
+						# LevSpell = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 4
+						write_to_edit(edit, data, line)
+					"package":
+						# Package = RecordID|StringFilters|FormFilters|LevelFilters|Traits|PackageIdx|Chance
+						edit.type = 5
+						write_to_edit(edit, data, line)
+					"outfit":
+						# Outfit = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 6
+						write_to_edit(edit, data, line)
+					"keyword":
+						# Keyword = RecordID or CustomString|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 7
+						write_to_edit(edit, data, line)
+					"deathitem":
+						# DeathItem = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 8
+						write_to_edit(edit, data, line)
+					"faction":
+						# Faction = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 9
+						write_to_edit(edit, data, line)
+					"sleepoutfit":
+						# SleepOutfit = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 10
+						write_to_edit(edit, data, line)
+					"skin":
+						# Skin = RecordID|StringFilters|FormFilters|LevelFilters|Traits|NONE|Chance
+						edit.type = 11
+						write_to_edit(edit, data, line)
+					#"":
+				
+				#- Read through the previous line to parse the comment info.
+				#_TODO: Support multi-line comments.
+				if not prevLine == "":
+					var ldata = prevLine.split("]")
+					edit.name = ldata[0].replace(";[", "")
+					edit.comment = ldata[1]
+					prevLine = ""
+				interp.edits.append(edit)
 	return interp
 
 func write_to_edit(edit, data, origLine):
@@ -192,9 +197,13 @@ func write_to_edit(edit, data, origLine):
 				else:
 					#- Was editorID.
 					edit.objectId.type = 0
+				
 				match edit.objectId.type:
 					0:#- EditorID
-						edit.objectId.value = origLine.split(" = ")[1].split("|")[0]
+						if "=" in origLine:
+							edit.objectId.value = origLine.split("=")[1].split("|")[0]  
+						else:
+							edit.objectId.value = ""
 						edit.objectId.source = "AUTO"
 					1, 2:#- Esp/Esm/Esl
 						var formAndSource = command.split("x")[1]
