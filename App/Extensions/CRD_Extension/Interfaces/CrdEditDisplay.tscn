@@ -1,0 +1,417 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
+[ext_resource path="res://App/Extensions/CRD_Extension/Scripts/UI/Variant_IdPanel.gd" type="Script" id=2]
+[ext_resource path="res://App/Extensions/CRD_Extension/Scripts/Utils/HintToConsole.gd" type="Script" id=3]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://App/Extensions/CRD_Extension/Interfaces/Nodes/IdPanel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Internal/Prefabs/Components/AddElement.tscn" type="PackedScene" id=6]
+
+[sub_resource type="DynamicFont" id=8]
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=7]
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=9]
+use_filter = true
+font_data = ExtResource( 4 )
+
+[node name="ExampleEditDisplay" type="VBoxContainer"]
+margin_right = 402.0
+margin_bottom = 402.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TypePanel" type="PanelContainer" parent="."]
+margin_right = 402.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TypePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 53.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TypePanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="TypePanel/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Edit Type:"
+
+[node name="Help" type="Label" parent="TypePanel/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 8 )
+text = "?"
+align = 1
+script = ExtResource( 3 )
+
+[node name="OptionButton" type="OptionButton" parent="TypePanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 46.0
+text = "Comment"
+items = [ "Comment", null, false, 0, null, "Smelt", null, false, 1, null, "Temper", null, false, 2, null ]
+selected = 0
+
+[node name="ContainerPanel" type="PanelContainer" parent="."]
+margin_top = 64.0
+margin_right = 402.0
+margin_bottom = 253.0
+rect_pivot_offset = Vector2( -433, -212 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContainerPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="ContainerPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Created Item"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="ContainerPanel/VBoxContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer3" type="Control" parent="ContainerPanel/VBoxContainer"]
+margin_top = 27.0
+margin_right = 388.0
+margin_bottom = 27.0
+
+[node name="IdPanel" type="VBoxContainer" parent="ContainerPanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 175.0
+script = ExtResource( 2 )
+
+[node name="IdLabels" type="HBoxContainer" parent="ContainerPanel/VBoxContainer/IdPanel"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="ContainerPanel/VBoxContainer/IdPanel/IdLabels"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Form ID:"
+
+[node name="Help" type="Label" parent="ContainerPanel/VBoxContainer/IdPanel/IdLabels"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. MyContainer = 0xD65~CrimsonTwilightArmor.esp <-- The id shortening rules have been applied as required.
+
+Auto Shorten:
+- Is a built-in tool to apply shortening rules to ids.
+- Compatible with esm/esp/esl rules.
+- Do NOT use on already shortened ids because they will be shortened even further."
+mouse_filter = 1
+custom_fonts/font = SubResource( 7 )
+text = "?"
+align = 1
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
+Two approaches are supported:
+
+1. EditorID:
+- EditorID is the form editorID of the record displayed in CK or xEdit. 
+- FormIDs can change when the mod is merged or converted into esl.
+- No source esp is required as the extension can automatically locate the appropriate record.
+- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
+
+2. FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
+}
+
+[node name="CheckBox" type="CheckBox" parent="ContainerPanel/VBoxContainer/IdPanel"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 50.0
+text = "Auto Shorten"
+
+[node name="IdEdit" type="LineEdit" parent="ContainerPanel/VBoxContainer/IdPanel"]
+margin_top = 54.0
+margin_right = 388.0
+margin_bottom = 80.0
+clear_button_enabled = true
+placeholder_text = "e.g. FE051801"
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Timer2" type="Timer" parent="ContainerPanel/VBoxContainer/IdPanel/IdEdit"]
+wait_time = 0.65
+
+[node name="PopupMenu2" type="PopupMenu" parent="ContainerPanel/VBoxContainer/IdPanel/IdEdit"]
+items = [ "Cut", null, 0, false, false, 0, 268435544, null, "", false, "Copy", null, 0, false, false, 1, 268435523, null, "", false, "Paste", null, 0, false, false, 2, 268435542, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Select All", null, 0, false, false, 4, 268435521, null, "", false, "Clear", null, 0, false, false, 3, 0, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Undo", null, 0, false, false, 5, 268435546, null, "", false, "Redo", null, 0, false, false, 6, 301989978, null, "", false ]
+
+[node name="Timer3" type="Timer" parent="ContainerPanel/VBoxContainer/IdPanel/IdEdit"]
+wait_time = 0.65
+
+[node name="PopupMenu3" type="PopupMenu" parent="ContainerPanel/VBoxContainer/IdPanel/IdEdit"]
+items = [ "Cut", null, 0, false, false, 0, 268435544, null, "", false, "Copy", null, 0, false, false, 1, 268435523, null, "", false, "Paste", null, 0, false, false, 2, 268435542, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Select All", null, 0, false, false, 4, 268435521, null, "", false, "Clear", null, 0, false, false, 3, 0, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Undo", null, 0, false, false, 5, 268435546, null, "", false, "Redo", null, 0, false, false, 6, 301989978, null, "", false ]
+
+[node name="Spacer2" type="Control" parent="ContainerPanel/VBoxContainer/IdPanel"]
+margin_top = 84.0
+margin_right = 388.0
+margin_bottom = 84.0
+
+[node name="SourceContainer" type="VBoxContainer" parent="ContainerPanel/VBoxContainer/IdPanel"]
+margin_top = 88.0
+margin_right = 388.0
+margin_bottom = 140.0
+
+[node name="IdLabels" type="HBoxContainer" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer/IdLabels"]
+margin_top = 2.0
+margin_right = 348.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Source Plugin:"
+
+[node name="Help" type="Label" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer/IdLabels"]
+margin_left = 352.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "What to write:
+- Leave out the tilde symbol '~'
+- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)"
+mouse_filter = 1
+custom_fonts/font = SubResource( 7 )
+text = "?"
+align = 1
+script = ExtResource( 3 )
+
+[node name="SourceEdit" type="LineEdit" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 52.0
+clear_button_enabled = true
+placeholder_text = "e.g. MyMod.esp"
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Timer2" type="Timer" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer/SourceEdit"]
+wait_time = 0.65
+
+[node name="PopupMenu2" type="PopupMenu" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer/SourceEdit"]
+items = [ "Cut", null, 0, false, false, 0, 268435544, null, "", false, "Copy", null, 0, false, false, 1, 268435523, null, "", false, "Paste", null, 0, false, false, 2, 268435542, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Select All", null, 0, false, false, 4, 268435521, null, "", false, "Clear", null, 0, false, false, 3, 0, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Undo", null, 0, false, false, 5, 268435546, null, "", false, "Redo", null, 0, false, false, 6, 301989978, null, "", false ]
+
+[node name="Timer3" type="Timer" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer/SourceEdit"]
+wait_time = 0.65
+
+[node name="PopupMenu3" type="PopupMenu" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer/SourceEdit"]
+items = [ "Cut", null, 0, false, false, 0, 268435544, null, "", false, "Copy", null, 0, false, false, 1, 268435523, null, "", false, "Paste", null, 0, false, false, 2, 268435542, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Select All", null, 0, false, false, 4, 268435521, null, "", false, "Clear", null, 0, false, false, 3, 0, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Undo", null, 0, false, false, 5, 268435546, null, "", false, "Redo", null, 0, false, false, 6, 301989978, null, "", false ]
+
+[node name="Spacer4" type="Control" parent="ContainerPanel/VBoxContainer/IdPanel"]
+margin_top = 144.0
+margin_right = 388.0
+margin_bottom = 144.0
+
+[node name="RequiredPanel" type="PanelContainer" parent="."]
+margin_top = 257.0
+margin_right = 402.0
+margin_bottom = 552.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RequiredPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 288.0
+
+[node name="Label" type="Label" parent="RequiredPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Required Items"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="RequiredPanel/VBoxContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer3" type="Control" parent="RequiredPanel/VBoxContainer"]
+margin_top = 27.0
+margin_right = 388.0
+margin_bottom = 27.0
+
+[node name="SubPanel" type="PanelContainer" parent="RequiredPanel/VBoxContainer"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 243.0
+
+[node name="IdPanel" parent="RequiredPanel/VBoxContainer/SubPanel" instance=ExtResource( 5 )]
+margin_right = 381.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RequiredPanel/VBoxContainer"]
+margin_top = 247.0
+margin_right = 388.0
+margin_bottom = 247.0
+
+[node name="AddElement" parent="RequiredPanel/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 251.0
+margin_right = 388.0
+margin_bottom = 281.0
+
+[node name="AmountPanel" type="PanelContainer" parent="."]
+margin_top = 556.0
+margin_right = 402.0
+margin_bottom = 620.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmountPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 57.0
+
+[node name="AmountLabels" type="HBoxContainer" parent="AmountPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="AmountPanel/VBoxContainer/AmountLabels"]
+margin_top = 2.0
+margin_right = 366.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Amount:"
+
+[node name="AmountHelp" type="Label" parent="AmountPanel/VBoxContainer/AmountLabels"]
+margin_left = 370.0
+margin_right = 388.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 18, 0 )
+hint_tooltip = "(Smelting) amount of crafted items generated 
+(Tempering) amount of required items needed. "
+mouse_filter = 1
+custom_fonts/font = SubResource( 9 )
+text = "?"
+align = 1
+script = ExtResource( 3 )
+
+[node name="AmountSpinBox" type="SpinBox" parent="AmountPanel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 388.0
+margin_bottom = 50.0
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="ApplyPanel" type="PanelContainer" parent="."]
+margin_top = 624.0
+margin_right = 402.0
+margin_bottom = 693.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 395.0
+margin_bottom = 62.0
+
+[node name="Label" type="Label" parent="ApplyPanel/VBoxContainer"]
+margin_right = 388.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Apply Changes"
+align = 1
+
+[node name="Divider" type="ColorRect" parent="ApplyPanel/VBoxContainer"]
+margin_top = 22.0
+margin_right = 388.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 1 )
+color = Color( 0.133333, 0.12549, 0.14902, 1 )
+
+[node name="Spacer" type="Control" parent="ApplyPanel/VBoxContainer"]
+margin_top = 27.0
+margin_right = 388.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ApplyPanel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 388.0
+margin_bottom = 51.0
+
+[node name="Spacer" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_right = 85.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="ApplyButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 89.0
+margin_right = 151.0
+margin_bottom = 20.0
+text = "Confirm"
+
+[node name="Spacer2" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 155.0
+margin_right = 240.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="CancelButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 244.0
+margin_right = 298.0
+margin_bottom = 20.0
+text = "Cancel"
+
+[node name="Spacer3" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
+margin_left = 302.0
+margin_right = 388.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Control" parent="ApplyPanel/VBoxContainer"]
+margin_top = 55.0
+margin_right = 388.0
+margin_bottom = 55.0
+size_flags_horizontal = 3

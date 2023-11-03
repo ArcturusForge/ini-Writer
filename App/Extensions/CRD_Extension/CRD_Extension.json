@@ -1,0 +1,6 @@
+{
+    "version"               : "1.0.0",
+    "extension"             : "CRD Writer",
+    "interpreterScript"     : "Scripts/CrdInterpreter.gd",
+    "editorInterface"       : "Interfaces/CrdEditDisplay.tscn"
+}
