@@ -146,9 +146,7 @@ func apply_edit(interp):
 		if actor_range_button.pressed:
 			value += "/" + str(max_actor_spin_box.value)
 		edit.levelFilters = value
-	else:
-		edit.levelFilters = "NONE"
-
+	
 	#- Skill Level Filter
 	if skill_filter_container.get_child_count() > 0:
 		if edit.levelFilters != "":
