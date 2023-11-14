@@ -80,12 +80,12 @@ func apply_edit(interp):
 		interp.edits[workingIndex] = edit
 		var t :String = interpreter.get_edit_name(interp, workingIndex)
 		t.erase(0, 3)
-		Globals.get_manager("console").post("Modified (" + t + ")")
+		Console.post("Modified (" + t + ")")
 	else:
 		interp.edits.append(edit)
 		var t :String = interpreter.get_edit_name(interp, interp.edits.size()-1)
 		t.erase(0, 3)
-		Globals.get_manager("console").post("Created (" + t + ")")
+		Console.post("Created (" + t + ")")
 	pass
 
 #--- CUSTOM: Called by the apply edit button.

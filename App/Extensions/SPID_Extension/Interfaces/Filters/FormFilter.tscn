@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/FormFilter.gd" type="Script" id=2]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/Sub-Panels/FormFilter.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/HintToConsole.gd" type="Script" id=4]
+[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -19,7 +19,7 @@ script = ExtResource( 2 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 369.0
-margin_bottom = 86.0
+margin_bottom = 89.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 362.0
@@ -31,17 +31,17 @@ margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
 margin_top = 2.0
-margin_right = 340.0
+margin_right = 322.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
 text = "Filter Modifier:"
 
 [node name="StringHelp" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
-margin_left = 344.0
+margin_left = 326.0
 margin_right = 362.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Form Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
 Important:
 - Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.
@@ -78,22 +78,20 @@ text = "Standard"
 items = [ "Standard", null, false, 0, null, "Exclude", null, false, 1, null, "Linked", null, false, 3, null ]
 selected = 0
 
-[node name="Divider" type="ColorRect" parent="HBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer"]
 margin_top = 50.0
 margin_right = 362.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 0, 1 )
-color = Color( 0.235294, 0.227451, 0.266667, 1 )
+margin_bottom = 54.0
 
 [node name="NodeContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_top = 55.0
+margin_top = 58.0
 margin_right = 362.0
-margin_bottom = 55.0
+margin_bottom = 58.0
 
 [node name="AddReqButton" type="Button" parent="HBoxContainer"]
-margin_top = 59.0
+margin_top = 62.0
 margin_right = 362.0
-margin_bottom = 79.0
+margin_bottom = 82.0
 text = "+ Add Additional Requirement"
 
 [connection signal="pressed" from="HBoxContainer/AddReqButton" to="." method="_on_AddReqButton_pressed"]

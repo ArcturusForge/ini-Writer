@@ -1,10 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://App/Extensions/SPID_Extension/Scripts/SpidEditDriver.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=4]
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/HintToConsole.gd" type="Script" id=5]
+[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=5]
+[ext_resource path="res://Internal/Prefabs/For_Extensions/Skyrim/RecordIdPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Internal/Prefabs/For_Extensions/General/CommentPanel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Internal/Prefabs/For_Extensions/General/ApplyPanel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/Panels/FiltersPanel.gd" type="Script" id=9]
+[ext_resource path="res://App/Extensions/SPID_Extension/Interfaces/Filters/StringFilter.tscn" type="PackedScene" id=10]
+[ext_resource path="res://App/Extensions/SPID_Extension/Interfaces/Filters/FormFilter.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFont" id=5]
 use_filter = true
@@ -15,6 +21,10 @@ size = 34
 use_filter = true
 extra_spacing_top = -10
 extra_spacing_bottom = -6
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=7]
+use_filter = true
 font_data = ExtResource( 1 )
 
 [node name="SpidEditDisplay" type="VBoxContainer"]
@@ -29,31 +39,38 @@ __meta__ = {
 
 [node name="TypePanel" type="PanelContainer" parent="."]
 margin_right = 390.0
-margin_bottom = 60.0
+margin_bottom = 68.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TypePanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 53.0
+margin_bottom = 61.0
 
-[node name="TypeLabels" type="HBoxContainer" parent="TypePanel/VBoxContainer"]
+[node name="IndexLabels" type="HBoxContainer" parent="TypePanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
+[node name="Spacer" type="Control" parent="TypePanel/VBoxContainer/IndexLabels"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
+[node name="Label" type="Label" parent="TypePanel/VBoxContainer/IndexLabels"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "SPID Edit Type:"
+text = "Edit Type"
+align = 1
 
-[node name="TypeHelp" type="Label" parent="TypePanel/VBoxContainer/TypeLabels"]
-margin_left = 358.0
+[node name="TypeHelp" type="Label" parent="TypePanel/VBoxContainer/IndexLabels"]
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "SPID allows modders to add spells / perks / items / shouts / packages / outfits / keywords to every NPC actorbase in the game, at startup.
 The edit type determines what is being distributed to Actors in-game.
 
@@ -86,273 +103,64 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="TypePanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 46.0
+margin_bottom = 30.0
+
+[node name="TypeSelect" type="OptionButton" parent="TypePanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 54.0
 text = "Comment"
 items = [ "Comment", null, false, 0, null, "Spell", null, false, 0, null, "Perk", null, false, 1, null, "Item", null, false, 2, null, "Shout", null, false, 3, null, "Lev Spell", null, false, 4, null, "Package", null, false, 5, null, "Outfit", null, false, 6, null, "Keyword", null, false, 7, null, "Death Item", null, false, 8, null, "Faction", null, false, 9, null, "Sleep Outfit", null, false, 10, null, "Skin", null, false, 11, null ]
 selected = 0
 
-[node name="CommentPanel" type="PanelContainer" parent="."]
-margin_top = 64.0
-margin_right = 390.0
-margin_bottom = 182.0
+[node name="CommentPanel" parent="." instance=ExtResource( 7 )]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CommentPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 383.0
-margin_bottom = 111.0
-
-[node name="NameContainer" type="VBoxContainer" parent="CommentPanel/VBoxContainer"]
-margin_right = 376.0
-margin_bottom = 52.0
-
-[node name="Label" type="Label" parent="CommentPanel/VBoxContainer/NameContainer"]
-margin_right = 376.0
-margin_bottom = 18.0
-theme = ExtResource( 3 )
-text = "Name:"
-
-[node name="NameEdit" type="LineEdit" parent="CommentPanel/VBoxContainer/NameContainer"]
-margin_top = 22.0
-margin_right = 376.0
-margin_bottom = 48.0
-clear_button_enabled = true
-placeholder_text = "Optional"
-
-[node name="Spacer" type="Control" parent="CommentPanel/VBoxContainer/NameContainer"]
-margin_top = 52.0
-margin_right = 376.0
-margin_bottom = 52.0
-
-[node name="Label2" type="Label" parent="CommentPanel/VBoxContainer"]
-margin_top = 56.0
-margin_right = 376.0
-margin_bottom = 74.0
-theme = ExtResource( 3 )
-text = "Comment:"
-
-[node name="CommentEdit" type="LineEdit" parent="CommentPanel/VBoxContainer"]
-margin_top = 78.0
-margin_right = 376.0
-margin_bottom = 104.0
-clear_button_enabled = true
-placeholder_text = "Optional"
-
-[node name="SourcePanel" type="PanelContainer" parent="."]
-margin_top = 186.0
-margin_right = 390.0
-margin_bottom = 366.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 383.0
-margin_bottom = 173.0
-
-[node name="SourceLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_right = 376.0
-margin_bottom = 22.0
-
-[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
-margin_top = 2.0
-margin_right = 354.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 3 )
-text = "Form Source:"
-
-[node name="SourceHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
-margin_left = 358.0
-margin_right = 376.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "Form Source is used by ini Writer to help you write RecordIDs correctly.
-
-EditorID's e.g. ActorTypeNPC
-FormID's e.g. 0x12345
-
-There are three options to choose from:
-1. Editor ID: (Recommended)
-- Select this when you are using EditorIDs to locate the record you wish to distribute.
-- EditorIDs come from the editorID of the record displayed in the Creation Kit or xEdit.
-- SPID will automatically locate the record you are referring to.
-
-2. Esm / Esp:
-- Select this when you are using FormIDs that originate from esm's or esp's.
-- Ini Writer can automatically apply the shortening rules required by SPID.
-- You do NOT need to write the tilde symbol '~'
-- Rule: Remove first 2 digits, followed by removing any leading zeroes '0'
---> 'FE051801' becomes '051801', then finally ends as '51801' because the leading digit was a zero.
-
-3. Esl:
-- Select this when you are using FormIDs that originate from esl's.
-- Ini Writer can automatically apply the shortening rules required by SPID.
-- You do NOT need to write the tilde symbol '~'
-- Rule: Remove first 5 digits, followed by removing any leading zeroes '0'
---> 'FE051801' becomes '801', because the leading digit is not a zero it stays as '801'"
-mouse_filter = 1
-custom_fonts/font = SubResource( 5 )
-text = "?"
-align = 1
-script = ExtResource( 5 )
-
-[node name="SourceSelect" type="OptionButton" parent="SourcePanel/VBoxContainer"]
-margin_top = 26.0
-margin_right = 376.0
-margin_bottom = 46.0
-text = "Editor ID"
-items = [ "Editor ID", null, false, 0, null, "esp / esm", null, false, 1, null, "esl", null, false, 2, null ]
-selected = 0
-
-[node name="Spacer" type="Control" parent="SourcePanel/VBoxContainer"]
-margin_top = 50.0
-margin_right = 376.0
-margin_bottom = 50.0
-
-[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_top = 54.0
-margin_right = 376.0
-margin_bottom = 76.0
-
-[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
-margin_top = 2.0
-margin_right = 354.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 3 )
-text = "Form / Editor ID:"
-
-[node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
-margin_left = 358.0
-margin_right = 376.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
-Two approaches are supported by SPID:
-
-1. EditorID: (Recommended)
-- EditorID is the form editorID of the record displayed in CK or xEdit. 
-- This is recommended as formIDs can change when the mod is merged or converted into esl.
-- No source esp is required as SPID can automatically locate the appropriate record.
-- Raw Window Appearance: Outfit = Crimson Armor Outfit|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
-
-2. FormID and the source plugin:
-- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
-﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
-- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required.
-
-Notes regarding distributable types:
-Items:
-- All carryable items (that can be added to NPC inventory) or leveled items are accepted.
-
-Skin:
-- Record should be of Armor formtype.
-
-Keywords:
-- Keywords can either be distributed as normal, using formids from other mods, or you can assign your own custom keyword to NPCs
-- Keyword = ActorTypeRich|Nazeem,Maven Black Briar
-- These keywords should be checked in-game using SKSE's HasKeywordString function.
-- Keywords will be applied first, so you could distribute a keyword to NPCs, and then check if it exists when distributing other things
-- Keyword = ActorTypeGhost|*Ghost
-- Spell = 0x123~SpookyGhostSpell.esp|ActorTypeGhost
-"
-mouse_filter = 1
-custom_fonts/font = SubResource( 5 )
-text = "?"
-align = 1
-script = ExtResource( 5 )
-
-[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
-margin_top = 80.0
-margin_right = 376.0
-margin_bottom = 106.0
-clear_button_enabled = true
-placeholder_text = "e.g. FE051801"
-
-[node name="Spacer2" type="Control" parent="SourcePanel/VBoxContainer"]
-margin_top = 110.0
-margin_right = 376.0
-margin_bottom = 110.0
-
-[node name="SourceContainer" type="VBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_top = 114.0
-margin_right = 376.0
-margin_bottom = 166.0
-
-[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer/SourceContainer"]
-margin_right = 376.0
-margin_bottom = 22.0
-
-[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
-margin_top = 2.0
-margin_right = 354.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 3 )
-text = "Source Plugin:"
-
-[node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
-margin_left = 358.0
-margin_right = 376.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
-hint_tooltip = "What to write:
-- Leave out the tilde symbol '~'
-- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
-- You can leave this field blank if the ID originates from Skyrim.esm or any of the original dlc. 
-
-Skyrim's original dlc:
-- Hearthfire
-- Dawnguard
-- Dragonborn
-"
-mouse_filter = 1
-custom_fonts/font = SubResource( 5 )
-text = "?"
-align = 1
-script = ExtResource( 5 )
-__meta__ = {
-"_editor_description_": ""
-}
-
-[node name="SourceEdit" type="LineEdit" parent="SourcePanel/VBoxContainer/SourceContainer"]
-margin_top = 26.0
-margin_right = 376.0
-margin_bottom = 52.0
-clear_button_enabled = true
-placeholder_text = "e.g. MyMod.esp"
+[node name="RecordIdPanel" parent="." instance=ExtResource( 6 )]
+margin_top = 286.0
+margin_bottom = 558.0
 
 [node name="StringFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 370.0
+margin_top = 562.0
 margin_right = 390.0
-margin_bottom = 444.0
+margin_bottom = 644.0
+script = ExtResource( 9 )
+filter_container_path = NodePath("VBoxContainer/StringFilterContainer")
+filter_prefab = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="StringFiltersPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 67.0
+margin_bottom = 75.0
 
-[node name="StringLabels" type="HBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
+[node name="IndexLabels" type="HBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="StringFiltersPanel/VBoxContainer/StringLabels"]
+[node name="Spacer" type="Control" parent="StringFiltersPanel/VBoxContainer/IndexLabels"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
+[node name="Label" type="Label" parent="StringFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "String Filters:"
+text = "String Filters"
+align = 1
 
-[node name="StringHelp" type="Label" parent="StringFiltersPanel/VBoxContainer/StringLabels"]
-margin_left = 358.0
+[node name="StringHelp" type="Label" parent="StringFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
 - All Keyword EditorIDs, Actorbase names and Actorbase EditorIDs (vanilla, custom and modded) are supported.
 - Combining multiple filters will progressively restrict the pool of NPCs that can be distributed to.
@@ -368,16 +176,22 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="StringFilterContainer" type="VBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="StringFiltersPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 26.0
+margin_bottom = 30.0
+
+[node name="StringFilterContainer" type="VBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 34.0
 
 [node name="StringAddElement" type="HBoxContainer" parent="StringFiltersPanel/VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_top = 30.0
+margin_top = 38.0
 margin_right = 376.0
-margin_bottom = 60.0
+margin_bottom = 68.0
 alignment = 1
 
 [node name="StringAddButton" type="Button" parent="StringFiltersPanel/VBoxContainer/StringAddElement"]
@@ -403,33 +217,43 @@ align = 1
 valign = 1
 
 [node name="FormFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 448.0
+margin_top = 648.0
 margin_right = 390.0
-margin_bottom = 522.0
+margin_bottom = 730.0
+script = ExtResource( 9 )
+filter_container_path = NodePath("VBoxContainer/FormFilterContainer")
+filter_prefab = ExtResource( 11 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FormFiltersPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 67.0
+margin_bottom = 75.0
 
-[node name="FormLabels" type="HBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
+[node name="IndexLabels" type="HBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="FormFiltersPanel/VBoxContainer/FormLabels"]
+[node name="Spacer" type="Control" parent="FormFiltersPanel/VBoxContainer/IndexLabels"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
+[node name="Label" type="Label" parent="FormFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "Form Filters:"
+text = "Form Filters"
+align = 1
 
-[node name="FormHelp" type="Label" parent="FormFiltersPanel/VBoxContainer/FormLabels"]
-margin_left = 358.0
+[node name="FormHelp" type="Label" parent="FormFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Filters are for distributing to only specific groups of NPCs.
 - Mod added FormIDs are supported (e.g. 0x101~MyFactionMod.esp, 0x223~MyRaceMod.esl)
 - Combining multiple filters will progressively restrict the pool of NPCs that can be distributed to.
@@ -464,16 +288,22 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="FormFilterContainer" type="VBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="FormFiltersPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 26.0
+margin_bottom = 30.0
+
+[node name="FormFilterContainer" type="VBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 34.0
 
 [node name="FormAddElement" type="HBoxContainer" parent="FormFiltersPanel/VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_top = 30.0
+margin_top = 38.0
 margin_right = 376.0
-margin_bottom = 60.0
+margin_bottom = 68.0
 alignment = 1
 
 [node name="FormAddButton" type="Button" parent="FormFiltersPanel/VBoxContainer/FormAddElement"]
@@ -499,33 +329,40 @@ align = 1
 valign = 1
 
 [node name="LevelFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 526.0
+margin_top = 734.0
 margin_right = 390.0
-margin_bottom = 724.0
+margin_bottom = 940.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelFiltersPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 191.0
+margin_bottom = 199.0
 
-[node name="LevelLabels" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
+[node name="IndexLabels" type="HBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelLabels"]
+[node name="Spacer" type="Control" parent="LevelFiltersPanel/VBoxContainer/IndexLabels"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
+[node name="Label" type="Label" parent="LevelFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "Actor Level Filter:"
+text = "Actor Level Filter"
+align = 1
 
-[node name="LevelHelp" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelLabels"]
-margin_left = 358.0
+[node name="LevelHelp" type="Label" parent="LevelFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Actor Level:
 - Is minimum/maximum actor level. 
 - Records will be distributed to NPCs with levels within this range. 
@@ -536,10 +373,16 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="LevelFilterContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="LevelFiltersPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 184.0
+margin_bottom = 30.0
+
+[node name="LevelFilterContainer" type="VBoxContainer" parent="LevelFiltersPanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 192.0
 
 [node name="ActorLevelCheckBox" type="CheckBox" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer"]
 margin_right = 376.0
@@ -630,17 +473,17 @@ margin_bottom = 120.0
 
 [node name="Label2" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/LevelLabels"]
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
 text = "Skill Level Filters:"
 
 [node name="LevelHelp" type="Label" parent="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/LevelLabels"]
-margin_left = 358.0
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Skill Level:
 - Supports pattern matching.
 - (OneHanded, Lockpicking, ect) range from 0 - 17, followed by the min and max Skill Level required. 
@@ -685,33 +528,40 @@ align = 1
 valign = 1
 
 [node name="TraitFiltersPanel" type="PanelContainer" parent="."]
-margin_top = 728.0
+margin_top = 944.0
 margin_right = 390.0
-margin_bottom = 932.0
+margin_bottom = 1156.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TraitFiltersPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 197.0
+margin_bottom = 205.0
 
-[node name="TraitLabels" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
+[node name="IndexLabels" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="TraitFiltersPanel/VBoxContainer/TraitLabels"]
+[node name="Spacer" type="Control" parent="TraitFiltersPanel/VBoxContainer/IndexLabels"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
+[node name="Label" type="Label" parent="TraitFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "Trait Filters:"
+text = "Trait Filters"
+align = 1
 
-[node name="TraitHelp" type="Label" parent="TraitFiltersPanel/VBoxContainer/TraitLabels"]
-margin_left = 358.0
+[node name="TraitHelp" type="Label" parent="TraitFiltersPanel/VBoxContainer/IndexLabels"]
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Gender : M/F
 ﻿Unique : U
 Summonable : S
@@ -727,10 +577,16 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="OptionsContainer" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="TraitFiltersPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 190.0
+margin_bottom = 30.0
+
+[node name="OptionsContainer" type="HBoxContainer" parent="TraitFiltersPanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 198.0
 
 [node name="Spacer" type="Control" parent="TraitFiltersPanel/VBoxContainer/OptionsContainer"]
 margin_right = 4.0
@@ -830,33 +686,40 @@ margin_bottom = 164.0
 size_flags_horizontal = 3
 
 [node name="AmountPanel" type="PanelContainer" parent="."]
-margin_top = 936.0
+margin_top = 1160.0
 margin_right = 390.0
-margin_bottom = 1000.0
+margin_bottom = 1232.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmountPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 57.0
+margin_bottom = 65.0
 
-[node name="AmountLabels" type="HBoxContainer" parent="AmountPanel/VBoxContainer"]
+[node name="IndexLabels" type="HBoxContainer" parent="AmountPanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="AmountPanel/VBoxContainer/AmountLabels"]
+[node name="Spacer" type="Control" parent="AmountPanel/VBoxContainer/IndexLabels"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
+[node name="Label" type="Label" parent="AmountPanel/VBoxContainer/IndexLabels"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "Given Amount:"
+text = "Given Amount"
+align = 1
 
-[node name="AmountHelp" type="Label" parent="AmountPanel/VBoxContainer/AmountLabels"]
-margin_left = 358.0
+[node name="AmountHelp" type="Label" parent="AmountPanel/VBoxContainer/IndexLabels"]
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Given Amount is the amount of items that should be added. Default is 1 if no count is specified."
 mouse_filter = 1
 custom_fonts/font = SubResource( 5 )
@@ -864,43 +727,56 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="AmountSpinBox" type="SpinBox" parent="AmountPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="AmountPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 50.0
+margin_bottom = 30.0
+
+[node name="AmountSpinBox" type="SpinBox" parent="AmountPanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 58.0
 min_value = 1.0
 value = 1.0
 rounded = true
 allow_greater = true
 
 [node name="IndexPanel" type="PanelContainer" parent="."]
-margin_top = 1004.0
+margin_top = 1236.0
 margin_right = 390.0
-margin_bottom = 1068.0
+margin_bottom = 1308.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="IndexPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 57.0
+margin_bottom = 65.0
 
-[node name="IndexLabels" type="HBoxContainer" parent="IndexPanel/VBoxContainer"]
+[node name="IndexLabels2" type="HBoxContainer" parent="IndexPanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
-[node name="Label" type="Label" parent="IndexPanel/VBoxContainer/IndexLabels"]
+[node name="Spacer" type="Control" parent="IndexPanel/VBoxContainer/IndexLabels2"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
+[node name="Label" type="Label" parent="IndexPanel/VBoxContainer/IndexLabels2"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "Actorbase Package Index:"
+text = "Actorbase Package Index"
+align = 1
 
-[node name="IndexHelp" type="Label" parent="IndexPanel/VBoxContainer/IndexLabels"]
-margin_left = 358.0
+[node name="IndexHelp" type="Label" parent="IndexPanel/VBoxContainer/IndexLabels2"]
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Packages:
 - Supports distributing packages AND formlists (as package overrides)
 
@@ -920,111 +796,83 @@ text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="IndexSpinBox" type="SpinBox" parent="IndexPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="IndexPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 50.0
+margin_bottom = 30.0
+
+[node name="IndexSpinBox" type="SpinBox" parent="IndexPanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 58.0
 rounded = true
 allow_greater = true
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 1072.0
+margin_top = 1312.0
 margin_right = 390.0
-margin_bottom = 1136.0
+margin_bottom = 1384.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 383.0
-margin_bottom = 57.0
+margin_bottom = 65.0
 
 [node name="IndexLabels" type="HBoxContainer" parent="ChancePanel/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 22.0
 
+[node name="Spacer" type="Control" parent="ChancePanel/VBoxContainer/IndexLabels"]
+margin_right = 36.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+
 [node name="Label" type="Label" parent="ChancePanel/VBoxContainer/IndexLabels"]
+margin_left = 40.0
 margin_top = 2.0
-margin_right = 354.0
+margin_right = 336.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
-text = "Distribution Chance:"
+text = "Distribution Chance"
+align = 1
 
 [node name="ChanceHelp" type="Label" parent="ChancePanel/VBoxContainer/IndexLabels"]
-margin_left = 358.0
+margin_left = 340.0
 margin_right = 376.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "Percentage chance that records will be distributed to NPCs.
 Value is from 0 - 100, default chance is 100 if left blank or NONE."
 mouse_filter = 1
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 text = "?"
 align = 1
 script = ExtResource( 5 )
 
-[node name="ChanceSpinBox" type="SpinBox" parent="ChancePanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="ChancePanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
 margin_top = 26.0
 margin_right = 376.0
-margin_bottom = 50.0
+margin_bottom = 30.0
+
+[node name="ChanceSpinBox" type="SpinBox" parent="ChancePanel/VBoxContainer"]
+margin_top = 34.0
+margin_right = 376.0
+margin_bottom = 58.0
 min_value = 1.0
 value = 100.0
 rounded = true
 
-[node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 1140.0
+[node name="ApplyPanel" parent="." instance=ExtResource( 8 )]
+margin_top = 1388.0
 margin_right = 390.0
-margin_bottom = 1196.0
+margin_bottom = 1458.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 383.0
-margin_bottom = 49.0
-
-[node name="Label" type="Label" parent="ApplyPanel/VBoxContainer"]
-margin_right = 376.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 3 )
-text = "Apply Changes:"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ApplyPanel/VBoxContainer"]
-margin_top = 22.0
-margin_right = 376.0
-margin_bottom = 42.0
-
-[node name="Spacer" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_right = 81.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[node name="ApplyButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 85.0
-margin_right = 147.0
-margin_bottom = 20.0
-text = "Confirm"
-
-[node name="Spacer2" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 151.0
-margin_right = 232.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[node name="CancelButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 236.0
-margin_right = 290.0
-margin_bottom = 20.0
-text = "Cancel"
-
-[node name="Spacer3" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 294.0
-margin_right = 376.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[connection signal="pressed" from="StringFiltersPanel/VBoxContainer/StringAddElement/StringAddButton" to="." method="_on_StringAddButton_pressed"]
-[connection signal="pressed" from="FormFiltersPanel/VBoxContainer/FormAddElement/FormAddButton" to="." method="_on_FormAddButton_pressed"]
+[connection signal="pressed" from="StringFiltersPanel/VBoxContainer/StringAddElement/StringAddButton" to="StringFiltersPanel" method="_on_AddButton_pressed"]
+[connection signal="pressed" from="FormFiltersPanel/VBoxContainer/FormAddElement/FormAddButton" to="FormFiltersPanel" method="_on_AddButton_pressed"]
 [connection signal="toggled" from="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelCheckBox" to="." method="_on_ActorLevelCheckBox_toggled"]
 [connection signal="pressed" from="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/ActorLevelFilter/NodeContainer/HBoxContainer/ActorRangeButton" to="." method="_on_ActorRangeButton_pressed"]
 [connection signal="pressed" from="LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillAddElement/SkillAddButton" to="." method="_on_SkillAddButton_pressed"]
@@ -1035,5 +883,3 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/LCheckBox" to="." method="_on_LCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/TCheckBox" to="." method="_on_TCheckBox_pressed"]
 [connection signal="pressed" from="TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/FCheckBox" to="." method="_on_FCheckBox_pressed"]
-[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
-[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

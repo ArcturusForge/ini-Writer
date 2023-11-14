@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
-[ext_resource path="res://App/Extensions/CID_Extension/Scripts/HintToConsole.gd" type="Script" id=2]
+[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://App/Extensions/CID_Extension/Scripts/CidEditDriver.gd" type="Script" id=4]
-[ext_resource path="res://App/Extensions/CID_Extension/Interfaces/Nodes/IdPanel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Internal/Prefabs/For_Extensions/Skyrim/IdPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://App/Extensions/CID_Extension/Interfaces/Nodes/ItemPanel.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=6]
@@ -182,24 +182,10 @@ margin_top = 31.0
 margin_right = 376.0
 margin_bottom = 229.0
 
-[node name="SourceLabels" parent="ContainerPanel/VBoxContainer/IdPanel" index="0"]
-margin_right = 376.0
-
-[node name="Label" parent="ContainerPanel/VBoxContainer/IdPanel/SourceLabels" index="0"]
-margin_right = 336.0
-
-[node name="Help" parent="ContainerPanel/VBoxContainer/IdPanel/SourceLabels" index="1"]
-margin_left = 340.0
-margin_right = 376.0
-
-[node name="SourceSelect" parent="ContainerPanel/VBoxContainer/IdPanel" index="1"]
-margin_right = 376.0
+[node name="SourceSelect" parent="ContainerPanel/VBoxContainer/IdPanel/SelectorContainer" index="1"]
 items = [ "Editor ID", null, false, 0, null, "esp / esm / esl", null, false, 1, null ]
 
-[node name="Spacer" parent="ContainerPanel/VBoxContainer/IdPanel" index="2"]
-margin_right = 376.0
-
-[node name="IdLabels" parent="ContainerPanel/VBoxContainer/IdPanel" index="3"]
+[node name="IdLabels" parent="ContainerPanel/VBoxContainer/IdPanel" index="1"]
 margin_right = 376.0
 
 [node name="Label" parent="ContainerPanel/VBoxContainer/IdPanel/IdLabels" index="0"]
@@ -224,16 +210,13 @@ Two approaches are supported:
 - Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required."
 }
 
-[node name="CheckBox" parent="ContainerPanel/VBoxContainer/IdPanel" index="4"]
+[node name="IdEdit" parent="ContainerPanel/VBoxContainer/IdPanel" index="3"]
 margin_right = 376.0
 
-[node name="IdEdit" parent="ContainerPanel/VBoxContainer/IdPanel" index="5"]
+[node name="Spacer2" parent="ContainerPanel/VBoxContainer/IdPanel" index="4"]
 margin_right = 376.0
 
-[node name="Spacer2" parent="ContainerPanel/VBoxContainer/IdPanel" index="6"]
-margin_right = 376.0
-
-[node name="SourceContainer" parent="ContainerPanel/VBoxContainer/IdPanel" index="7"]
+[node name="SourceContainer" parent="ContainerPanel/VBoxContainer/IdPanel" index="5"]
 margin_right = 376.0
 
 [node name="IdLabels" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer" index="0"]
@@ -249,7 +232,7 @@ margin_right = 376.0
 [node name="SourceEdit" parent="ContainerPanel/VBoxContainer/IdPanel/SourceContainer" index="1"]
 margin_right = 376.0
 
-[node name="Spacer4" parent="ContainerPanel/VBoxContainer/IdPanel" index="8"]
+[node name="Spacer4" parent="ContainerPanel/VBoxContainer/IdPanel" index="6"]
 margin_right = 376.0
 
 [node name="RecipientPanel" type="PanelContainer" parent="."]

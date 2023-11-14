@@ -19,9 +19,12 @@ func jump_start():
 
 #--- Reads the session file to get the latest changes and display them.
 func update_editor():
-	#silence = true
+	var scrollV = text_edit.scroll_vertical
+	var scrollH = text_edit.scroll_horizontal
 	text_edit.text = Session.data.raw
-	#silence = false
+	Globals.repaint_app_name(true)
+	text_edit.scroll_vertical = scrollV
+	text_edit.scroll_horizontal = scrollH
 	pass
 
 func alter_records():
@@ -36,8 +39,8 @@ func _on_TextEdit_text_changed():
 		return
 	alter_records()
 	Session.data.raw = text_edit.text
+	Globals.repaint_app_name(true)
 	pass
-
 
 func _on_RawToggle_toggled(button_pressed):
 	raw_window.visible = button_pressed

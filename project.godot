@@ -14,6 +14,7 @@ config/name="ini Writer"
 run/main_scene="res://Internal/Prefabs/Interfaces/AppInterface.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="ini Writer"
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -21,6 +22,9 @@ config/icon="res://icon.png"
 Globals="*res://Internal/Scripts/Globals/Globals.gd"
 Session="*res://Internal/Scripts/Globals/Session.gd"
 Functions="*res://Internal/Scripts/Globals/Functions.gd"
+Console="*res://Internal/Scripts/Globals/Console.gd"
+Parser="*res://Internal/Scripts/Globals/Parser.gd"
+ZipImporter="*res://Internal/Scripts/Globals/ZipImporter.gd"
 
 [gui]
 

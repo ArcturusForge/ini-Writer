@@ -13,7 +13,6 @@ const esOption = "Equip Slot Wiki"
 const esLink = "https://www.creationkit.com/index.php?title=Equip_Slot"
 
 var pop_manager
-var console_manager
 
 #--- Determines if ini file matches extension use-case.
 func data_matched(_raw:String, fileName:String):
@@ -24,12 +23,8 @@ func data_matched(_raw:String, fileName:String):
 
 #--- Called by system when the extension is enabled.
 func enable():
-	var ver = Globals.config.versionId.split(".")
-	if int(ver[0]) < 1 || int(ver[1]) < 0 || int(ver[2]) < 4:
-		Globals.get_manager("console").postwrn("Older version of ini Writer detected! Download the new update!") 
-	
+	Globals.Version_Check("2.0.0")
 	pop_manager = Globals.get_manager("popup")
-	console_manager = Globals.get_manager("console")
 	
 	var viewPop = pop_manager.get_popup_data("view")
 	viewPop.register_entity(my_id, self, "handle_view")
@@ -46,7 +41,7 @@ func enable():
 func disable():
 	var viewPop = pop_manager.get_popup_data("view")
 	viewPop.unregister_entity(my_id)
-	console_manager.post("Unloaded KID Writer")
+	Console.post("Unloaded KID Writer")
 	pass
 
 #--- Called by system to structure interp data to be compatible with extension.
@@ -58,14 +53,13 @@ func init_interp():
 
 #--- Interpretes the raw string data to data structures used in editor.
 func raw_to_interp(raw:String):
-	var util = ResourceLoader.load("res://App/Extensions/KID_Extension/Scripts/Utils/Inline_Parser.gd").new()
-	var symbols = {
-		";":-1,
-		"Keyword =":0
-	}
+	var symbols = [
+		Parser.create_symbol(-1, ";"),
+		Parser.create_symbol(0, "Keyword =")
+	]
 	
 	#- Split and type each line in raw.
-	var parsed_lines = util.split_and_define_lines(raw, symbols)
+	var parsed_lines = Parser.parse_lines(raw, symbols)
 	
 	#- Create a fresh interp dataset.
 	var interp = init_interp()
@@ -79,7 +73,7 @@ func raw_to_interp(raw:String):
 		#- Assign type before handling it.
 		var currentEdit = create_new_edit()
 		currentEdit.type = parsed.type
-		currentEdit.lineNumber = parsed.line_number
+		currentEdit.lineNumber = parsed.lineNumber
 		var line = parsed.line
 		var skipEdit = false
 
@@ -205,7 +199,7 @@ func raw_to_interp(raw:String):
 						skipEdit = true
 					else:
 						currentEdit.comments.append(line)
-			-2:#- Empty line
+			-8:#- Empty line
 				if previousEdit == null:
 					skipEdit = true
 					continue
@@ -407,17 +401,17 @@ func handle_view(selected):
 	match selected:
 		kidOption:
 			Functions.open_link(kidLink)
-			console_manager.generate("Opening link to KID's mod page...", Globals.green)
+			Console.generate("Opening link to KID's mod page...", Globals.green)
 		extOption:
 			Functions.open_link(extLink)
-			console_manager.generate("Opening link to Extension's mod page...", Globals.green)
+			Console.generate("Opening link to Extension's mod page...", Globals.green)
 		av1Option:
 			Functions.open_link(av1Link)
-			console_manager.generate("Opening link to Actor Values (1) wiki page...", Globals.green)
+			Console.generate("Opening link to Actor Values (1) wiki page...", Globals.green)
 		av2Option:
 			Functions.open_link(av2Link)
-			console_manager.generate("Opening link to Actor Values (2) wiki page...", Globals.green)
+			Console.generate("Opening link to Actor Values (2) wiki page...", Globals.green)
 		esOption:
 			Functions.open_link(esLink)
-			console_manager.generate("Opening link to Equip Slots wiki page...", Globals.green)
+			Console.generate("Opening link to Equip Slots wiki page...", Globals.green)
 	pass

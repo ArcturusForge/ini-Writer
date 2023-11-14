@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/SkillFilter.gd" type="Script" id=1]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/Sub-Panels/SkillFilter.gd" type="Script" id=1]
 [ext_resource path="res://App/Extensions/SPID_Extension/Interfaces/Nodes/SkillFilterNode.tscn" type="PackedScene" id=2]
 
 [node name="SkillLevelFilter" type="PanelContainer"]
@@ -14,10 +14,10 @@ script = ExtResource( 1 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 369.0
-margin_bottom = 172.0
+margin_bottom = 175.0
 
 [node name="SkillFilterNode" parent="VBoxContainer" instance=ExtResource( 2 )]
 margin_left = 0.0
 margin_top = 0.0
 margin_right = 362.0
-margin_bottom = 165.0
+margin_bottom = 168.0

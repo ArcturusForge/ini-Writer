@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=1]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=5]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Hint" type="Label"]
+margin_left = 340.0
+margin_right = 376.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
+text = "?"
+align = 1
+script = ExtResource( 1 )

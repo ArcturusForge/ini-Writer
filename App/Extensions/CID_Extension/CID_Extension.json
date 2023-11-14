@@ -1,5 +1,7 @@
 {
-    "version"               : "1.0.2",
+    "game"                  : "Skyrim",
+    "displayName"           : "Container Item Distribution Writer",
+    "version"               : "2.0.0",
     "extension"             : "CID Writer",
     "interpreterScript"     : "Scripts/CidInterpreter.gd",
     "editorInterface"       : "Interfaces/CidEditDisplay.tscn"

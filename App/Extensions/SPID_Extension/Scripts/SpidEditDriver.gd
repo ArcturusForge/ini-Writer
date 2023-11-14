@@ -2,11 +2,6 @@ extends VBoxContainer
 
 #-- Scene Refs
 onready var type_select:OptionButton = $TypePanel/VBoxContainer/TypeSelect
-onready var name_edit:LineEdit = $CommentPanel/VBoxContainer/NameContainer/NameEdit
-onready var comment_edit:LineEdit = $CommentPanel/VBoxContainer/CommentEdit
-onready var source_select:OptionButton = $SourcePanel/VBoxContainer/SourceSelect
-onready var id_edit:LineEdit = $SourcePanel/VBoxContainer/IdEdit
-onready var source_edit:LineEdit = $SourcePanel/VBoxContainer/SourceContainer/SourceEdit
 
 onready var m_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/TraitsContainer/MCheckBox
 onready var f_check_box:CheckBox = $TraitFiltersPanel/VBoxContainer/OptionsContainer/ExcludesContainer/FCheckBox
@@ -34,9 +29,6 @@ onready var max_actor_spin_box:SpinBox = $LevelFiltersPanel/VBoxContainer/LevelF
 onready var skill_filter_container = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer/SkillFilterContainer
 
 #-- Misc Refs
-onready var name_container = $CommentPanel/VBoxContainer/NameContainer
-onready var source_container = $SourcePanel/VBoxContainer/SourceContainer
-
 onready var string_filter_container = $StringFiltersPanel/VBoxContainer/StringFilterContainer
 onready var form_filter_container = $FormFiltersPanel/VBoxContainer/FormFilterContainer
 onready var level_filter_container = $LevelFiltersPanel/VBoxContainer/LevelFilterContainer
@@ -44,7 +36,7 @@ onready var level_filter_container = $LevelFiltersPanel/VBoxContainer/LevelFilte
 #-- Field Panels
 onready var type_panel = $TypePanel
 onready var comment_panel = $CommentPanel
-onready var source_panel = $SourcePanel
+onready var source_panel = $RecordIdPanel
 onready var string_filters_panel = $StringFiltersPanel
 onready var form_filters_panel = $FormFiltersPanel
 onready var level_filters_panel = $LevelFiltersPanel
@@ -52,6 +44,7 @@ onready var trait_filters_panel = $TraitFiltersPanel
 onready var amount_panel = $AmountPanel
 onready var index_panel = $IndexPanel
 onready var chance_panel = $ChancePanel
+onready var apply_panel = $ApplyPanel
 
 #-- Dynamic Vars
 var workingIndex:int = -1 #- Points towards the index for this ini edit.
@@ -60,7 +53,6 @@ var interpreter
 var isNew = false
 
 #-- Prefabs
-var string_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/StringFilter.tscn"
 var form_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/FormFilter.tscn"
 var skill_filter_prefab = "res://App/Extensions/SPID_Extension/Interfaces/Filters/SkillLevelFilter.tscn"
 
@@ -74,7 +66,8 @@ func init_driver(workingIndex, system, interpreter):
 	self.system = system
 	self.interpreter = interpreter
 	type_select.connect("item_selected", self, "handle_type")
-	source_select.connect("item_selected", self, "handle_source")
+	apply_panel.connect("on_apply", self, "notify_system")
+	apply_panel.connect("on_cancel", self, "cancel_edit")
 	pass
 
 #--- Called by system to modify an existing ini edit.
@@ -111,9 +104,13 @@ func create_new():
 	generate_chance_panel(edit)
 	pass
 
-#--- Call to notify the system of changes made.
+#--- Call to notify the system of changes confirmed.
 func notify_system():
 	system.alert_to_edits()
+	pass
+
+func cancel_edit():
+	system.cancel_create()
 	pass
 
 #--- Called by system to apply changes to the ini edit.
@@ -122,32 +119,47 @@ func apply_edit(interp):
 	
 	#- Type, Name & Comment
 	edit.type = type_select.selected-1
-	edit.name = name_edit.text
-	edit.comment = comment_edit.text
+	var dat = comment_panel.grab()
+	edit.misc.name = dat.name
+	edit.misc.comment = dat.comment
+	edit.misc.newlines = dat.newlines
 	
 	#- Source
-	edit.objectId.type = source_select.selected
-	edit.objectId.value = id_edit.text
-	edit.objectId.source = source_edit.text
+	edit.objectId = source_panel.grab()
 	
 	#- String Filters
-	for filter in string_filter_container.get_children():
-		edit.stringFilters.append(filter.compile_data())
+	edit.stringFilters = string_filters_panel.grab()
 	
 	#- Form Filters
-	for filter in form_filter_container.get_children():
-		edit.formFilters.append(filter.compile_data())
+	if form_filter_container.get_child_count() > 0:
+		for i in range(form_filter_container.get_child_count()):
+			var filter = form_filter_container.get_child(i)
+			edit.formFilters += filter.compile_data()
+			if i != form_filter_container.get_child_count() - 1:
+				edit.formFilters += ","
+	else:
+		edit.formFilters = "NONE"
 	
 	#- Actor Level Filter
 	if actor_level_check_box.pressed:
 		var value = str(min_actor_spin_box.value)
 		if actor_range_button.pressed:
 			value += "/" + str(max_actor_spin_box.value)
-		edit.levelFilters.append(value)
+		edit.levelFilters = value
+	else:
+		edit.levelFilters = "NONE"
 
 	#- Skill Level Filter
-	for filter in skill_filter_container.get_children():
-		edit.levelFilters.append(filter.compile_data())
+	if skill_filter_container.get_child_count() > 0:
+		if edit.levelFilters != "":
+			edit.levelFilters += ","
+		for i in range(skill_filter_container.get_child_count()):
+			var filter = skill_filter_container.get_child(i)
+			edit.levelFilters += filter.compile_data()
+			if i != skill_filter_container.get_child_count() - 1:
+				edit.levelFilters += ","
+	else:
+		edit.levelFilters = "NONE"
 	
 	#- Trait Filters
 	var tFils = []
@@ -180,7 +192,15 @@ func apply_edit(interp):
 			tFils.append("-T")
 		else:
 			tFils.append("T")
-	edit.traitFilters = tFils
+	var traits:String
+	if tFils.size() > 0:
+		for i in range(tFils.size()):
+			traits += tFils[i]
+			if i < tFils.size() - 1:
+				traits += "/"
+	else:
+		traits = "NONE"
+	edit.traitFilters = traits
 	
 	#- Count Or Index
 	if edit.type == 2 || edit.type == 8: #- Item, DeathItem
@@ -193,50 +213,31 @@ func apply_edit(interp):
 	
 	#- Apply to interp
 	if not isNew:
-		var ogEdit = interp.edits[workingIndex]
-		edit.newlines = ogEdit.newlines
-		if ogEdit.comment == "" && not edit.comment == "" && not edit.type == -1:
-			edit.lineNumber = ogEdit.lineNumber + 1
-		elif not ogEdit.comment == "" && edit.comment == "" && not edit.type == -1:
-			edit.lineNumber = ogEdit.lineNumber - 1
-		else:
-			edit.lineNumber = ogEdit.lineNumber
 		interp.edits[workingIndex] = edit
-		Globals.get_manager("console").post("Modified (" + interpreter.get_edit_name(interp, workingIndex) + ")")
+		Console.post("Modified (" + interpreter.get_edit_name(interp, workingIndex, false) + ")")
 	else:
-		var lNum = 1
-		if interp.edits.size() > 0:
-			var prevEdit = interp.edits[interp.edits.size()-1] 
-			lNum = prevEdit.lineNumber + prevEdit.newlines
-		edit.lineNumber = lNum
 		interp.edits.append(edit)
-		Globals.get_manager("console").post("Created (" + interpreter.get_edit_name(interp, interp.edits.size()-1) + ")")
+		Console.post("Created (" + interpreter.get_edit_name(interp, interp.edits.size()-1, false) + ")")
 	pass
 
 #--- Determines which fields should be active.
 func handle_type(selectedIndex:int):
-	match selectedIndex-1:
+	var properIndex = selectedIndex - 1
+	
+	if properIndex > -1:
+		comment_panel.toggle_name(true)
+	else:
+		comment_panel.toggle_name(false)
+	
+	match properIndex:
 		-1:#- Comment
-			name_container.visible = false
 			toggle_visibility(false)
 		2,8:#- (2)Item, (8)DeathItem
-			name_container.visible = true
 			toggle_visibility(true, true, true, true, true, true, false, true)
 		5:#- Package
-			name_container.visible = true
 			toggle_visibility(true, true, true, true, true, false, true, true)
 		0,1,3,4,6,7,9,10,11:#- Everything else
-			name_container.visible = true
 			toggle_visibility(true, true, true, true, true, false, false, true)
-	pass
-
-#-- Determines which inputs should be active for the source panel.
-func handle_source(selectedIndex:int):
-	match selectedIndex:
-		0:#- Auto
-			source_container.visible = false
-		1,2:#- Plugin
-			source_container.visible = true
 	pass
 
 #--- Helper utility for enabling field panels.
@@ -253,35 +254,22 @@ func toggle_visibility(source:bool=true, string:bool=false, form:bool=false, lev
 
 #--- Parses the edit data for the name & comment.
 func generate_comment_panel(edit):
-	if name_container.visible:
-		name_edit.text = edit.name
-	comment_edit.text = edit.comment
+	comment_panel.setup(edit.misc.comment, edit.misc.newlines, edit.type > -1, edit.misc.name)
 	pass
 
 #--- Parses the edit data for id and source.
 func generate_source_panel(edit):
-	source_select.selected = edit.objectId.type
-	if not edit.objectId.type == 0:
-		source_edit.text = edit.objectId.source if not edit.objectId.source == "BLANK" else ""
-	else:
-		source_container.visible = false
-	id_edit.text = edit.objectId.value
+	source_panel.put(edit.objectId)
 	pass
 
 #--- Parses the edit data for string filters.
 func generate_string_panel(edit):
-	for filterData in edit.stringFilters:
-		var filter = load(string_filter_prefab).instance()
-		string_filter_container.add_child(filter)
-		filter.add_existing(filterData)
+	string_filters_panel.put(edit.stringFilters)
 	pass
 
 #--- Parses the edit data for form filters.
 func generate_form_panel(edit):
-	for filterData in edit.formFilters:
-		var filter = load(form_filter_prefab).instance()
-		form_filter_container.add_child(filter)
-		filter.add_existing(filterData)
+	form_filters_panel.put(edit.formFilters)
 	pass
 
 #--- Parses the edit data for level filters.
@@ -289,7 +277,10 @@ func generate_level_panel(edit):
 	_on_ActorLevelCheckBox_toggled(false)
 	_on_ActorRangeButton_pressed()
 	
-	for filter in edit.levelFilters:
+	if edit.levelFilters == "NONE":
+		return
+	
+	for filter in edit.levelFilters.split(","):
 		if "(" in filter:#- Skill Level
 			var node = load(skill_filter_prefab).instance()
 			skill_filter_container.add_child(node)
@@ -367,14 +358,6 @@ func generate_chance_panel(edit):
 	chance_spin_box.value = edit.chance
 	pass
 
-func _on_ApplyButton_pressed():
-	notify_system()
-	pass
-
-func _on_CancelButton_pressed():
-	system.cancel_create()
-	pass
-
 func _on_MCheckBox_pressed():
 	if m_check_box.pressed:
 		f_check_box.pressed = false
@@ -423,12 +406,6 @@ func _on_TCheckBox_pressed():
 	else:
 		t_exclude_check_box.pressed = false
 		t_exclude_check_box.disabled = true
-	pass
-
-func _on_StringAddButton_pressed():
-	var filter = load(string_filter_prefab).instance()
-	string_filter_container.add_child(filter)
-	filter.add_node()
 	pass
 
 func _on_FormAddButton_pressed():

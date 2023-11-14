@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Internal/Default/Graphics/d5c9844d-6d77-44b6-9833-d95ced4e5e9b.jpg" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Internal/Scripts/UI/Windows/OpeningWindow.gd" type="Script" id=13]
 [ext_resource path="res://Internal/Scripts/UI/Windows/ExtensionWindow.gd" type="Script" id=14]
 [ext_resource path="res://Internal/Scripts/UI/Windows/ConflictWindow.gd" type="Script" id=15]
+[ext_resource path="res://Internal/Scripts/UI/ChangesNotifPanel.gd" type="Script" id=16]
 
 [sub_resource type="DynamicFont" id=4]
 size = 12
@@ -126,32 +127,31 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="EditMenu" type="MenuButton" parent="Interface/VBoxContainer/TopBar"]
+margin_right = 59.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 50, 0 )
+text = "System"
+switch_on_hover = true
+
 [node name="FileMenu" type="MenuButton" parent="Interface/VBoxContainer/TopBar"]
-margin_right = 50.0
+margin_left = 63.0
+margin_right = 113.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 50, 0 )
 text = "File"
 switch_on_hover = true
 
-[node name="EditMenu" type="MenuButton" parent="Interface/VBoxContainer/TopBar"]
-visible = false
-margin_left = 54.0
-margin_right = 104.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 50, 0 )
-text = "Edit"
-switch_on_hover = true
-
 [node name="ViewMenu" type="MenuButton" parent="Interface/VBoxContainer/TopBar"]
-margin_left = 54.0
-margin_right = 104.0
+margin_left = 117.0
+margin_right = 167.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 50, 0 )
 text = "View"
 switch_on_hover = true
 
 [node name="Spacer" type="Control" parent="Interface/VBoxContainer/TopBar"]
-margin_left = 108.0
+margin_left = 171.0
 margin_right = 919.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
@@ -426,14 +426,14 @@ color = Color( 0, 0, 0, 0.352941 )
 
 [node name="OpeningWindow" type="PanelContainer" parent="Windows"]
 visible = false
-anchor_left = 0.386602
-anchor_top = 0.3895
-anchor_right = 0.613398
-anchor_bottom = 0.6095
-margin_left = 0.119995
-margin_top = 0.299988
-margin_right = -0.120056
-margin_bottom = 0.299988
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -116.0
+margin_top = -66.0
+margin_right = 116.0
+margin_bottom = 66.0
 script = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": true
@@ -442,11 +442,11 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="Windows/OpeningWindow"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 225.0
+margin_right = 224.999
 margin_bottom = 125.0
 
 [node name="Label" type="Label" parent="Windows/OpeningWindow/VBoxContainer"]
-margin_right = 218.0
+margin_right = 217.0
 margin_bottom = 18.0
 theme = ExtResource( 10 )
 text = "Welcome to ini Writer!!"
@@ -454,7 +454,7 @@ align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Windows/OpeningWindow/VBoxContainer"]
 margin_top = 22.0
-margin_right = 218.0
+margin_right = 217.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -466,19 +466,19 @@ rect_min_size = Vector2( 20, 0 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Windows/OpeningWindow/VBoxContainer/HBoxContainer"]
 margin_left = 24.0
-margin_right = 194.0
+margin_right = 193.0
 margin_bottom = 78.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Spacer" type="Control" parent="Windows/OpeningWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
-margin_right = 170.0
+margin_right = 169.0
 margin_bottom = 7.0
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="Windows/OpeningWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 11.0
-margin_right = 170.0
+margin_right = 169.0
 margin_bottom = 31.0
 focus_mode = 0
 size_flags_vertical = 3
@@ -486,13 +486,13 @@ text = "New ini File"
 
 [node name="Spacer2" type="Control" parent="Windows/OpeningWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 35.0
-margin_right = 170.0
+margin_right = 169.0
 margin_bottom = 42.0
 size_flags_vertical = 3
 
 [node name="Button2" type="Button" parent="Windows/OpeningWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 46.0
-margin_right = 170.0
+margin_right = 169.0
 margin_bottom = 66.0
 focus_mode = 0
 size_flags_vertical = 3
@@ -500,46 +500,41 @@ text = "Load ini File"
 
 [node name="Spacer3" type="Control" parent="Windows/OpeningWindow/VBoxContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 70.0
-margin_right = 170.0
+margin_right = 169.0
 margin_bottom = 78.0
 size_flags_vertical = 3
 
 [node name="Spacer2" type="Control" parent="Windows/OpeningWindow/VBoxContainer/HBoxContainer"]
-margin_left = 198.0
-margin_right = 218.0
+margin_left = 197.0
+margin_right = 217.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 20, 0 )
 
 [node name="Label2" type="Label" parent="Windows/OpeningWindow/VBoxContainer"]
 margin_top = 104.0
-margin_right = 218.0
+margin_right = 217.0
 margin_bottom = 117.0
 custom_fonts/font = SubResource( 5 )
 text = "Developed by Arcturus Forge"
 
 [node name="ExtensionWindow" type="PanelContainer" parent="Windows"]
 visible = false
-anchor_left = 0.391602
-anchor_top = 0.251667
-anchor_right = 0.608398
-anchor_bottom = 0.748333
-margin_left = -7.0
-margin_top = -7.0
-margin_right = 7.0
-margin_bottom = 7.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 288.0
+margin_top = 144.0
+margin_right = -288.0
+margin_bottom = -144.0
 script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Windows/ExtensionWindow"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 239.0
+margin_right = 441.0
 margin_bottom = 305.0
 
 [node name="Label" type="Label" parent="Windows/ExtensionWindow/VBoxContainer"]
-margin_right = 232.0
+margin_right = 434.0
 margin_bottom = 18.0
 theme = ExtResource( 10 )
 text = "Select an ini file extension:"
@@ -547,22 +542,21 @@ align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Windows/ExtensionWindow/VBoxContainer"]
 margin_top = 22.0
-margin_right = 232.0
+margin_right = 434.0
 margin_bottom = 274.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Tree" type="Tree" parent="Windows/ExtensionWindow/VBoxContainer/ScrollContainer"]
-margin_right = 232.0
+margin_right = 434.0
 margin_bottom = 252.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-hide_folding = true
 hide_root = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Windows/ExtensionWindow/VBoxContainer"]
 margin_top = 278.0
-margin_right = 232.0
+margin_right = 434.0
 margin_bottom = 298.0
 
 [node name="ConfirmButton" type="Button" parent="Windows/ExtensionWindow/VBoxContainer/HBoxContainer"]
@@ -572,13 +566,13 @@ text = "Confirm"
 
 [node name="Spacer" type="Control" parent="Windows/ExtensionWindow/VBoxContainer/HBoxContainer"]
 margin_left = 66.0
-margin_right = 166.0
+margin_right = 368.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="CancelButton" type="Button" parent="Windows/ExtensionWindow/VBoxContainer/HBoxContainer"]
-margin_left = 170.0
-margin_right = 232.0
+margin_left = 372.0
+margin_right = 434.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 62, 0 )
 text = "Cancel"
@@ -664,6 +658,86 @@ margin_right = 215.0
 margin_bottom = 131.0
 resizable = true
 
+[node name="NotifPanel" type="PanelContainer" parent="Overlays"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -360.0
+margin_top = -200.0
+margin_right = 360.0
+margin_bottom = 200.0
+rect_pivot_offset = Vector2( -290, -73 )
+script = ExtResource( 16 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Overlays/NotifPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 713.0
+margin_bottom = 393.0
+
+[node name="IndexLabels" type="HBoxContainer" parent="Overlays/NotifPanel/VBoxContainer"]
+margin_right = 706.0
+margin_bottom = 24.0
+theme = ExtResource( 10 )
+
+[node name="Spacer" type="Control" parent="Overlays/NotifPanel/VBoxContainer/IndexLabels"]
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 0 )
+
+[node name="Label" type="Label" parent="Overlays/NotifPanel/VBoxContainer/IndexLabels"]
+margin_left = 28.0
+margin_top = 3.0
+margin_right = 678.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "What's New!"
+align = 1
+
+[node name="Close" type="Button" parent="Overlays/NotifPanel/VBoxContainer/IndexLabels"]
+margin_left = 682.0
+margin_right = 706.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 0 )
+mouse_filter = 1
+text = "x"
+
+[node name="HSeparator" type="HSeparator" parent="Overlays/NotifPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
+margin_top = 28.0
+margin_right = 706.0
+margin_bottom = 32.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Overlays/NotifPanel/VBoxContainer"]
+margin_top = 36.0
+margin_right = 706.0
+margin_bottom = 382.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Spacer" type="Control" parent="Overlays/NotifPanel/VBoxContainer/HBoxContainer"]
+margin_bottom = 346.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Overlays/NotifPanel/VBoxContainer/HBoxContainer"]
+margin_left = 4.0
+margin_right = 702.0
+margin_bottom = 346.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="Spacer2" type="Control" parent="Overlays/NotifPanel/VBoxContainer/HBoxContainer"]
+margin_left = 706.0
+margin_right = 706.0
+margin_bottom = 346.0
+
+[node name="Spacer" type="Control" parent="Overlays/NotifPanel/VBoxContainer"]
+margin_top = 386.0
+margin_right = 706.0
+margin_bottom = 386.0
+
 [connection signal="toggled" from="Interface/VBoxContainer/TopBar/RawToggle" to="Managers/RawManager" method="_on_RawToggle_toggled"]
 [connection signal="text_changed" from="Interface/VBoxContainer/MainDisplay/EditRawWindow/RawWindow/TextEdit" to="Managers/RawManager" method="_on_TextEdit_text_changed"]
 [connection signal="pressed" from="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/HeaderColor/ConsoleBar/ClearColor2/CopyConsole" to="Managers/ConsoleManager" method="_on_CopyConsole_pressed"]
@@ -678,3 +752,4 @@ resizable = true
 [connection signal="item_selected" from="Windows/ConflictWindow/VBoxContainer/Tree" to="Windows/ConflictWindow" method="_on_Tree_item_selected"]
 [connection signal="pressed" from="Windows/ConflictWindow/VBoxContainer/HBoxContainer/ConfirmButton" to="Windows/ConflictWindow" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="Windows/ConflictWindow/VBoxContainer/HBoxContainer/CancelButton" to="Windows/ConflictWindow" method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="Overlays/NotifPanel/VBoxContainer/IndexLabels/Close" to="Overlays/NotifPanel" method="_on_Close_pressed"]

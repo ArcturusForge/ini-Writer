@@ -1,0 +1,26 @@
+[0]
+[u][center]ini-Writer v2.0.0[/center][/u]
+
+[u]Automatic Extension Importer:[/u]
+[indent]Don't worry about install instructions for extensions any longer. 
+All you need to do now is drag the extension zip file onto an open ini-Writer window and the app will do the rest.[/indent]
+
+[u]ini File Drag & Drop Loader:[/u]
+[indent]If you can't be bothered locating your ini file through the built-in file browser there is now another way.
+Simply drag & drop your ini file onto an open ini-Writer window and your file will be loaded so you can get back to modding.[/indent]
+
+[u]Expanded Window Titles:[/u]
+[indent]When writing ini files you may forget what extension you are currently using.
+Good news, the app will now display the extension name alongside the session name in the title bar.
+As an added bonus there is now a working 'Save changes' tag that will also be displayed to help you keep track of what work you've saved.[/indent]
+
+[u]Game Focused Extension Separation:[/u]
+[indent]As additional extensions have been created my eyes were opened and I noticed a need for separating extensions rather than having a massive blob of them.
+Now in the extension selector panel, extensions will be grouped by which game they belong to.
+This is a future-focused change mainly oriented around QoL user experience.[/indent]
+
+[u]App Changes Panel:[/u]
+[indent]Some features would go unnoticed without this panel, Hence its creation.
+Be up-to-date with what ini-Writer has to offer and never miss out on a new feature again.[/indent]
+
+- Arcturus Forge

@@ -1,4 +1,6 @@
 {
+    "game"                  : "",
+    "displayName"           : "This is a template",
     "version"               : "1.0.0",
     "extension"             : "[Name] Writer",
     "interpreterScript"     : "Scripts/ExampleInterpreter.gd",

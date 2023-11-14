@@ -11,6 +11,7 @@ func data_matched(raw:String, fileName:String):
 
 #--- SYSTEM: Called by system when the extension is enabled.
 func enable():
+	Globals.Version_Check("2.0.0")
 	parser = ResourceLoader.load(parserPath).new()
 	pass
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/HintToConsole.gd" type="Script" id=3]
+[ext_resource path="res://App/Extensions/BOS_Extension/Scripts/Utils/HintToConsole.gd" type="Script" id=3]
 [ext_resource path="res://App/Extensions/BOS_Extension/Scripts/UI/Nodes/ReplacementNode.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]

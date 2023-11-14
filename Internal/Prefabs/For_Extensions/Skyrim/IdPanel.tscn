@@ -1,0 +1,224 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=1]
+[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=2]
+[ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Internal/Scripts/For_Extensions/Skyrim/IdPanel.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=7]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="IdPanel" type="VBoxContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 369.0
+margin_bottom = 205.0
+script = ExtResource( 4 )
+
+[node name="SelectorContainer" type="VBoxContainer" parent="."]
+margin_right = 362.0
+margin_bottom = 50.0
+
+[node name="SourceLabels" type="HBoxContainer" parent="SelectorContainer"]
+margin_right = 362.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="SelectorContainer/SourceLabels"]
+margin_top = 2.0
+margin_right = 322.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "ID Source:"
+
+[node name="Help" type="Label" parent="SelectorContainer/SourceLabels"]
+margin_left = 326.0
+margin_right = 362.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "ID Source is used by ini Writer to help you write RecordIDs correctly.
+
+EditorID's e.g. BearCavePelt
+FormID's e.g. 0x9e2af
+
+There are 2 options to choose from:
+1. Esm / Esp / Esl:
+- Select this when you are using FormIDs that originate from esm's, esp's & esl's.
+- Ini Writer can automatically apply the shortening rules required by mods.
+- You do NOT need to write the tilde symbol '~'
+
+2. Editor ID:
+- Select this when you are using EditorIDs to locate the record you wish to modify.
+- EditorIDs come from the editorID of the record displayed in the Creation Kit or xEdit."
+mouse_filter = 1
+custom_fonts/font = SubResource( 7 )
+text = "?"
+align = 1
+script = ExtResource( 2 )
+
+[node name="SourceSelect" type="OptionButton" parent="SelectorContainer"]
+margin_top = 26.0
+margin_right = 362.0
+margin_bottom = 46.0
+text = ".esm / .esp / .esl"
+items = [ ".esm / .esp / .esl", null, false, 0, null, "Editor ID", null, false, 1, null ]
+selected = 0
+
+[node name="Spacer" type="Control" parent="SelectorContainer"]
+margin_top = 50.0
+margin_right = 362.0
+margin_bottom = 50.0
+
+[node name="FormUI" type="VBoxContainer" parent="."]
+margin_top = 54.0
+margin_right = 362.0
+margin_bottom = 104.0
+
+[node name="IdLabels" type="HBoxContainer" parent="FormUI"]
+margin_right = 362.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="FormUI/IdLabels"]
+margin_top = 2.0
+margin_right = 322.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Form ID:"
+
+[node name="Help" type="Label" parent="FormUI/IdLabels"]
+margin_left = 326.0
+margin_right = 362.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "FormID and the source plugin:
+- FormID is the formID of the distributable record as it appears in the CreationKit / xEdit (e.g. FE051801)
+﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
+- Raw Window Appearance: e.g. MyContainer = 0xD65~CrimsonTwilightArmor.esp|1 <-- The id shortening rules have been applied as required.
+
+Auto Shorten:
+- Is a built-in tool to apply shortening rules to ids.
+- Compatible with esm/esp/esl rules.
+- Do NOT use on already shortened ids because they will be shortened even further."
+mouse_filter = 1
+custom_fonts/font = SubResource( 7 )
+text = "?"
+align = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CleaningContainer" type="HBoxContainer" parent="FormUI"]
+margin_top = 26.0
+margin_right = 362.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="ShortenCheckBox" type="CheckBox" parent="FormUI/CleaningContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Auto Shorten"
+
+[node name="EspfeCheckBox" type="CheckBox" parent="FormUI/CleaningContainer"]
+visible = false
+margin_left = 183.0
+margin_right = 362.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Plugin is espfe"
+
+[node name="EditorUI" type="HBoxContainer" parent="."]
+margin_top = 108.0
+margin_right = 362.0
+margin_bottom = 130.0
+
+[node name="Label" type="Label" parent="EditorUI"]
+margin_top = 2.0
+margin_right = 322.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Editor ID:"
+
+[node name="Help" type="Label" parent="EditorUI"]
+margin_left = 326.0
+margin_right = 362.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "EditorID:
+- EditorID is the form editorID of the record displayed in CK or xEdit. 
+- EditorIDs can change when the mod is merged or converted into esl.
+- Raw Window Appearance: MyContainer = Crimson Armor Outfit|2 <-- \"Crimson Armor Outfit\" is the EditorID"
+mouse_filter = 1
+custom_fonts/font = SubResource( 7 )
+text = "?"
+align = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="IdEdit" type="LineEdit" parent="."]
+margin_top = 134.0
+margin_right = 362.0
+margin_bottom = 160.0
+clear_button_enabled = true
+placeholder_text = "e.g. FE051801"
+
+[node name="Spacer2" type="Control" parent="."]
+margin_top = 164.0
+margin_right = 362.0
+margin_bottom = 164.0
+
+[node name="SourceContainer" type="VBoxContainer" parent="."]
+margin_top = 168.0
+margin_right = 362.0
+margin_bottom = 220.0
+
+[node name="IdLabels" type="HBoxContainer" parent="SourceContainer"]
+margin_right = 362.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="SourceContainer/IdLabels"]
+margin_top = 2.0
+margin_right = 322.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Source Plugin:"
+
+[node name="Help" type="Label" parent="SourceContainer/IdLabels"]
+margin_left = 326.0
+margin_right = 362.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 36, 0 )
+hint_tooltip = "What to write:
+- Leave out the tilde symbol '~'
+- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
+
+Note:
+- For skyrim.esm and base game dlc you can leave this field blank.
+- If the dlc is from the Creation Club you will still need to fill in this field."
+mouse_filter = 1
+custom_fonts/font = SubResource( 7 )
+text = "?"
+align = 1
+script = ExtResource( 2 )
+
+[node name="SourceEdit" type="LineEdit" parent="SourceContainer"]
+margin_top = 26.0
+margin_right = 362.0
+margin_bottom = 52.0
+clear_button_enabled = true
+placeholder_text = "e.g. MyMod.esp"
+
+[node name="Spacer4" type="Control" parent="."]
+margin_top = 224.0
+margin_right = 362.0
+margin_bottom = 224.0
+
+[connection signal="item_selected" from="SelectorContainer/SourceSelect" to="." method="_on_SourceSelect_item_selected"]
+[connection signal="toggled" from="FormUI/CleaningContainer/ShortenCheckBox" to="." method="_on_ShortenCheckBox_toggled"]

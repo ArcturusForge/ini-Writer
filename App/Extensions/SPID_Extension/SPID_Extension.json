@@ -1,5 +1,7 @@
 {
-    "version"               : "1.3.4",
+    "game"                  : "Skyrim",
+    "displayName"           : "Spell Perk Item Distribution Writer",
+    "version"               : "2.0.0",
     "extension"             : "SPID Writer",
     "interpreterScript"     : "Scripts/SpidInterpreter.gd",
     "editorInterface"       : "Interfaces/SpidEditDisplay.tscn"

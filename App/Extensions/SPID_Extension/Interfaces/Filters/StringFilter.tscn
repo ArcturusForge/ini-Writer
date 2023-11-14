@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/StringFilter.gd" type="Script" id=2]
+[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/Sub-Panels/StringFilter.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
-[ext_resource path="res://App/Extensions/SPID_Extension/Scripts/HintToConsole.gd" type="Script" id=4]
+[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true
@@ -31,17 +31,17 @@ margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
 margin_top = 2.0
-margin_right = 370.0
+margin_right = 352.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
 text = "Filter Modifier:"
 
 [node name="StringHelp" type="Label" parent="HBoxContainer/VBoxContainer2/StringLabels"]
-margin_left = 374.0
+margin_left = 356.0
 margin_right = 392.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 18, 0 )
+rect_min_size = Vector2( 36, 0 )
 hint_tooltip = "String Filters can have unique modifiers applied that alter how SPID will apply the filtering to distribution.
 Important:
 - Unique symbols for the modifiers are automatically applied by the Editor so do NOT include them.

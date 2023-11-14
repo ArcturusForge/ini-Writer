@@ -1,6 +1,8 @@
 {
-    "version"               : "1.0.0",
-    "extension"             : "Base Object Swap Writer",
+    "game"                  : "Skyrim",
+    "displayName"           : "Base Object Swap Writer",
+    "version"               : "2.0.0",
+    "extension"             : "BOS Writer",
     "interpreterScript"     : "Scripts/SwapInterpreter.gd",
     "editorInterface"       : "Interfaces/SwapEditDisplay.tscn"
 }

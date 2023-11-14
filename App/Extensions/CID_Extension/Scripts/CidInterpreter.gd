@@ -12,10 +12,9 @@ func data_matched(raw:String, fileName:String):
 
 #--- SYSTEM: Called by system when the extension is enabled.
 func enable():
+	Globals.Version_Check("2.0.0")
 	parser = ResourceLoader.load(parserPath).new()
 	var ver = Globals.config.versionId.split(".")
-	if int(ver[0]) < 1 || int(ver[1]) < 0 || int(ver[2]) < 4:
-		Globals.get_manager("console").postwrn("Older version of ini Writer detected! Download the new update!")  
 
 #--- SYSTEM: Called by system when the extension is disabled.
 func disable():
