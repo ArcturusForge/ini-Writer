@@ -38,18 +38,25 @@ func import_zip(zipPath:String)->void:
 	
 
 func _process_import(folders:PoolStringArray, files:PoolStringArray, uz)->void:
-	var ep = Globals.localExtenPath
+	var ep = (OS.get_executable_path().get_base_dir() + "/" + ProjectSettings.globalize_path(Globals.localExtenPath)) if Functions.is_app() else Globals.localExtenPath
+	var errorFree := true
 	for folder in folders:
 		var path = ep + "/" + folder
 		var d = Directory.new()
 		if !d.dir_exists(path):
-			d.make_dir_recursive(path)
+			if d.make_dir_recursive(path) > 0:
+				errorFree = false
 	
 	for file in files:
 		var path = ep + "/" + file
 		var f = File.new()
-		f.open(path, File.WRITE)
-		f.store_buffer(uz.uncompress(file))
-		f.close()
-	Console.postconf("Successfully imported extension package.")
+		if f.open(path, File.WRITE) == 0:
+			f.store_buffer(uz.uncompress(file))
+			f.close()
+		else:
+			errorFree = false
+	if errorFree:
+		Console.postconf("Successfully imported extension package.")
+	else:
+		Console.posterr("An error was encountered when importing extension.")
 	

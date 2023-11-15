@@ -297,7 +297,7 @@ func generate_level_panel(edit):
 
 #--- Parses the edit data for trait filters.
 func generate_trait_panel(edit):
-	for t in edit.traitFilters:
+	for t in edit.traitFilters.split('/'):
 		match t.to_lower():
 			"m","-m":#- Male filter.
 				if "-"in t:
