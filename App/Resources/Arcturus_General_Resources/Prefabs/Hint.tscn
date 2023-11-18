@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=1]
+[ext_resource path="res://App/Resources/Arcturus_General_Resources/Scripts/HintToConsole.gd" type="Script" id=1]
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=5]

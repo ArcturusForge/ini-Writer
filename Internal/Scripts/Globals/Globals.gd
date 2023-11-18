@@ -12,6 +12,7 @@ var resDataPath = "res://App/"
 var userDataPath = "user://"
 var extenDir = "Extensions"
 var localExtenPath = resDataPath+"Extensions"
+var localResouPath = resDataPath+"Resources"
 var userExtenPath = userDataPath+"Extensions"
 
 #-- Color Hexes

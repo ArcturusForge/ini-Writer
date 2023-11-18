@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Internal/Default/Graphics/d5c9844d-6d77-44b6-9833-d95ced4e5e9b.jpg" type="Texture" id=2]
@@ -15,7 +15,8 @@
 [ext_resource path="res://Internal/Scripts/UI/Windows/OpeningWindow.gd" type="Script" id=13]
 [ext_resource path="res://Internal/Scripts/UI/Windows/ExtensionWindow.gd" type="Script" id=14]
 [ext_resource path="res://Internal/Scripts/UI/Windows/ConflictWindow.gd" type="Script" id=15]
-[ext_resource path="res://Internal/Scripts/UI/ChangesNotifPanel.gd" type="Script" id=16]
+[ext_resource path="res://Internal/Scripts/UI/Panels/ChangesNotifPanel.gd" type="Script" id=16]
+[ext_resource path="res://Internal/Scripts/UI/Panels/ImportPanel.gd" type="Script" id=17]
 
 [sub_resource type="DynamicFont" id=4]
 size = 12
@@ -730,6 +731,89 @@ margin_top = 386.0
 margin_right = 706.0
 margin_bottom = 386.0
 
+[node name="ImportSelect" type="ColorRect" parent="Overlays"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.352941 )
+script = ExtResource( 17 )
+
+[node name="EditPanel" type="PanelContainer" parent="Overlays/ImportSelect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -159.0
+margin_top = -81.0
+margin_right = 159.0
+margin_bottom = 81.0
+rect_pivot_offset = Vector2( -290, -73 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Overlays/ImportSelect/EditPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 311.0
+margin_bottom = 155.0
+
+[node name="IndexLabels" type="HBoxContainer" parent="Overlays/ImportSelect/EditPanel/VBoxContainer"]
+margin_right = 304.0
+margin_bottom = 18.0
+
+[node name="Label" type="Label" parent="Overlays/ImportSelect/EditPanel/VBoxContainer/IndexLabels"]
+margin_right = 150.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 10 )
+text = "What is:"
+align = 1
+
+[node name="Label2" type="Label" parent="Overlays/ImportSelect/EditPanel/VBoxContainer/IndexLabels"]
+margin_left = 154.0
+margin_right = 304.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+theme = ExtResource( 10 )
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Overlays/ImportSelect/EditPanel/VBoxContainer"]
+self_modulate = Color( 0.133333, 0.12549, 0.14902, 1 )
+margin_top = 22.0
+margin_right = 304.0
+margin_bottom = 26.0
+
+[node name="ExtButton" type="Button" parent="Overlays/ImportSelect/EditPanel/VBoxContainer"]
+margin_top = 30.0
+margin_right = 304.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 30 )
+text = "This is an extension zip!"
+
+[node name="Spacer" type="Control" parent="Overlays/ImportSelect/EditPanel/VBoxContainer"]
+margin_top = 64.0
+margin_right = 304.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="ResButton" type="Button" parent="Overlays/ImportSelect/EditPanel/VBoxContainer"]
+margin_top = 73.0
+margin_right = 304.0
+margin_bottom = 103.0
+rect_min_size = Vector2( 0, 30 )
+text = "This is a resource zip!"
+
+[node name="Spacer2" type="Control" parent="Overlays/ImportSelect/EditPanel/VBoxContainer"]
+margin_top = 107.0
+margin_right = 304.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="CancelButton" type="Button" parent="Overlays/ImportSelect/EditPanel/VBoxContainer"]
+margin_top = 116.0
+margin_right = 304.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 0, 30 )
+text = "Cancel Import"
+
 [connection signal="toggled" from="Interface/VBoxContainer/TopBar/RawToggle" to="Managers/RawManager" method="_on_RawToggle_toggled"]
 [connection signal="text_changed" from="Interface/VBoxContainer/MainDisplay/EditRawWindow/RawWindow/TextEdit" to="Managers/RawManager" method="_on_TextEdit_text_changed"]
 [connection signal="pressed" from="Interface/VBoxContainer/MainDisplay/ConsoleColor/Console/HeaderColor/ConsoleBar/ClearColor2/CopyConsole" to="Managers/ConsoleManager" method="_on_CopyConsole_pressed"]
@@ -745,3 +829,6 @@ margin_bottom = 386.0
 [connection signal="pressed" from="Windows/ConflictWindow/VBoxContainer/HBoxContainer/ConfirmButton" to="Windows/ConflictWindow" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="Windows/ConflictWindow/VBoxContainer/HBoxContainer/CancelButton" to="Windows/ConflictWindow" method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Overlays/NotifPanel/VBoxContainer/IndexLabels/Close" to="Overlays/NotifPanel" method="_on_Close_pressed"]
+[connection signal="pressed" from="Overlays/ImportSelect/EditPanel/VBoxContainer/ExtButton" to="Overlays/ImportSelect" method="_on_ExtButton_pressed"]
+[connection signal="pressed" from="Overlays/ImportSelect/EditPanel/VBoxContainer/ResButton" to="Overlays/ImportSelect" method="_on_ResButton_pressed"]
+[connection signal="pressed" from="Overlays/ImportSelect/EditPanel/VBoxContainer/CancelButton" to="Overlays/ImportSelect" method="_on_CancelButton_pressed"]

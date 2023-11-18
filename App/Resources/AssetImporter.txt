@@ -1,0 +1,8 @@
+External Folder where resources for extensions are imported and developed.
+
+Resources are installed into the this directory.
+
+Hello to the readers of this file.
+This file holds no purpose other than to include it in github/itch uploads.
+
+Keep on keepin' on :P

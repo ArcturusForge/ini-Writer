@@ -4,7 +4,7 @@
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/KidEditDriver.gd" type="Script" id=3]
 [ext_resource path="res://Internal/Default/Icons/lock_closed.png" type="Texture" id=4]
-[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SourcePanelDriver.gd" type="Script" id=5]
+[ext_resource path="res://App/Resources/Arcturus_Skyrim_Resources/Prefabs/RecordIdPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/WeaponPanelDriver.gd" type="Script" id=6]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/ArmorPanelDriver.gd" type="Script" id=7]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/AmmoPanelDriver.gd" type="Script" id=8]
@@ -15,18 +15,12 @@
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SoulGemPanelDriver.gd" type="Script" id=13]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/SpellPanelDriver.gd" type="Script" id=14]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/FurniturePanelDriver.gd" type="Script" id=15]
-[ext_resource path="res://App/Extensions/KID_Extension/Scripts/Utils/HintToConsole.gd" type="Script" id=16]
+[ext_resource path="res://App/Resources/Arcturus_General_Resources/Scripts/HintToConsole.gd" type="Script" id=16]
 [ext_resource path="res://App/Extensions/KID_Extension/Scripts/Panel Drivers/Base/StringFormPanelDriver.gd" type="Script" id=17]
+[ext_resource path="res://App/Resources/Arcturus_General_Resources/Prefabs/CommentPanel.tscn" type="PackedScene" id=18]
+[ext_resource path="res://App/Resources/Arcturus_General_Resources/Prefabs/ApplyPanel.tscn" type="PackedScene" id=19]
 
 [sub_resource type="DynamicFont" id=1]
-use_filter = true
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=2]
-use_filter = true
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=8]
 use_filter = true
 font_data = ExtResource( 2 )
 
@@ -103,273 +97,20 @@ text = "Comment"
 items = [ "Comment", null, false, 0, null, "Weapon", null, false, 1, null, "Armor", null, false, 2, null, "Ammo", null, false, 3, null, "Magic Effect", null, false, 4, null, "Potion", null, false, 5, null, "Scroll", null, false, 6, null, "Location", null, false, 7, null, "Ingredient", null, false, 8, null, "Book", null, false, 9, null, "Misc Item", null, false, 10, null, "Key", null, false, 11, null, "Soul Gem", null, false, 12, null, "Spell", null, false, 13, null, "Activator", null, false, 14, null, "Flora", null, false, 15, null, "Furniture", null, false, 16, null, "Race", null, false, 17, null, "Talking Activator", null, false, 18, null, "Enchantment", null, false, 19, null ]
 selected = 0
 
-[node name="NamePanel" type="PanelContainer" parent="."]
+[node name="CommentPanel" parent="." instance=ExtResource( 18 )]
 margin_top = 64.0
 margin_right = 402.0
-margin_bottom = 260.0
-rect_pivot_offset = Vector2( -290, -73 )
+margin_bottom = 274.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NamePanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 395.0
-margin_bottom = 189.0
-
-[node name="Label" type="Label" parent="NamePanel/VBoxContainer"]
-margin_right = 388.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Name:"
-
-[node name="LineEdit" type="LineEdit" parent="NamePanel/VBoxContainer"]
-margin_top = 22.0
-margin_right = 388.0
-margin_bottom = 48.0
-clear_button_enabled = true
-placeholder_text = "Optional"
-
-[node name="Spacer" type="Control" parent="NamePanel/VBoxContainer"]
-margin_top = 52.0
-margin_right = 388.0
-margin_bottom = 52.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="NamePanel/VBoxContainer"]
-margin_top = 56.0
-margin_right = 388.0
-margin_bottom = 78.0
-
-[node name="Label2" type="Label" parent="NamePanel/VBoxContainer/HBoxContainer"]
-margin_top = 2.0
-margin_right = 348.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Comment:"
-
-[node name="Help" type="Label" parent="NamePanel/VBoxContainer/HBoxContainer"]
-margin_left = 352.0
-margin_right = 388.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "Comments can be spread over multiple lines which will be represented in the raw window as:
-;Line 1
-;Line 2
-;Line 3"
-mouse_filter = 1
-custom_fonts/font = SubResource( 1 )
-text = "?"
-align = 1
-script = ExtResource( 16 )
-
-[node name="TextEdit" type="TextEdit" parent="NamePanel/VBoxContainer"]
-margin_top = 82.0
-margin_right = 388.0
-margin_bottom = 182.0
-rect_min_size = Vector2( 0, 100 )
-show_line_numbers = true
-bookmark_gutter = true
-
-[node name="SourcePanel" type="PanelContainer" parent="."]
-margin_top = 264.0
+[node name="RecordIdPanel" parent="." instance=ExtResource( 5 )]
+margin_top = 278.0
 margin_right = 402.0
-margin_bottom = 472.0
-script = ExtResource( 5 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SourcePanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 395.0
-margin_bottom = 201.0
-
-[node name="SourceLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_right = 388.0
-margin_bottom = 22.0
-
-[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
-margin_top = 2.0
-margin_right = 348.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Form Source:"
-
-[node name="SourceHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceLabels"]
-margin_left = 352.0
-margin_right = 388.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "Form Source is used by ini Writer to help you write RecordIDs correctly.
-
-EditorID's e.g. ActorTypeNPC
-FormID's e.g. 0x12345
-
-There are three options to choose from:
-1. Editor ID:
-- EditorID is the name of the keyword. 
-- If the keyword name cannot be found, the mod will dynamically generate the keyword for you.
---> Can be checked in game using SKSE's 'GetKeywordString' function.
-
-2. Esm / Esp:
-- Select this when you are using FormIDs that originate from esm's or esp's.
-- Ini Writer can automatically apply the shortening rules required by KID.
-- You do NOT need to write the tilde symbol '~'
-- Rule: Remove first 2 digits, followed by removing any leading zeroes '0'
---> 'FE051801' becomes '051801', then finally ends as '51801' because the leading digit was a zero.
-
-3. Esl:
-- Read Esm / Esp for explanation."
-mouse_filter = 1
-custom_fonts/font = SubResource( 2 )
-text = "?"
-align = 1
-script = ExtResource( 16 )
-
-[node name="SourceSelect" type="OptionButton" parent="SourcePanel/VBoxContainer"]
-margin_top = 26.0
-margin_right = 388.0
-margin_bottom = 46.0
-text = "Editor ID"
-items = [ "Editor ID", null, false, 0, null, "esp / esm", null, false, 1, null, "esl", null, false, 2, null ]
-selected = 0
-
-[node name="Spacer" type="Control" parent="SourcePanel/VBoxContainer"]
-margin_top = 50.0
-margin_right = 388.0
-margin_bottom = 50.0
-
-[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_top = 54.0
-margin_right = 388.0
-margin_bottom = 76.0
-
-[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
-margin_top = 2.0
-margin_right = 348.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Form / Editor ID:"
-
-[node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/IdLabels"]
-margin_left = 352.0
-margin_right = 388.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "RecordID (Form/Editor ID) is the unique identifier of the record you want to distribute. 
-Two approaches are supported by KID:
-
-1. EditorID:
-- EditorID is the form editorID of the record displayed in CK or xEdit. 
-- FormIDs can change when the mod is merged or converted into esl.
-- No source esp is required as SPID can automatically locate the appropriate record.
-- Raw Window Appearance: Keyword = Crimson Armor Outfit|Armor|Filters here|etc... <-- \"Crimson Armor Outfit\" is the EditorID
-
-2. FormID and the source plugin:
-- FormID is the formID of the distributable record as it appears in the CreationKit (e.g. FE051801)
-﻿- Source plugin is the name of the mod containing the record (MyMod.esp/esl/esm).
-- Raw Window Appearance: e.g. 0xD65~CrimsonTwilightArmor.esp <-- The id is shortened because all leading zeroes ('0') have been removed as required.
-"
-mouse_filter = 1
-custom_fonts/font = SubResource( 2 )
-text = "?"
-align = 1
-script = ExtResource( 16 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_top = 80.0
-margin_right = 388.0
-margin_bottom = 104.0
-
-[node name="CheckBox" type="CheckBox" parent="SourcePanel/VBoxContainer/HBoxContainer"]
-margin_right = 348.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-text = "Use Automatic ID Cleaning"
-
-[node name="StringHelp" type="Label" parent="SourcePanel/VBoxContainer/HBoxContainer"]
-margin_left = 352.0
-margin_top = 1.0
-margin_right = 388.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "Automatic cleaning is a utility to quickly and easily apply KID's FormID requirements to the IDs you wish to filter.
-Rules:
-- Use '0x' format.
-- Remove all leading zeroes.
-
-Note:
-- Won't have any effect on already compliant IDs."
-mouse_filter = 1
-custom_fonts/font = SubResource( 8 )
-text = "?"
-align = 1
-script = ExtResource( 16 )
-
-[node name="IdEdit" type="LineEdit" parent="SourcePanel/VBoxContainer"]
-margin_top = 108.0
-margin_right = 388.0
-margin_bottom = 134.0
-clear_button_enabled = true
-placeholder_text = "e.g. FE051801"
-
-[node name="Spacer2" type="Control" parent="SourcePanel/VBoxContainer"]
-margin_top = 138.0
-margin_right = 388.0
-margin_bottom = 138.0
-
-[node name="SourceContainer" type="VBoxContainer" parent="SourcePanel/VBoxContainer"]
-margin_top = 142.0
-margin_right = 388.0
-margin_bottom = 194.0
-
-[node name="IdLabels" type="HBoxContainer" parent="SourcePanel/VBoxContainer/SourceContainer"]
-margin_right = 388.0
-margin_bottom = 22.0
-
-[node name="Label" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
-margin_top = 2.0
-margin_right = 348.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Source Plugin:"
-
-[node name="IdHelp" type="Label" parent="SourcePanel/VBoxContainer/SourceContainer/IdLabels"]
-margin_left = 352.0
-margin_right = 388.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 36, 0 )
-hint_tooltip = "What to write:
-- Leave out the tilde symbol '~'
-- You must include the extension! e.g. (MyMod.esm or MyPlugin.esp)
-- You can leave this field blank if the ID originates from Skyrim.esm or any of the original dlc. 
-
-Skyrim's original dlc:
-- Hearthfire
-- Dawnguard
-- Dragonborn
-"
-mouse_filter = 1
-custom_fonts/font = SubResource( 2 )
-text = "?"
-align = 1
-script = ExtResource( 16 )
-__meta__ = {
-"_editor_description_": ""
-}
-
-[node name="SourceEdit" type="LineEdit" parent="SourcePanel/VBoxContainer/SourceContainer"]
-margin_top = 26.0
-margin_right = 388.0
-margin_bottom = 52.0
-clear_button_enabled = true
-placeholder_text = "e.g. MyMod.esp"
+margin_bottom = 550.0
 
 [node name="FiltersPanel" type="PanelContainer" parent="."]
-margin_top = 476.0
+margin_top = 554.0
 margin_right = 402.0
-margin_bottom = 636.0
+margin_bottom = 714.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 17 )
 
@@ -537,9 +278,9 @@ align = 1
 valign = 1
 
 [node name="WeaponTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 640.0
+margin_top = 718.0
 margin_right = 402.0
-margin_bottom = 1018.0
+margin_bottom = 1096.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 6 )
 
@@ -845,9 +586,9 @@ value = 1.0
 allow_greater = true
 
 [node name="ArmorTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1022.0
+margin_top = 1100.0
 margin_right = 402.0
-margin_bottom = 1454.0
+margin_bottom = 1532.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 7 )
 
@@ -1231,9 +972,9 @@ value = 1.0
 allow_greater = true
 
 [node name="AmmoTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1458.0
+margin_top = 1536.0
 margin_right = 402.0
-margin_bottom = 1640.0
+margin_bottom = 1718.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 8 )
 
@@ -1411,9 +1152,9 @@ value = 1.0
 allow_greater = true
 
 [node name="MagicEffectTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1644.0
+margin_top = 1722.0
 margin_right = 402.0
-margin_bottom = 1980.0
+margin_bottom = 2058.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 9 )
 
@@ -1695,9 +1436,9 @@ rounded = true
 allow_greater = true
 
 [node name="PotionTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 1984.0
+margin_top = 2062.0
 margin_right = 402.0
-margin_bottom = 2076.0
+margin_bottom = 2154.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 10 )
 
@@ -1800,9 +1541,9 @@ margin_bottom = 52.0
 size_flags_horizontal = 3
 
 [node name="IngredientTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2080.0
+margin_top = 2158.0
 margin_right = 402.0
-margin_bottom = 2144.0
+margin_bottom = 2222.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 11 )
 
@@ -1889,9 +1630,9 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="BookTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2148.0
+margin_top = 2226.0
 margin_right = 402.0
-margin_bottom = 2294.0
+margin_bottom = 2372.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 12 )
 
@@ -2020,9 +1761,9 @@ margin_right = 388.0
 margin_bottom = 132.0
 
 [node name="SoulGemTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2298.0
+margin_top = 2376.0
 margin_right = 402.0
-margin_bottom = 2466.0
+margin_bottom = 2544.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 13 )
 
@@ -2159,9 +1900,9 @@ margin_right = 388.0
 margin_bottom = 154.0
 
 [node name="SpellTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2470.0
+margin_top = 2548.0
 margin_right = 402.0
-margin_bottom = 2718.0
+margin_bottom = 2796.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 14 )
 
@@ -2354,9 +2095,9 @@ margin_right = 388.0
 margin_bottom = 234.0
 
 [node name="FurnitureTraitsPanel" type="PanelContainer" parent="."]
-margin_top = 2722.0
+margin_top = 2800.0
 margin_right = 402.0
-margin_bottom = 2908.0
+margin_bottom = 2986.0
 rect_pivot_offset = Vector2( -290, -73 )
 script = ExtResource( 15 )
 
@@ -2456,9 +2197,9 @@ margin_right = 388.0
 margin_bottom = 172.0
 
 [node name="ChancePanel" type="PanelContainer" parent="."]
-margin_top = 2912.0
+margin_top = 2990.0
 margin_right = 402.0
-margin_bottom = 2976.0
+margin_bottom = 3054.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ChancePanel"]
 margin_left = 7.0
@@ -2499,57 +2240,9 @@ min_value = 1.0
 value = 100.0
 rounded = true
 
-[node name="ApplyPanel" type="PanelContainer" parent="."]
-margin_top = 2980.0
-margin_right = 402.0
-margin_bottom = 3036.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ApplyPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 395.0
-margin_bottom = 49.0
-
-[node name="Label" type="Label" parent="ApplyPanel/VBoxContainer"]
-margin_right = 388.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-text = "Apply Changes:"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ApplyPanel/VBoxContainer"]
-margin_top = 22.0
-margin_right = 388.0
-margin_bottom = 42.0
-
-[node name="Spacer" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_right = 85.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[node name="ApplyButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 89.0
-margin_right = 151.0
-margin_bottom = 20.0
-text = "Confirm"
-
-[node name="Spacer2" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 155.0
-margin_right = 240.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[node name="CancelButton" type="Button" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 244.0
-margin_right = 298.0
-margin_bottom = 20.0
-text = "Cancel"
-
-[node name="Spacer3" type="Control" parent="ApplyPanel/VBoxContainer/HBoxContainer"]
-margin_left = 302.0
-margin_right = 388.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
+[node name="ApplyPanel" parent="." instance=ExtResource( 19 )]
+margin_top = 3058.0
+margin_bottom = 3128.0
 
 [connection signal="pressed" from="FiltersPanel/VBoxContainer/VBoxContainer/StringAddElement/StringAddButton" to="FiltersPanel" method="_on_StringAddButton_pressed"]
 [connection signal="pressed" from="FiltersPanel/VBoxContainer/VBoxContainer2/FormAddElement/FormAddButton" to="FiltersPanel" method="_on_FormAddButton_pressed"]
@@ -2577,5 +2270,3 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/S_CheckBox" to="BookTraitsPanel" method="_on_S_CheckBox_pressed"]
 [connection signal="pressed" from="BookTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/T_CheckBox" to="BookTraitsPanel" method="_on_T_CheckBox_pressed"]
 [connection signal="pressed" from="SoulGemTraitsPanel/VBoxContainer/HBoxContainer2/VBoxContainer/B_CheckBox" to="SoulGemTraitsPanel" method="_on_B_CheckBox_pressed"]
-[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
-[connection signal="pressed" from="ApplyPanel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

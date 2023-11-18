@@ -3,7 +3,7 @@
 [ext_resource path="res://Internal/Default/Fonts/RobotoMono/static/RobotoMono-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://App/Extensions/SPID_Extension/Scripts/UI/Sub-Panels/StringFilter.gd" type="Script" id=2]
 [ext_resource path="res://Internal/Default/Themes/HeaderText.tres" type="Theme" id=3]
-[ext_resource path="res://Internal/Scripts/Utils/HintToConsole.gd" type="Script" id=4]
+[ext_resource path="res://App/Resources/Arcturus_General_Resources/Scripts/HintToConsole.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 use_filter = true

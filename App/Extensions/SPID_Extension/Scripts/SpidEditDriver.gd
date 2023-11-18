@@ -156,7 +156,7 @@ func apply_edit(interp):
 			edit.levelFilters += filter.compile_data()
 			if i != skill_filter_container.get_child_count() - 1:
 				edit.levelFilters += ","
-	else:
+	elif edit.levelFilters == "" || edit.levelFilters == "NONE":
 		edit.levelFilters = "NONE"
 	
 	#- Trait Filters

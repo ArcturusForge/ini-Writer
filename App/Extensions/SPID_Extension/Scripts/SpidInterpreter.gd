@@ -47,10 +47,10 @@ func create_new_edit()->Dictionary:
 			"lineEnd":-1
 		},
 		"objectId":"",
-		"stringFilters":"",
-		"formFilters":"",
-		"levelFilters":"",
-		"traitFilters":"",
+		"stringFilters":"NONE",
+		"formFilters":"NONE",
+		"levelFilters":"NONE",
+		"traitFilters":"NONE",
 		"countOrIndex":1,
 		"chance":100
 	}

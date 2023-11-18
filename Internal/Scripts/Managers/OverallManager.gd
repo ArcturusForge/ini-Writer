@@ -48,8 +48,6 @@ func _ready():
 	raw_manager.jump_start()
 	window_manager.jump_start()
 	
-	get_tree().connect("files_dropped", self, "load_from_drop")
-	
 	window_manager.register_window("open", opening_window, true)
 	window_manager.register_window("extension", extension_window)
 	window_manager.register_window("conflict", conflict_window)
@@ -93,17 +91,6 @@ func reset():
 	Session.reset_data()
 	repaint_editors()
 	pass
-
-func load_from_drop(filePaths:PoolStringArray, _screen:int)->void:
-	var path :String = filePaths[0]
-	if path.ends_with(".zip"):
-		Console.postconf("Attempting to import writer extension...")
-		ZipImporter.import_zip(path)
-	elif path.ends_with(".ini"):
-		Console.postconf("Attempting to import ini file...")
-		window_manager.disable_window()
-		load_session(path)
-	
 
 func load_session(path:String):
 	reset()
